@@ -5,15 +5,23 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
 
-    {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
+    {{ govukInput({
+      id: "search",
+      name: "search",
+      label: {
+        text: "Search",
+        isPageHeading: true,
+        classes: "govuk-label--l"
+      },
+      classes: "govuk-!-width-one-half govuk-!-margin-bottom-2",
+      hint: {
+        text: "Enter a licence number, customer name, returns ID, registered email address or monitoring station"
+      },
+      value: data.search
+    }) }}
 
-    <h1 class="govuk-heading-xl">
-      {{ serviceName }}
-    </h1>
-
-    {% include "govuk-prototype-kit/includes/homepage-bottom.njk" %}
   </div>
 </div>
 
