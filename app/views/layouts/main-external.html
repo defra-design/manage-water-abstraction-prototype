@@ -8,27 +8,23 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% block header %}
     
 {{ govukHeader({
-  homepageUrl: "#"
+  homepageUrl: "/"
 }) }}
 
  {{ govukServiceNavigation({
     serviceName: serviceName,
-    serviceUrl: "/",
+    serviceUrl: "/external/",
     navigation: [
         {
-            text: "Search",
+            text: "View licences",
             href: "#"
         },
         {
-            text: "Customers",
+            text: "Manage returns",
             href: "#"
         },
         {
-            text: "Bill runs",
-            href: "#"
-        },
-        {
-            text: "Manage",
+            text: "Add licences or give access",
             href: "#"
         }
     ]

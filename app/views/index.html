@@ -1,4 +1,4 @@
-{% extends "layouts/main.html" %}
+{% extends "layouts/main-prototype.html" %}
 
 {% set pageName="Home" %}
 
@@ -7,20 +7,17 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-    {{ govukInput({
-      id: "search",
-      name: "search",
-      label: {
-        text: "Search",
-        isPageHeading: true,
-        classes: "govuk-label--l"
-      },
-      classes: "govuk-!-width-one-half govuk-!-margin-bottom-2",
-      hint: {
-        text: "Enter a licence number, customer name, returns ID, registered email address or monitoring station"
-      },
-      value: data.search
-    }) }}
+  <h1 class="govuk-heading-l">Prototype index</h1>
+
+  <h2 class="govuk-heading-m">Internal service entry points</h2>
+    <p class="govuk-body">
+    <a href="internal/" class="govuk-link">Index</a>
+    </p>
+
+  <h2 class="govuk-heading-m">External service entry points</h2>
+    <p class="govuk-body">
+    <a href="external/" class="govuk-link">Index</a>
+    </p>
 
   </div>
 </div>
