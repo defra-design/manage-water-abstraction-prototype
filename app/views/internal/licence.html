@@ -12,36 +12,19 @@
 
 {% block content %}
   <div class="govuk-grid-row">
+    
     <div class="govuk-grid-column-one-third">
-      {{ xGovukSubNavigation({
-        visuallyHiddenTitle: "Section navigation",
-        items: [{
-          text: "Page 1",
-          href: "#"
-        }, {
-          text: "Page 2",
-          href: "#"
-        }, {
-          text: "Page 3",
-          href: "#",
-          parent: true,
-          children: [{
-            text: "First child of page 3",
-            href: "#",
-            current: true
-          }, {
-            text: "Second child of page 3",
-            href: "#"
-          }]
-        }]
-      }) }}
+    {% include "_includes/subnav-internal.html" %}
     </div>
+    
     <div class="govuk-grid-column-two-thirds">
+
       <h1 class="govuk-heading-l">
         {{pageName}}
       </h1>
 
       <p>Content goes here.</p>
+      
     </div>
   </div>
 {% endblock %}

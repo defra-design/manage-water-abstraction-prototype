@@ -1,0 +1,85 @@
+{% block subnav %}
+
+  {# {{ xGovukSubNavigation({
+    visuallyHiddenTitle: "Section navigation",
+    items: [{
+      text: "Page 1",
+      href: "#"
+    }, {
+      text: "Page 2",
+      href: "#"
+    }, {
+      text: "Page 3",
+      href: "#",
+      parent: true,
+      children: [{
+        text: "First child of page 3",
+        href: "#",
+        current: true
+      }, {
+        text: "Second child of page 3",
+        href: "#"
+      }]
+    }]
+  }) }} #}
+
+   {{ xGovukSubNavigation({
+  items: [{
+    text: "Licence summary",
+    href: "",
+    current: licenceSummary,
+    parent: licenceSummary,
+    children: [{
+      text: "Purposes, periods and amounts",
+      href: "/",
+      current: purpose
+    }, {
+      text: "Points",
+      href: "/",
+      current: points
+    }, {
+      text: "Conditions",
+      href: "/",
+      current: conditions
+    }]
+  },
+  {
+    text: "History",
+    href: "/",
+ 
+    current: history,
+    children: [{
+      text: "Licence version",
+      href: "/",
+      current: licenceVersion
+    }]
+  },
+  {
+    text: "Licence contacts",
+    href: "/",
+    current: contactDetails
+  },
+  { 
+    text: "Sent communications",
+    href: "/",
+     current: communications
+    }, 
+  {
+    text: "Returns",
+     href: "/",
+    current: returns
+  }, 
+  {
+    text: "Bills",
+    href: "/",
+     current: bills
+  } , 
+  {
+    text: "Licence set up",
+    href: "/",
+     current: licenceSetup
+  }
+  ]
+}) }}
+
+{% endblock %}
