@@ -61,7 +61,7 @@ module.exports = {
       "type": "returns",
       "id": ['3'],
       "method": "letter",
-        "addressID": "6"
+      "addressID": "6"
     }],
   },
   //licence 3
@@ -80,7 +80,6 @@ module.exports = {
       "method": "letter",
       "addressID": "4"
     }],
-
   },
   //licence 4
   {
@@ -97,14 +96,7 @@ module.exports = {
       "id": ['3'],
       "method": "letter",
       "addressID": "1"
-    },{
-      "type": "returns",
-      "id": ['2'],
-      "method": "email",
-      "addressID": "1"
-    },
-  ],
-
+    }],
   },
   //licence 5
   {
@@ -122,7 +114,6 @@ module.exports = {
       "method": "letter",
       "addressID": "0"
     }],
-
   },
   //licence 6
   {
@@ -134,12 +125,12 @@ module.exports = {
     "effectiveDate": "1 April 2015",
     "expired": "false",
     "billingRegion": "Midlands",
-      "contacts": [{
-        "type": "returns",
-        "id": ['8'],
-        "method": "letter",
-        "addressID": "6"
-      }],
+    "contacts": [{
+      "type": "returns",
+      "id": ['8'],
+      "method": "letter",
+      "addressID": "6"
+    }],
   },
   //licence 7
   {
@@ -157,7 +148,6 @@ module.exports = {
       "method": "letter",
       "addressID": "6"
     }],
-
   },
   //licence 8
   {

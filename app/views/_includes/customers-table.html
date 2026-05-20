@@ -13,7 +13,6 @@
 {% endif %}
 {% endfor %}
 
-
 <table class="govuk-table">
   <caption class="govuk-table__caption">Customers</caption>
   <thead class="govuk-table__head">
@@ -23,12 +22,10 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-    <!--starting to loop through the bill runs data -->
 
+  <!--starting to loop through the bill runs data -->
 
-
-
-<!--show the match or loop through all the answers-->
+  <!--show the match or loop through all the answers-->
   {% if match == "true" %}
   <tr class="govuk-table__row">
     <td class="govuk-table__cell">
@@ -70,8 +67,6 @@
     </tr>
     {% endfor %}
   {% endif %}
-
-
 
   </tbody>
 </table>
