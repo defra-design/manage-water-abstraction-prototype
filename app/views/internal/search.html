@@ -1,0 +1,34 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Search" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+  <div class="govuk-form-group">
+    <h1 class="govuk-label-wrapper">
+      <label class="govuk-label govuk-label--l" for="search-input">
+        {{pageName}}
+      </label>
+    </h1>
+    <div id="search-input" class="govuk-hint">
+      Enter a licence number, customer name, returns ID, registered email address or monitoring station
+    </div>
+    <input class="govuk-input govuk-!-width-two-thirds govuk-!-display-inline-block" id="search" name="search" type="text" aria-describedby="search-input" value="{{data['search']}}">
+      {{ govukButton({
+        text: "Search",
+        classes: "govuk-!-display-inline-block govuk-!-padding-right-6 govuk-!-padding-left-6"
+      }) }}
+  </div>
+
+  {{ govukDetails({
+    summaryText: "Filter matches",
+    text: "Filter here"
+  }) }}
+
+  </div>
+</div>
+
+{% endblock %}
