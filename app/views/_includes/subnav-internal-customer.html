@@ -1,0 +1,23 @@
+{% block subnav %}
+
+   {{ xGovukSubNavigation({
+  items: [
+  {
+    text: "Licences",
+    href: "/",
+    current: licences
+  },
+  { 
+    text: "Billing accounts",
+    href: "/",
+     current: billingAccounts
+    }, 
+  {
+    text: "Contacts",
+     href: "/",
+    current: contacts
+  }
+  ]
+}) }}
+
+{% endblock %}

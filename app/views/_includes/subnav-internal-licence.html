@@ -1,34 +1,11 @@
 {% block subnav %}
 
-  {# {{ xGovukSubNavigation({
-    visuallyHiddenTitle: "Section navigation",
-    items: [{
-      text: "Page 1",
-      href: "#"
-    }, {
-      text: "Page 2",
-      href: "#"
-    }, {
-      text: "Page 3",
-      href: "#",
-      parent: true,
-      children: [{
-        text: "First child of page 3",
-        href: "#",
-        current: true
-      }, {
-        text: "Second child of page 3",
-        href: "#"
-      }]
-    }]
-  }) }} #}
-
    {{ xGovukSubNavigation({
   items: [{
     text: "Licence summary",
     href: "",
-    current: licenceSummary,
-    parent: licenceSummary,
+    current: true,
+    parent: true,
     children: [{
       text: "Purposes, periods and amounts",
       href: "/",
@@ -46,7 +23,6 @@
   {
     text: "History",
     href: "/",
- 
     current: history,
     children: [{
       text: "Licence version",

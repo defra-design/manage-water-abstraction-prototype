@@ -1,6 +1,6 @@
 {% extends "layouts/main-internal.html" %}
 
-{% set pageName="Licence summary" %}
+{% set pageName="Customers" %}
 
 {% block containerStart %}
 {% include "_includes/breadcrumbs-internal.html" %}
@@ -9,18 +9,13 @@
 {% block content %}
   <div class="govuk-grid-row">
     
-    <div class="govuk-grid-column-one-third">
-    {% include "_includes/subnav-internal-licence.html" %}
-    </div>
-    
     <div class="govuk-grid-column-two-thirds">
 
-      <span class="govuk-caption-l">Licence name</span>
       <h1 class="govuk-heading-l">
-        {{pageName}} licence number
+        {{pageName}}
       </h1>
 
-      <p>Content goes here.</p>
+      <p>List of customers.</p>
       
     </div>
   </div>
