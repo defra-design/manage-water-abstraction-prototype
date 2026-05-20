@@ -1,5 +1,12 @@
 {% block breadcrumbs %}
 
+   {# {% set loopNumber = "" %}
+     {% for i in data['customers'] %}
+     {% if data.licences[data.ID].holder == data.customers[loop.index0]['name'] %}
+     {% set loopNumber = loop.index0 %}
+     {% endif %}
+     {% endfor %} #}
+
   {{ govukBreadcrumbs({
     items: [
       {
