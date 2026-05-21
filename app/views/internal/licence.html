@@ -1,6 +1,7 @@
 {% extends "layouts/main-internal.html" %}
 
 {% set pageName="Licence summary" %}
+{% set licence = data['licences'][data.ID] %}
 
 {% block containerStart %}
 {% include "_includes/breadcrumbs-internal.html" %}
@@ -16,14 +17,12 @@
     
     <div class="govuk-grid-column-three-quarters">
 
-      <span class="govuk-caption-l">Licence name</span>
+      <span class="govuk-caption-l">{{ licence.name }}</span>
       <h1 class="govuk-heading-l">
-        {{pageName}} licence number
+        {{pageName}}: {{ licence.number }}
       </h1>
 
-      <p>Content goes here.</p>
-
-      <hr>
+      {% include "_includes/licence-summary.html" %}
       
     </div>
   </div>

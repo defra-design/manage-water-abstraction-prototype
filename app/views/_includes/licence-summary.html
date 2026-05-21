@@ -1,0 +1,113 @@
+{% set licences = data['licences'] %}
+{% set ID = data['ID'] %}
+{% set licence = licences[ID] %}
+
+{{ govukSummaryList({
+	rows: [
+		{
+			key: {
+				text: "Licence holder"
+			},
+			value: {
+				text: licence.holder
+			}
+		},
+		{
+			key: {
+				text: "Licence version start date"
+			},
+			value: {
+				text: licence.startDate
+			}
+		},
+		{
+			key: {
+				text: "Licence version issue date"
+			},
+			value: {
+				text: licence.effectiveDate
+			}
+		},
+		{
+			key: {
+				text: "End date"
+			},
+			value: {
+				text: licence.endDate
+			}
+		},
+		{
+			key: {
+				text: "Source of supply"
+			},
+			value: {
+				text: licence.source
+			}
+		},
+		{
+			key: {
+				text: "Purposes"
+			},
+			value: {
+				html: licence.purpose.join('<br>')
+			}
+		},
+		{
+			key: {
+				text: "Periods of abstraction"
+			},
+			value: {
+				text: "From " + licence.periodStart + " to " + licence.periodEnd
+			}
+		},
+		{
+			key: {
+				text: "Points of abstraction"
+			},
+			value: {
+				html: licence.absPoints.join('<br>')
+			}
+		},
+		{
+			key: {
+				text: "Monitoring station"
+			},
+			value: {
+				text: licence.monitoringStation
+			}
+		},
+		{
+			key: {
+				text: "Abstraction conditions"
+			},
+			value: {
+				html: licence.conditions.join('<br>')
+			}
+		},
+		{
+			key: {
+				text: "Abstraction amounts"
+			},
+			value: {
+				html: licence.absQuantities.split('~').join('<br>')
+			}
+		},
+		{
+			key: {
+				text: "Billing region"
+			},
+			value: {
+				text: licence.billingRegion
+			}
+		}
+	]
+}) }}
+
+
+
+
+
+
+
+
+
