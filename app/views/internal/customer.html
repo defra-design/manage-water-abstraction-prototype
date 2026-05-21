@@ -10,25 +10,21 @@
   <div class="govuk-grid-row">
     
     <div class="govuk-grid-column-one-quarter">
+
     {% include "_includes/subnav-internal-customer.html" %}
+
     </div>
     
     <div class="govuk-grid-column-three-quarters">
 
     <h1 class="govuk-heading-l">
-      <span class="govuk-caption-l">Customer {{[data.customers[data.customerID]['name']]}}</span>
-     {{title}}
+    <span class="govuk-caption-l">Customer {{[data.customers[data.customerID]['name']]}}</span>
+     {{pageName}}
     </h1>
-
-      <span class="govuk-caption-l">Customer name</span>
-      <h1 class="govuk-heading-l">
-        {{pageName}}
-      </h1>
-
-      {% include "_includes/licences-table.html" %}
-
-      
+    {% include "_includes/licences-table.html" %}
+    
     </div>
+
   </div>
 {% endblock %}
 
