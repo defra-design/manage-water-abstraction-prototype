@@ -7,26 +7,30 @@
   }) }}
 
   {{ govukServiceNavigation({
-      serviceName: serviceName,
-      serviceUrl: "/internal/search",
-      navigation: [
-          {
-              text: "Search",
-              href: "/internal/search"
-          },
-          {
-              text: "Customers",
-              href: "/internal/customers"
-          },
-          {
-              text: "Bill runs",
-              href: "#"
-          },
-          {
-              text: "Manage",
-              href: "#"
-          }
-      ]
+    serviceName: serviceName,
+    serviceUrl: "/internal/search",
+    navigation: [
+      {
+      text: "Search",
+      href: "/internal/search",
+      active: currentPath == "/internal/search"
+      },
+      {
+      text: "Customers",
+      href: "/internal/customers",
+      active: currentPath == "/internal/customers" or currentPath == "/internal/customer" or currentPath == "/internal/licence"
+      },
+      {
+      text: "Bill runs",
+      href: "#",
+      active: false
+      },
+      {
+      text: "Manage",
+      href: "#",
+      active: false
+      }
+    ]
   }) }}
 
   {{ govukPhaseBanner({

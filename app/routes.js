@@ -6,6 +6,12 @@
 const govukPrototypeKit = require('govuk-prototype-kit')
 const router = govukPrototypeKit.requests.setupRouter()
 
+// Expose current path to templates for active navigation states.
+router.use('/internal', (req, res, next) => {
+  res.locals.currentPath = req.originalUrl.split('?')[0]
+  next()
+})
+
 // Capture licence ID from query parameter
 router.get('/internal/licence', (req, res) => {
   if (req.query.ID) {
