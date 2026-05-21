@@ -19,8 +19,10 @@
 
       <span class="govuk-caption-l">{{ licence.name }}</span>
       <h1 class="govuk-heading-l">
-        {{pageName}}: {{ licence.number }}
+        {{pageName}} {{ licence.number }}
       </h1>
+
+      <p class="govuk-body-l">The current version of the licence starting {{ licence.startDate }}.</p>
 
       {% include "_includes/licence-summary.html" %}
       
