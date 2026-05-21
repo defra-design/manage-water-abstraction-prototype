@@ -1,25 +1,45 @@
 {% block breadcrumbs %}
 
-   {% set loopNumber = "" %}
-     {% for i in data['customers'] %}
-     {% if data.licences[data.ID].holder == data.customers[loop.index0]['name'] %}
-     {% set loopNumber = loop.index0 %}
-     {% endif %}
-     {% endfor %}
-
-  {{ govukBreadcrumbs({
-    items: [
-      {
-        text: "Search",
-        href: "/internal/search"
-      },
-          {
-        text: "Customers",
-        href: "/internal/customers"
-      }
-    ]
-  }) }}
+  {% if breadcrumbType == "customers" %}
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Search",
+          href: "/internal/search"
+        }
+      ]
+    }) }}
+  {% elif breadcrumbType == "customer" %}
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Search",
+          href: "/internal/search"
+        },
+        {
+          text: "Customers",
+          href: "/internal/customers"
+        }
+      ]
+    }) }}
+  {% elif breadcrumbType == "licence" %}
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Search",
+          href: "/internal/search"
+        },
+        {
+          text: "Customers",
+          href: "/internal/customers"
+        },
+        {
+          text: data.customers[data.customerID].name,
+          href: "/internal/customer?customerID=" + data.customerID
+        }
+      ]
+    }) }}
+  {% endif %}
 
 {% endblock %}
-
       
