@@ -2,65 +2,67 @@
 
 {% block header %}
     
-    {{ govukHeader({
-    homepageUrl: "/"
-    }) }}
+  {{ govukHeader({
+  homepageUrl: "/"
+  }) }}
 
-    {{ govukServiceNavigation({
-        serviceName: serviceName,
-        serviceUrl: "/external/",
-        navigation: [
-            {
-                text: "View licences",
-                href: "#"
-            },
-            {
-                text: "Manage returns",
-                href: "#"
-            },
-            {
-                text: "Add licences or give access",
-                href: "#"
-            }
-        ]
-    }) }}
+  {{ govukServiceNavigation({
+      serviceName: serviceName,
+      serviceUrl: "/external/",
+      navigation: [
+          {
+              text: "View licences",
+              href: "#"
+          },
+          {
+              text: "Manage returns",
+              href: "#"
+          },
+          {
+              text: "Add licences or give access",
+              href: "#"
+          }
+      ]
+  }) }}
 
-    {{ govukPhaseBanner({
-        tag: {
-            text: "Prototype"
-        },
-        html: 'This is a service prototype.'
-    }) }}
+  {{ govukPhaseBanner({
+      tag: {
+          text: "Prototype"
+      },
+      html: 'This is a service prototype.'
+  }) }}
 
 {% endblock %}
 
 
 {% block footer %}
- {{ govukFooter({
-   meta: {
-     visuallyHiddenTitle: "Footer links",
-     items: [
-       {
-         href: "#",
-         text: "Privacy"
-       },
-       {
-         href: "#",
-         text: "Cookies"
-       },
-       {
-         href: "#",
-         text: "Accessibility statement"
-       },
-       {
-         href: "/manage-prototype",
-         text: "Manage your prototype"
-       },
-       {
-         href: "/manage-prototype/clear-data",
-         text: "Clears data"
-       }
-     ]
-   }
- }) }}
+
+  {{ govukFooter({
+    meta: {
+      visuallyHiddenTitle: "Footer links",
+      items: [
+        {
+          href: "#",
+          text: "Privacy"
+        },
+        {
+          href: "#",
+          text: "Cookies"
+        },
+        {
+          href: "#",
+          text: "Accessibility statement"
+        },
+        {
+          href: "/manage-prototype",
+          text: "Manage your prototype"
+        },
+        {
+          href: "/manage-prototype/clear-data",
+          text: "Clears data"
+        }
+      ]
+    }
+  }) }}
+
 {% endblock %}

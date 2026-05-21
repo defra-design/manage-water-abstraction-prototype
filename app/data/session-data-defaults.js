@@ -30,23 +30,25 @@ module.exports = {
 
   //licences
   "licences": [
-  //licence 1
+  //licence 1 - cleaned data from the Prototype UI
   {
-    "number": "00/22/001/02",
     "name": "Lower Smith Road",
+    "number": "00/22/001/08",
     "holder": "Irene Briton",
     "startDate": "1 June 1985",
-    "endDate": "31 January 2020",
     "effectiveDate": "1 June 1985",
-    "expired": "true",
+    "endDate": "31 January 2020",
+    "source": "Underground strata comprising of Mercia Mudstone at Anarea, Atown.",
+    "purpose": ["Spray irrigation","General machine washing"],
+    "periodStart": "0401",
+    "periodEnd": "1031",
+    "absPoints": ["At National Grid Reference SK 675124", "At National Grid Reference SK 675343"],
+    "monitoringStation": "Bourton Dickler",
+    "conditions": ["General condition","Hands off flow condition (HOF)"],
+    "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "contacts": [{
-      "type": "returns",
-      "id": ['6'],
-      "method": "letter",
-      "addressID": "6"
-    }],
-  },         
+    "expired": "true"
+  },        
   //licence 2
   {
     "number": "03/28/60/0032",

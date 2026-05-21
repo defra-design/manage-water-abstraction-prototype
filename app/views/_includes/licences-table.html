@@ -27,8 +27,8 @@
       <td class="govuk-table__cell">
         {% if licence.expired == "true" %}
         <strong class="table__status table__status--expired">
-          <span>Expired</span><br>
-          31 January 2020
+          <span class="table__status--heading">Expired</span><br>
+          {{ licence.endDate }}
         </strong>
         {% else %}
         {{ licence.endDate }}

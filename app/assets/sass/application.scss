@@ -1,3 +1,25 @@
 .govuk-width-container {
    @include govuk-width-container(1100px);
 }
+
+.table__status {
+  font-size: 19px;
+  line-height: 1.25;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.table__status--heading {
+  font-size: 14px;
+}
+
+.table__status--expired {
+  color: $govuk-text-colour;
+  border: 1px solid $govuk-text-colour;
+  line-height: 18px;
+  padding-bottom: 4px;
+}
