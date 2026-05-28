@@ -20,6 +20,14 @@ router.get('/internal/licence', (req, res) => {
   res.render('internal/licence')
 })
 
+// Capture licence ID from query parameter for the purposes page
+router.get('/internal/licence/purposes', (req, res) => {
+  if (req.query.ID) {
+    req.session.data.ID = parseInt(req.query.ID)
+  }
+  res.render('internal/licence/purposes')
+})
+
 // Capture customer ID from query parameter
 router.get('/internal/customer', (req, res) => {
   if (req.query.customerID) {

@@ -47,7 +47,23 @@ module.exports = {
     "conditions": ["General condition","Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "true"
+    "expired": "true",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675 124(RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount":"125",
+      "timeLimit": "No"
+    },
+    {
+      "purpose": "General machine washing",
+      "points": ["At National Grid Reference SE 437 682 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount": "20",
+      "timeLimit": "No"
+    }]
   },        
   //licence 2
   {
@@ -66,7 +82,31 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North West",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount":"125",
+      "timeLimit": "No"
+    },
+    {
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675126(RIVER SWALE - HELPERBY)"],
+      "periodStart": "1101",
+      "periodEnd": "0331",
+      "amount":"125",
+      "timeLimit": "No"
+    },
+    {
+      "purpose": "General machine washing",
+      "points": ["At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount": "20",
+      "timeLimit": "No"
+    }]
   },
   //licence 3
   {
@@ -85,7 +125,15 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 126 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"125",
+      "timeLimit": "No"
+    }]
   },
   //licence 4
   {
@@ -104,7 +152,15 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North East",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SU 190683 (Marlborough)", "At National Grid Reference SU 190679 (Marlborough)", "At National Grid Reference SU 188678 (Marlborough)", "At National Grid Reference SU 187680 (Marlborough)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount":"125",
+      "timeLimit": "No"
+          }]
   },
   //licence 5
   {
@@ -123,7 +179,15 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Anglian",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 674125 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "1101",
+      "periodEnd": "0331",
+      "amount":"125",
+      "timeLimit": "No"
+    }]
   },
   //licence 6
   {
@@ -142,7 +206,15 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "0401",
+      "periodEnd": "1031",
+      "amount":"125",
+      "timeLimit": "No"
+    }]
   },
   //licence 7
   {
@@ -161,7 +233,14 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+            "purpose": "Spray irrigation - direct",
+            "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
+            "periodStart": "1101",
+            "periodEnd": "0331",
+            "amount":"125",
+          }]
   },
   //licence 8
   {
@@ -180,7 +259,31 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Spray Irrigation - Storage",
+      "points": ["At National Grid Reference SK 675 126 (Cherry tree farm - BOREHOLE B)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"80,000",
+      "timeLimit": "No"
+    },
+    {
+      "purpose": "General Farming & Domestic",
+      "points": ["At National Grid Reference SK 675 124 (Cherry tree farm - BOREHOLE A)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"2,890",
+      "timeLimit": "No"
+    },
+    {
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675 124 (Cherry tree farm - BOREHOLE A)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"2,890",
+      "timeLimit": "No"
+    }]
   },
   //licence 9
   {
@@ -199,7 +302,15 @@ module.exports = {
     "conditions": ["Hands off flow condition (HOF)"],
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Potable Water Supply - Direct",
+      "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY SP1)", "At National Grid Reference SK 675 126 (RIVER SWALE - HELPERBY SP2)", "At National Grid Reference SK 675130 (RIVER SWALE - HELPERBY SP3)", "At National Grid Reference SK 675135 (RIVER SWALE - HELPERBY SP4)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"12271.581",
+      "timeLimit": "No"
+    }]
   },
   //licence 10
   {
@@ -218,7 +329,15 @@ module.exports = {
     "conditions": ["Hands off flow condition (HOF)"],
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
-    "expired": "false"
+    "expired": "false",
+    "use": [{
+      "purpose": "Potable Water Supply - Direct",
+      "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY SP1)"],
+      "periodStart": "0401",
+      "periodEnd": "0331",
+      "amount":"12271.581",
+      "timeLimit": "No"
+    }]
   }
   ]
   

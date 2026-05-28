@@ -3,20 +3,20 @@
    {{ xGovukSubNavigation({
   items: [{
     text: "Licence summary",
-    href: "",
+    href: "/internal/licence/?ID=" + data.ID,
     current: true,
     parent: true,
     children: [{
       text: "Purposes, periods and amounts",
-      href: "/",
+      href: "/internal/licence/purposes?ID=" + data.ID,
       current: purpose
     }, {
       text: "Points",
-      href: "/",
+      href: "/internal/licence/points?ID=" + data.ID,
       current: points
     }, {
       text: "Conditions",
-      href: "/",
+      href: "/internal/licence/conditions?ID=" + data.ID,
       current: conditions
     }]
   },
