@@ -1,0 +1,65 @@
+{% set searchfilterContent %}
+
+{% call govukFieldset({
+	legend: {
+		text: "Filter matches by",
+		classes: "govuk-fieldset__legend--m"
+	}
+}) %}
+
+	{{ govukRadios({
+		classes: "govuk-radios--small",
+		name: "filter",
+		fieldset: {
+			legend: {
+				text: "Match type",
+				classes: "govuk-fieldset__legend--s"
+			}
+		},
+		items: [
+			{
+				value: "billing",
+				text: "Billing accounts"
+			},
+			{
+				value: "holders",
+				text: "Licence holders"
+			},
+			{
+				value: "licences",
+				text: "Licences"
+			},
+			{
+				value: "stations",
+				text: "Monitoring stations"
+			},
+			{
+				value: "returns",
+				text: "Return logs"
+			},
+			{
+				value: "users",
+				text: "Users"
+			}
+		]
+	}) }}
+
+<div class="govuk-button-group govuk-!-margin-bottom-0">
+  {{ govukButton({
+    text: "Apply filter"
+  }) }}
+
+  {{ govukButton({
+    text: "Clear filter",
+    classes: "govuk-button--secondary"
+  }) }}
+</div>
+
+{% endcall %}
+
+{% endset %}
+
+{{ govukDetails({
+	summaryText: "Filter matches",
+	html: searchfilterContent
+}) }}
