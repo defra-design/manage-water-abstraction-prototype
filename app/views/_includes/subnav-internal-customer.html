@@ -4,17 +4,17 @@
   items: [
   {
     text: "Licences",
-    href: "/",
+    href: "/internal/customer/?ID=" + data.ID,
     current: licences
   },
   { 
     text: "Billing accounts",
-    href: "/",
-     current: billingAccounts
+      href: "/internal/customer/billing-accounts?ID=" + data.ID,
+     current: billing
     }, 
   {
     text: "Contacts",
-     href: "/",
+     href: "/internal/customer/contacts?ID=" + data.ID,
     current: contacts
   }
   ]

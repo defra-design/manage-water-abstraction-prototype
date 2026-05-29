@@ -46,7 +46,10 @@
 
 <div class="govuk-button-group govuk-!-margin-bottom-0">
   {{ govukButton({
-    text: "Apply filter"
+		text: "Apply filter",
+		attributes: {
+			"data-close-filter-details": "true"
+		}
   }) }}
 
   {{ govukButton({

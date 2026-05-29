@@ -23,6 +23,12 @@
         {{pageName}} {{ licence.number }}
       </h1>
 
+      {% if licence.expired %}
+        {{ govukWarningText({
+        text: "This licence expired on " ~ licence.endDate ~ "."
+        }) }}
+      {% endif %}
+
       <p class="govuk-body-l">The current version of the licence starting {{ licence.startDate }}.</p>
 
       {% include "_includes/licence-summary.html" %}

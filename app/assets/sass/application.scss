@@ -13,6 +13,14 @@
   text-transform: uppercase;
 }
 
+.table__status--expired {
+  color: govuk-color("text");
+  border: 1px solid;
+  border-color: govuk-color("text");
+  line-height: 18px;
+  padding-bottom: 4px;
+}
+
 .table__status--heading {
   font-size: 14px;
 }

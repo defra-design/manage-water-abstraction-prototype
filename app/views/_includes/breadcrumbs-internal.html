@@ -9,7 +9,8 @@
         }
       ]
     }) }}
-  {% elif breadcrumbType == "customer" %}
+
+  {% elif breadcrumbType == "customer" or breadcrumbType == "billing" or breadcrumbType == "contacts" %}
     {{ govukBreadcrumbs({
       items: [
         {
@@ -22,6 +23,7 @@
         }
       ]
     }) }}
+
   {% elif breadcrumbType == "licence" %}
     {{ govukBreadcrumbs({
       items: [
@@ -39,6 +41,7 @@
         }
       ]
     }) }}
+
   {% elif breadcrumbType == "licenceChild" %}
     {{ govukBreadcrumbs({
       items: [
