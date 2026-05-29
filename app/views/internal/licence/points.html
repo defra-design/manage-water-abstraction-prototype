@@ -1,9 +1,8 @@
 {% extends "layouts/main-internal.html" %}
 
-{% set pageName="Purposes, periods and amounts" %}
+{% set pageName="Points" %}
 {% set licence = data['licences'][data.ID] %}
 {% set breadcrumbType="licence" %}
-{% set purpose = true %}
 
 {% block containerStart %}
 {% include "_includes/breadcrumbs-internal.html" %}
@@ -23,47 +22,41 @@
         {{ pageName }}
       </h1>
 
-      <p class="govuk-body-l">Showing {{ licence.use | length | plural("purpose") }}</p>
-
-      {% set uses = licence.use %}
-
-      {% for use in uses %}
       {{ govukSummaryList({
-      card: {
+        card: {
           title: {
-            text: use.purpose
+            text: data.licences[data.ID].use[0].points | bracketedText
           }
         },
         rows: [
           {
             key: {
-              text: "Points" 
+              text: "Abstraction point"
             },
             value: {
-              html: use.points | newLine
+              html: "data"
             }
           },
           {
             key: {
-              text: "Abstraction period"
+              text: "Means of abstraction"
             },
             value: {
-              html: use.periodStart | mmddToDate + " to " + use.periodEnd | mmddToDate
+              html: "data"
             }
-          },
-          {
+          }, {
             key: {
-              text: "Amount"
+              text: "Source type"
             },
             value: {
-              html: use.amount + " m3/yr"
+              html: "data"
             }
           }
         ]
       }) }}
-      {% endfor %}
 
     </div>
 
   </div>
 {% endblock %}
+

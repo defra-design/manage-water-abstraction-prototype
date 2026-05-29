@@ -16,3 +16,7 @@ addFilter("newLine", (array) => {
     return array.toString().replace(/,/g, "<br>")
   });
 
+addFilter("bracketedText", (e) => {
+  return e.toString().replace(/(^.*\(|\).*$)/g, '')
+})
+
