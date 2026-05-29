@@ -22,7 +22,7 @@
         {{ pageName }}
       </h1>
 
-      <p class="govuk-body-l">Showing {{ licence.absConditions | length | plural("type") }} of further {{ licence.absConditions | length | plural("condition") }}</p>
+      <p class="govuk-body-l">Showing {{ licence.absConditions | length | plural("type") }} of further {{ licence.absConditions | length | plural("condition", showNumber=false) }}</p>
 
       {% for condition in data.licences[data.ID].absConditions %}
 

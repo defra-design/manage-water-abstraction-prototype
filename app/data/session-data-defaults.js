@@ -513,7 +513,7 @@ module.exports = {
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
     "expired": "false",
-    
+
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Potable Water Supply - Direct",
