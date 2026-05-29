@@ -89,6 +89,30 @@ module.exports = {
         "param2" : "180 millilitres per day",
         "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
+    ],
+
+    // History
+    "changeLog": [
+      {
+      "type": "Licence version",
+      "reasonCreated": "new Licence",
+      "reasonText":  "",
+      "changedDate": "1 April 2019",
+      "startDate": "1985-06-01",
+      "changeType": "licence issued",
+      "endDate": "",
+      "changedBy": "admin@gov.uk"
+      },
+      {
+      "type": "Licence version",
+      "reasonCreated": "testing123",
+      "reasonText":  "",
+      "changedDate": "1 April 2019",
+      "startDate": "1985-06-01",
+      "changeType": "no licence issued",
+      "endDate": "1995-06-01",
+      "changedBy": "admin@gov.uk"
+      }
     ]
   },      
 

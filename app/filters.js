@@ -20,6 +20,11 @@ addFilter("bracketedText", (e) => {
   return e.toString().replace(/(^.*\(|\).*$)/g, '')
 })
 
+addFilter("push", (array, item) => {
+  array.push(item)
+  return array
+})
+
 addFilter("unitsToWords", (e) => {
     if (e == "Ml/d") {
       return "millilitres per day"
@@ -30,4 +35,13 @@ addFilter("unitsToWords", (e) => {
     } else {
       return "cubic metres"
     } 
+})
+
+//set colours for licenceVersion change types "| changeTypeColour"
+addFilter("changeTypeColour", (e) => {
+  if (e === "licence issued") {
+    return "govuk-tag--green"
+  } else {
+    return "govuk-tag--blue"
+  }
 })
