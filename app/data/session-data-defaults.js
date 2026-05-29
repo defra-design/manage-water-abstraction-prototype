@@ -1,5 +1,11 @@
 module.exports = {
 
+  //Default licence (Lower Smith Road 00/22/001/08)
+  "ID": 0,
+
+  //Default customer (Irene Briton)
+  "customerID": 2,
+
   //Customer/Company
   "customers": [
     {
@@ -80,8 +86,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ]
   },      
@@ -143,8 +149,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water",
@@ -191,8 +197,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water",
@@ -239,8 +245,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water" 
@@ -287,8 +293,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water"
@@ -335,8 +341,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water"
@@ -445,8 +451,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "180Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+        "param2" : "180 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day."
       }
     ],
     "sourceType": "Surface water"
@@ -487,8 +493,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0", "1", "2", "3"],
         "param1" : "Bourton Dickler",
-        "param2" : "73.4Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4Ml/d."
+        "param2" : "73.4 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4 millilitres per day."
       }
     ],
     "sourceType": "Surface water"
@@ -529,8 +535,8 @@ module.exports = {
         "purposeIndex" : ["0"],
         "pointsIndex" : ["0"],
         "param1" : "Bourton Dickler",
-        "param2" : "73.4Ml/d",
-        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4Ml/d."
+        "param2" : "73.4 millilitres per day",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4 millilitres per day."
       }
     ],
     "sourceType": "Surface water"

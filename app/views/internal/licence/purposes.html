@@ -28,6 +28,7 @@
       {% set uses = licence.use %}
 
       {% for use in uses %}
+
       {{ govukSummaryList({
       card: {
           title: {
@@ -56,7 +57,7 @@
               text: "Amount"
             },
             value: {
-              html: use.amount + " m3/yr"
+              html: use.amount + " " + (use.units | unitsToWords)
             }
           }
         ]
@@ -81,6 +82,7 @@
           }
         ]
       }) }}
+      
       {% endfor %}
 
     </div>

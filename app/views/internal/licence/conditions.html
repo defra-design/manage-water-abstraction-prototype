@@ -3,6 +3,8 @@
 {% set pageName="Conditions" %}
 {% set licence = data['licences'][data.ID] %}
 {% set breadcrumbType="licenceChild" %}
+{% set conditions = true %}
+
 
 {% block containerStart %}
 {% include "_includes/breadcrumbs-internal.html" %}
@@ -21,6 +23,10 @@
       <h1 class="govuk-heading-l">
         {{ pageName }}
       </h1>
+
+      {{ govukWarningText({
+        text: "We may not be able to show a full list of the conditions, because we do not hold all of the licence information on our system yet. You should refer to the paper copy of the licence to view all conditions."
+      }) }}
 
       <p class="govuk-body-l">Showing {{ licence.absConditions | length | plural("type") }} of further {{ licence.absConditions | length | plural("condition", showNumber=false) }}</p>
 

@@ -20,3 +20,14 @@ addFilter("bracketedText", (e) => {
   return e.toString().replace(/(^.*\(|\).*$)/g, '')
 })
 
+addFilter("unitsToWords", (e) => {
+    if (e == "Ml/d") {
+      return "millilitres per day"
+    } else if (e == "l") {
+      return "litres"
+    } else if (e == "g") {
+      return "gallons"
+    } else {
+      return "cubic metres"
+    } 
+})
