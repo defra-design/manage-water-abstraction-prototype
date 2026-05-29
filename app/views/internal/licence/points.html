@@ -22,6 +22,8 @@
         {{ pageName }}
       </h1>
 
+      <p class="govuk-body-l">Showing {{ licence.absPoints | length | plural("abstraction point") }}</p>
+
      {% for point in data.licences[data.ID].absPoints %}
 
       {{ govukSummaryList({

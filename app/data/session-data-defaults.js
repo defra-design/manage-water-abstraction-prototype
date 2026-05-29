@@ -30,7 +30,7 @@ module.exports = {
 
   //licences
   "licences": [
-  // Licence 1 – Lower Smith Road 00/22/001/08
+  // licence 1 – Lower Smith Road 00/22/001/08
   // Licence summary
   {
     "name": "Lower Smith Road",
@@ -69,9 +69,25 @@ module.exports = {
     }],
     "means": ["Unspecified pump"],
     "sourceType": "Surface water",
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ]
+  },      
 
-  },        
-  //licence 2 – Glindenfold Lake 03/28/60/0032
+  // licence 2 – Glindenfold Lake 03/28/60/0032
+  // Licence summary
   {
     "name": "Glindenfold Lake",
     "number": "03/28/60/0032",
@@ -89,6 +105,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North West",
     "expired": "false",
+    
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)"],
@@ -112,9 +130,28 @@ module.exports = {
       "periodEnd": "1031",
       "amount": "20",
       "timeLimit": "No"
-    }]
+    }],
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water",
   },
-  //licence 3 - Honeydew Crescent 03/28/61/029
+
+  // licence 3 - Honeydew Crescent 03/28/61/029
+  // Licence summary
   {
     "name": "Honeydew Crescent",
     "number": "03/28/61/029",
@@ -132,6 +169,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 126 (RIVER SWALE - HELPERBY)"],
@@ -139,9 +178,28 @@ module.exports = {
       "periodEnd": "0331",
       "amount":"125",
       "timeLimit": "No"
-    }]
+    }], 
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water",
   },
-  //licence 4 - George Furrow 03/28/60/0035
+
+  // licence 4 - George Furrow 03/28/60/0035
+  // licence summary
   {
     "name": "George Furrow",
     "number": "03/28/60/0035",
@@ -159,6 +217,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North East",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SU 190683 (Marlborough)", "At National Grid Reference SU 190679 (Marlborough)", "At National Grid Reference SU 188678 (Marlborough)", "At National Grid Reference SU 187680 (Marlborough)"],
@@ -166,9 +226,28 @@ module.exports = {
       "periodEnd": "1031",
       "amount":"125",
       "timeLimit": "No"
-          }]
+      }],
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water" 
   },
-  //licence 5 - Dale Barrow 03/28/60/0033
+
+  // licence 5 - Dale Barrow 03/28/60/0033
+  // licence summary
   {
     "name": "Dale Barrow",
     "number": "03/28/60/0033",
@@ -186,6 +265,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Anglian",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 674125 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)"],
@@ -193,9 +274,28 @@ module.exports = {
       "periodEnd": "0331",
       "amount":"125",
       "timeLimit": "No"
-    }]
+    }],
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   },
-  //licence 6 - River House 03/28/60/0726
+
+  // licence 6 - River House 03/28/60/0726
+  // licence summary
   {
     "name": "River House",
     "number": "03/28/60/0726",
@@ -213,6 +313,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
@@ -220,9 +322,27 @@ module.exports = {
       "periodEnd": "1031",
       "amount":"125",
       "timeLimit": "No"
-    }]
+    }], 
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   },
-  //licence 7 - [No name] 11/22/32/02
+  // licence 7 - [No name] 11/22/32/02
+  // licence summary
   {
     "name": "",
     "number": "11/22/32/02",
@@ -240,15 +360,36 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
-            "purpose": "Spray irrigation - direct",
-            "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
-            "periodStart": "1101",
-            "periodEnd": "0331",
-            "amount":"125",
-          }]
+      "purpose": "Spray irrigation - direct",
+      "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
+      "periodStart": "1101",
+      "periodEnd": "0331",
+      "amount":"125",
+    }],
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   },
-  //licence 8 - Cherry Tree Farm 03/28/61/033
+
+  // licence 8 - Cherry Tree Farm 03/28/61/033
+  // licence summary
   {
     "name": "Cherry Tree Farm",
     "number": "03/28/61/033",
@@ -266,6 +407,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray Irrigation - Storage",
       "points": ["At National Grid Reference SK 675 126 (Cherry tree farm - BOREHOLE B)"],
@@ -289,9 +432,28 @@ module.exports = {
       "periodEnd": "0331",
       "amount":"2,890",
       "timeLimit": "No"
-    }]
+    }], 
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "General condition",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "",
+        "text" : "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692."
+      },
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "180Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   },
-  //licence 9 - [No name] 100/22/33/0123
+
+  // licence 9 - [No name] 100/22/33/0123
+  // licence summary
   {
     "name": "",
     "number": "100/22/33/0123",
@@ -309,6 +471,8 @@ module.exports = {
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
     "expired": "false",
+
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Potable Water Supply - Direct",
       "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY SP1)", "At National Grid Reference SK 675 126 (RIVER SWALE - HELPERBY SP2)", "At National Grid Reference SK 675130 (RIVER SWALE - HELPERBY SP3)", "At National Grid Reference SK 675135 (RIVER SWALE - HELPERBY SP4)"],
@@ -316,9 +480,22 @@ module.exports = {
       "periodEnd": "0331",
       "amount":"12271.581",
       "timeLimit": "No"
-    }]
+    }], 
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0", "1", "2", "3"],
+        "param1" : "Bourton Dickler",
+        "param2" : "73.4Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   },
-  //licence 10 - River Swale Intake 200/20/23/0111
+
+  // licence 10 - River Swale Intake 200/20/23/0111
+  // licence summary
   {
     "name": "River Swale Intake",
     "number": "200/20/23/0111",
@@ -336,6 +513,8 @@ module.exports = {
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
     "expired": "false",
+    
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Potable Water Supply - Direct",
       "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY SP1)"],
@@ -343,7 +522,18 @@ module.exports = {
       "periodEnd": "0331",
       "amount":"12271.581",
       "timeLimit": "No"
-    }]
+    }],
+    "means": ["Unspecified pump"],
+    "absConditions": [
+      {"type" : "Hands off flow condition (HOF)",
+        "purposeIndex" : ["0"],
+        "pointsIndex" : ["0"],
+        "param1" : "Bourton Dickler",
+        "param2" : "73.4Ml/d",
+        "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4Ml/d."
+      }
+    ],
+    "sourceType": "Surface water"
   }
   ]
   

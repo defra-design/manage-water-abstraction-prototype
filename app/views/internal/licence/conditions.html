@@ -22,7 +22,100 @@
         {{ pageName }}
       </h1>
 
+      <p class="govuk-body-l">Showing {{ licence.absConditions | length | plural("type") }} of further {{ licence.absConditions | length | plural("condition") }}</p>
 
+      {% for condition in data.licences[data.ID].absConditions %}
+
+      {% if condition.type == "General condition" %}
+
+        {{ govukSummaryList({
+          card: {
+            title: {
+              text: condition.type
+            }
+          },
+          rows: [
+            {
+              key: {
+                text: "Abstraction point"
+              },
+              value: {
+                html: data.licences[data.ID].absPoints[condition.pointsIndex]
+              }
+            },
+            {
+              key: {
+                text: "Purpose"
+              },
+              value: {
+                html: data.licences[data.ID].purpose[condition.purposeIndex]
+              }
+            },
+            {
+              key: {
+                text: "Other information"
+              },
+              value: {
+                html: condition.text
+              }
+            }
+          ]
+        }) }}
+
+        {% else %}
+
+        {{ govukSummaryList({
+          card: {
+            title: {
+              text: condition.type
+            }
+          },
+          rows: [
+            {
+              key: {
+                text: "Abstraction point"
+              },
+              value: {
+                html: data.licences[data.ID].absPoints[condition.pointsIndex]
+              }
+            },
+            {
+              key: {
+                text: "Purpose"
+              },
+              value: {
+                html: data.licences[data.ID].purpose[condition.purposeIndex]
+              }
+            },
+            {
+              key: {
+                text: "Monitoring station"
+              },
+              value: {
+                html: condition.param1
+              }
+            },
+            {
+              key: {
+                text: "Threshold"
+              },
+              value: {
+                html: condition.param2
+              }
+            },
+            {
+              key: {
+                text: "Other information"
+              },
+              value: {
+                html: condition.text
+              }
+            }
+          ]
+        }) }}
+        {% endif %}
+
+      {% endfor %} 
 
     </div>
 

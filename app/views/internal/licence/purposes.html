@@ -63,6 +63,26 @@
       }) }}
       {% endfor %}
 
+      {% for condition in licence.absConditions %}
+      {{ govukSummaryList({
+        card: {
+          title: {
+            text: condition.type | capitalize
+          }
+        },
+        rows: [
+          {
+            key: {
+              text: "Details"
+            },
+            value: {
+              text: condition.text
+            }
+          }
+        ]
+      }) }}
+      {% endfor %}
+
     </div>
 
   </div>
