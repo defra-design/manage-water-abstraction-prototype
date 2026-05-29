@@ -2,7 +2,7 @@
 
 {% set pageName="Points" %}
 {% set licence = data['licences'][data.ID] %}
-{% set breadcrumbType="licence" %}
+{% set breadcrumbType="licenceChild" %}
 
 {% block containerStart %}
 {% include "_includes/breadcrumbs-internal.html" %}
@@ -22,6 +22,8 @@
         {{ pageName }}
       </h1>
 
+     {% for point in data.licences[data.ID].absPoints %}
+
       {{ govukSummaryList({
         card: {
           title: {
@@ -34,7 +36,7 @@
               text: "Abstraction point"
             },
             value: {
-              html: "data"
+              html: point
             }
           },
           {
@@ -42,18 +44,21 @@
               text: "Means of abstraction"
             },
             value: {
-              html: "data"
+              html: data.licences[data.ID].means[0]
             }
           }, {
             key: {
               text: "Source type"
             },
             value: {
-              html: "data"
+              html: data.licences[data.ID].sourceType
             }
           }
         ]
       }) }}
+
+    {% endfor %} 
+
 
     </div>
 

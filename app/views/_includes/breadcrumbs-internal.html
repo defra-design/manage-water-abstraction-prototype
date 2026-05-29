@@ -39,6 +39,27 @@
         }
       ]
     }) }}
+  {% elif breadcrumbType == "licenceChild" %}
+    {{ govukBreadcrumbs({
+      items: [
+        {
+          text: "Search",
+          href: "/internal/search"
+        },
+        {
+          text: "Customers",
+          href: "/internal/customers"
+        },
+        {
+          text: data.customers[data.customerID].name,
+          href: "/internal/customer?customerID=" + data.customerID
+        },
+        {
+          text: "Licence summary",
+          href: "/internal/licence?ID=" + data.ID
+        }
+      ]
+    }) }}
   {% endif %}
 
 {% endblock %}

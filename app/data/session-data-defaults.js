@@ -50,7 +50,7 @@ module.exports = {
     "billingRegion": "Midlands",
     "expired": "true",
 
-    // Purposes, periods and amounts
+    // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 675 124(RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
@@ -66,7 +66,10 @@ module.exports = {
       "periodEnd": "1031",
       "amount": "20",
       "timeLimit": "No"
-    }]
+    }],
+    "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
+
   },        
   //licence 2 – Glindenfold Lake 03/28/60/0032
   {
