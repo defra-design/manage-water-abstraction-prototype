@@ -1,6 +1,7 @@
 {% block subnav %}
 
-{% set licenceSummaryCurrent = (not history and not licenceContacts and not contactDetails and not sentComms and not returns and not bills and not licenceSetup) %}
+{% set otherLicenceSectionCurrent = (history or licenceContacts or sentComms or returns or bills or licenceSetup) %}
+{% set licenceSummaryCurrent = (not otherLicenceSectionCurrent) %}
 
 {% if licenceSummaryCurrent %}
   {% set licenceSummaryChildren = [{
@@ -25,7 +26,7 @@
     text: "Licence summary",
     href: "/internal/licence/?ID=" + data.ID,
     current: licenceSummaryCurrent,
-    parent: true,
+    parent: licenceSummaryCurrent,
     children: licenceSummaryChildren
   },
   {

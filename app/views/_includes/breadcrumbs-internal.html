@@ -24,7 +24,7 @@
       ]
     }) }}
 
-  {% elif breadcrumbType == "licence" %}
+  {% elif breadcrumbType == "licence" or breadcrumbType == "licenceContacts" or breadcrumbType == "history" or breadcrumbType == "sentComms" or breadcrumbType == "returns" or breadcrumbType == "bills" or breadcrumbType == "licence-setup" %}
     {{ govukBreadcrumbs({
       items: [
         {
