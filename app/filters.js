@@ -37,7 +37,6 @@ addFilter("unitsToWords", (e) => {
     } 
 })
 
-//set colours for licenceVersion change types "| changeTypeColour"
 addFilter("changeTypeColour", (e) => {
   if (e === "licence issued") {
     return "govuk-tag--green"
