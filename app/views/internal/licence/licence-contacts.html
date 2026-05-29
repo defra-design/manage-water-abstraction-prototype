@@ -1,0 +1,30 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Licence contacts" %}
+{% set licence = data['licences'][data.ID] %}
+{% set breadcrumbType="contacts" %}
+{% set licenceContacts = true %}
+
+{% block containerStart %}
+{% include "_includes/breadcrumbs-internal.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-quarter">
+    {% include "_includes/subnav-internal-licence.html" %}
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <span class="govuk-caption-l">Licence {{ licence.number }}</span>
+      <h1 class="govuk-heading-l">
+        {{ pageName }}
+      </h1>
+
+    </div>
+
+  </div>
+{% endblock %}
+

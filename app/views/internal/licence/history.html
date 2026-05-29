@@ -1,0 +1,34 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="History" %}
+{% set licence = data['licences'][data.ID] %}
+{% set breadcrumbType="history" %}
+{% set history = true %}
+
+{% block containerStart %}
+{% include "_includes/breadcrumbs-internal.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-quarter">
+    {% include "_includes/subnav-internal-licence.html" %}
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <span class="govuk-caption-l">Licence {{ licence.number }}</span>
+      <h1 class="govuk-heading-l">
+        {{ pageName }}
+      </h1>
+
+      <p class="govuk-body-l">Showing all licence versions imported into the service.</p>
+
+
+
+    </div>
+
+  </div>
+{% endblock %}
+

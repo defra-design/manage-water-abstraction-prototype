@@ -1,58 +1,61 @@
 {% block subnav %}
 
+{% set licenceSummaryCurrent = (not history and not licenceContacts and not contactDetails and not sentComms and not returns and not bills and not licenceSetup) %}
+
+{% if licenceSummaryCurrent %}
+  {% set licenceSummaryChildren = [{
+    text: "Purposes, periods and amounts",
+    href: "/internal/licence/purposes?ID=" + data.ID,
+    current: purpose
+  }, {
+    text: "Points",
+    href: "/internal/licence/points?ID=" + data.ID,
+    current: points
+  }, {
+    text: "Conditions",
+    href: "/internal/licence/conditions?ID=" + data.ID,
+    current: conditions
+  }] %}
+{% else %}
+  {% set licenceSummaryChildren = [] %}
+{% endif %}
+
    {{ xGovukSubNavigation({
   items: [{
     text: "Licence summary",
     href: "/internal/licence/?ID=" + data.ID,
-    current: true,
+    current: licenceSummaryCurrent,
     parent: true,
-    children: [{
-      text: "Purposes, periods and amounts",
-      href: "/internal/licence/purposes?ID=" + data.ID,
-      current: purpose
-    }, {
-      text: "Points",
-      href: "/internal/licence/points?ID=" + data.ID,
-      current: points
-    }, {
-      text: "Conditions",
-      href: "/internal/licence/conditions?ID=" + data.ID,
-      current: conditions
-    }]
+    children: licenceSummaryChildren
   },
   {
     text: "History",
-    href: "/",
-    current: history,
-    children: [{
-      text: "Licence version",
-      href: "/",
-      current: licenceVersion
-    }]
+    href: "/internal/licence/history?ID=" + data.ID,
+    current: history
   },
   {
     text: "Licence contacts",
-    href: "/",
-    current: contactDetails
+    href: "/internal/licence/licence-contacts?ID=" + data.ID,
+    current: licenceContacts
   },
   { 
     text: "Sent communications",
-    href: "/",
-     current: communications
+    href: "/internal/licence/sent-comms?ID=" + data.ID,
+    current: sentComms
     }, 
   {
     text: "Returns",
-     href: "/",
+    href: "/internal/licence/returns?ID=" + data.ID,
     current: returns
   }, 
   {
     text: "Bills",
-    href: "/",
+    href: "/internal/licence/bills?ID=" + data.ID,
      current: bills
   } , 
   {
     text: "Licence set up",
-    href: "/",
+    href: "/internal/licence/licence-setup?ID=" + data.ID,
      current: licenceSetup
   }
   ]
