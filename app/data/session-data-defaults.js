@@ -30,7 +30,8 @@ module.exports = {
 
   //licences
   "licences": [
-  //licence 1 – Lower Smith Road 00/22/001/08
+  // Licence 1 – Lower Smith Road 00/22/001/08
+  // Licence summary
   {
     "name": "Lower Smith Road",
     "number": "00/22/001/08",
@@ -40,7 +41,6 @@ module.exports = {
     "endDate": "31 January 2020",
     "source": "Underground strata comprising of Mercia Mudstone at Anarea, Atown.",
     "purpose": ["Spray irrigation","General machine washing"],
-  
     "periodStart": "1 April",
     "periodEnd": "31 October",
     "absPoints": ["At National Grid Reference SK 675124", "At National Grid Reference SK 675343"],
@@ -49,6 +49,8 @@ module.exports = {
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
     "expired": "true",
+
+    // Purposes, periods and amounts
     "use": [{
       "purpose": "Spray irrigation - direct",
       "points": ["At National Grid Reference SK 675 124(RIVER SWALE - HELPERBY)", "At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)"],
