@@ -30,7 +30,7 @@ module.exports = {
 
   //licences
   "licences": [
-  //licence 1
+  //licence 1 – Lower Smith Road 00/22/001/08
   {
     "name": "Lower Smith Road",
     "number": "00/22/001/08",
@@ -40,6 +40,7 @@ module.exports = {
     "endDate": "31 January 2020",
     "source": "Underground strata comprising of Mercia Mudstone at Anarea, Atown.",
     "purpose": ["Spray irrigation","General machine washing"],
+  
     "periodStart": "1 April",
     "periodEnd": "31 October",
     "absPoints": ["At National Grid Reference SK 675124", "At National Grid Reference SK 675343"],
@@ -65,7 +66,7 @@ module.exports = {
       "timeLimit": "No"
     }]
   },        
-  //licence 2
+  //licence 2 – Glindenfold Lake 03/28/60/0032
   {
     "name": "Glindenfold Lake",
     "number": "03/28/60/0032",
@@ -108,7 +109,7 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 3
+  //licence 3 - Honeydew Crescent 03/28/61/029
   {
     "name": "Honeydew Crescent",
     "number": "03/28/61/029",
@@ -135,7 +136,7 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 4
+  //licence 4 - George Furrow 03/28/60/0035
   {
     "name": "George Furrow",
     "number": "03/28/60/0035",
@@ -162,7 +163,7 @@ module.exports = {
       "timeLimit": "No"
           }]
   },
-  //licence 5
+  //licence 5 - Dale Barrow 03/28/60/0033
   {
     "name": "Dale Barrow",
     "number": "03/28/60/0033",
@@ -189,7 +190,7 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 6
+  //licence 6 - River House 03/28/60/0726
   {
     "name": "River House",
     "number": "03/28/60/0726",
@@ -216,9 +217,9 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 7
+  //licence 7 - [No name] 11/22/32/02
   {
-    "name": "Beecham Estate",
+    "name": "",
     "number": "11/22/32/02",
     "holder": "D.B. Beecham-Smith",
     "startDate": "1 October 2016",
@@ -242,7 +243,7 @@ module.exports = {
             "amount":"125",
           }]
   },
-  //licence 8
+  //licence 8 - Cherry Tree Farm 03/28/61/033
   {
     "name": "Cherry Tree Farm",
     "number": "03/28/61/033",
@@ -285,9 +286,9 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 9
+  //licence 9 - [No name] 100/22/33/0123
   {
-    "name": "Groundwater Supply Station",
+    "name": "",
     "number": "100/22/33/0123",
     "holder": "Public Water Plc",
     "startDate": "19 January 2018",
@@ -312,7 +313,7 @@ module.exports = {
       "timeLimit": "No"
     }]
   },
-  //licence 10
+  //licence 10 - River Swale Intake 200/20/23/0111
   {
     "name": "River Swale Intake",
     "number": "200/20/23/0111",
