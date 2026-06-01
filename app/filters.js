@@ -44,3 +44,15 @@ addFilter("changeTypeColour", (e) => {
     return "govuk-tag--blue"
   }
 })
+
+addFilter("contactRegStatus", (contactOrValue) => {
+  const wrls = typeof contactOrValue === "object" && contactOrValue !== null
+    ? contactOrValue.wrls
+    : contactOrValue
+
+  if (wrls === "true") {
+    return "govuk-tag--green"
+  } else {
+    return "govuk-tag--grey"
+  }
+})

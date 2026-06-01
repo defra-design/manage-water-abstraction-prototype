@@ -17,10 +17,6 @@
 
   <div class="govuk-grid-row">
     
-    <div class="govuk-grid-column-one-quarter">
-    {% include "_includes/subnav-internal-licence.html" %}
-    </div>
-    
     <div class="govuk-grid-column-three-quarters">
 
       <span class="govuk-caption-l">{{ licence.holder }}</span>
@@ -28,7 +24,52 @@
         {{ contact.name }} 
       </h1>
 
-      <p class="govuk-body-l">The current version of the licence starting {{ licence.startDate }}.</p>
+      {{ govukTag({
+        text: "Registered" if contact.wrls == "true" else "Not registered",
+				classes: (contact | contactRegStatus) + "govuk-!-font-size-24"
+      }) }}
+
+			{{ govukSummaryList({
+			classes: 'govuk-summary-list--no-border meta-data',
+			rows: [
+				{
+					key: {
+						text: "Date created",
+						classes: "meta-data__label "
+					},
+					value: {
+						text: "12 January 2020",
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "Created by",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "admin@environment-agency.gov.uk",
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "Last updated",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "1 June 2026
+",
+						classes: "meta-data__value"
+					}
+				}
+			]
+		}) }}
+
+    <br>
+    <br>
+
+
 
       
     </div>
