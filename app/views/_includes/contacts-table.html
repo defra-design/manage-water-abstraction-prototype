@@ -2,6 +2,7 @@
 
 <table class="govuk-table">
   <thead class="govuk-table__head">
+    <caption class="govuk-table__caption">List of contacts</caption>
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Name</th>
       <th scope="col" class="govuk-table__header">Contact type</th>
@@ -11,13 +12,28 @@
   <tbody class="govuk-table__body">
     {% for contact in contacts %}
       {% for customerEntry in contact.customers %}
-        {% if customerEntry.customer == licence.holder %}
+        {% if customerEntry.customer == licence.holder and contact.name == licence.holder %}
           <tr class="govuk-table__row">
             <td class="govuk-table__cell">{{ contact.name }}</td>
             <td class="govuk-table__cell">{{ customerEntry.role }}</td>
             <td class="govuk-table__cell">
               {% for notice in customerEntry.notices %}
-                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}, {% endif %}
+                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}<br>{% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% for contact in contacts %}
+      {% for customerEntry in contact.customers %}
+        {% if customerEntry.customer == licence.holder and contact.name != licence.holder %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ contact.name }}</td>
+            <td class="govuk-table__cell">{{ customerEntry.role }}</td>
+            <td class="govuk-table__cell">
+              {% for notice in customerEntry.notices %}
+                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}<br>{% endif %}
               {% endfor %}
             </td>
           </tr>
