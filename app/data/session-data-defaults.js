@@ -95,25 +95,54 @@ module.exports = {
     "changeLog": [
       {
       "type": "Licence version",
-      "reasonCreated": "new Licence",
-      "reasonText":  "",
-      "changedDate": "1 April 2019",
-      "startDate": "1985-06-01",
-      "changeType": "licence issued",
-      "endDate": "",
+      "reasonCreated": "Testing 3",
+      "reasonText":  "Special Agreement - Change",
+      "changedDate": "1 April 2015",
+      "startDate": "2005-04-01",
+      "changeType": "no licence issued",
+      "endDate": "2010-03-31",
       "changedBy": "admin@gov.uk"
       },
       {
       "type": "Licence version",
-      "reasonCreated": "testing123",
-      "reasonText":  "",
-      "changedDate": "1 April 2019",
-      "startDate": "1985-06-01",
+      "reasonCreated": "Testing 2",
+      "reasonText":  "Changes to Returns requirements",
+      "changedDate": "1 November 2002",
+      "startDate": "2002-04-01",
       "changeType": "no licence issued",
-      "endDate": "1995-06-01",
+      "endDate": "2005-04-01",
+      "changedBy": "admin@gov.uk"
+      },
+      {
+      "type": "Licence version",
+      "reasonCreated": "Testing 1",
+      "reasonText":  "Changes to Returns requirements",
+      "changedDate": "1 April 1995",
+      "startDate": "1995-04-01",
+      "changeType": "no licence issued",
+      "endDate": "2002-03-31",
+      "changedBy": "admin@gov.uk"
+      },
+      {
+      "type": "Licence version",
+      "reasonCreated": "new Licence",
+      "reasonText":  "",
+      "changedDate": "",
+      "startDate": "1985-06-01",
+      "changeType": "licence issued",
+      "endDate": "",
       "changedBy": "admin@gov.uk"
       }
-    ]
+    ],
+
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['6'],
+      "method": "letter",
+      "addressID": "6"
+    }]
+
   },      
 
   // licence 2 – Glindenfold Lake 03/28/60/0032
@@ -162,6 +191,7 @@ module.exports = {
       "timeLimit": "No"
     }],
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -192,7 +222,13 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water",
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['3'],
+      "method": "letter",
+      "addressID": "6"
+    }]
   },
 
   // licence 3 - Honeydew Crescent 03/28/61/029
@@ -225,6 +261,7 @@ module.exports = {
       "timeLimit": "No"
     }], 
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -255,7 +292,13 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water",
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['1'],
+      "method": "letter",
+      "addressID": "4"
+    }]
   },
 
   // licence 4 - George Furrow 03/28/60/0035
@@ -288,6 +331,7 @@ module.exports = {
       "timeLimit": "No"
       }],
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -318,7 +362,18 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['3'],
+      "method": "letter",
+      "addressID": "1"
+    },{
+      "type": "returns",
+      "id": ['2'],
+      "method": "email",
+      "addressID": "1"
+    }]
   },
 
   // licence 5 - Dale Barrow 03/28/60/0033
@@ -351,6 +406,7 @@ module.exports = {
       "timeLimit": "No"
     }],
     "means": ["Unspecified pump"],
+  "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -381,7 +437,18 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['3'],
+      "method": "letter",
+      "addressID": "1"
+    },{
+      "type": "returns",
+      "id": ['2'],
+      "method": "email",
+      "addressID": "1"
+    }]
   },
 
   // licence 6 - River House 03/28/60/0726
@@ -414,6 +481,7 @@ module.exports = {
       "timeLimit": "No"
     }], 
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -444,7 +512,13 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['3'],
+      "method": "letter",
+      "addressID": "0"
+    }]
   },
   // licence 7 - [No name] 11/22/32/02
   // licence summary
@@ -475,6 +549,7 @@ module.exports = {
       "amount":"125",
     }],
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -505,7 +580,13 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['8'],
+      "method": "letter",
+      "addressID": "6"
+    }]
   },
 
   // licence 8 - Cherry Tree Farm 03/28/61/033
@@ -554,6 +635,7 @@ module.exports = {
       "timeLimit": "No"
     }], 
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "General condition",
         "purposeIndex" : ["0"],
@@ -604,7 +686,18 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['1'],
+      "method": "letter",
+      "addressID": "6"
+    },{
+      "type": "returns",
+      "id": ['2'],
+      "method": "email",
+      "addressID": ""
+    }]
   },
 
   // licence 9 - [No name] 100/22/33/0123
@@ -630,6 +723,7 @@ module.exports = {
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
       "purpose": "Potable Water Supply - Direct",
+      "sourceType": "Surface water",
       "points": ["At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY SP1)", "At National Grid Reference SK 675 126 (RIVER SWALE - HELPERBY SP2)", "At National Grid Reference SK 675130 (RIVER SWALE - HELPERBY SP3)", "At National Grid Reference SK 675135 (RIVER SWALE - HELPERBY SP4)"],
       "periodStart": "0401",
       "periodEnd": "0331",
@@ -661,7 +755,6 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
   },
 
   // licence 10 - River Swale Intake 200/20/23/0111
@@ -694,6 +787,7 @@ module.exports = {
       "timeLimit": "No"
     }],
     "means": ["Unspecified pump"],
+    "sourceType": "Surface water",
     "absConditions": [
       {"type" : "Hands off flow condition (HOF)",
         "purposeIndex" : ["0"],
@@ -703,6 +797,14 @@ module.exports = {
         "text" : "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 73.4 millilitres per day."
       }
     ],
+
+    // Licence contacts
+    "contacts": [{
+      "type": "returns",
+      "id": ['10'],
+      "method": "letter",
+      "addressID": "6"
+    }],
 
     // History
     "changeLog": [
@@ -718,7 +820,7 @@ module.exports = {
       }
     ],
 
-    "sourceType": "Surface water"
+
   }
   ]
   

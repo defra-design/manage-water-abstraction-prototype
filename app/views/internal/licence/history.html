@@ -30,7 +30,7 @@
         {% set changeTag %}
           {{govukTag({
             text: changeLog.changeType |capitalize,
-            classes: "govuk-!-margin-bottom-5 " + changeLog.changeType | changeTypeColour
+            classes: changeLog.changeType | changeTypeColour
           })}}
         {% endset %}
 
