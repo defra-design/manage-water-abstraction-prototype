@@ -934,19 +934,25 @@ module.exports = {
     {
     "wrls": "true",
     "name": "Geoffrey Billington",
-    "email": "",
+    "email": "gbillington@bwplc.co.uk",
     "post": "",
     "type": "person",
     "firstName": "Geoffrey",
     "lastName": "Billington",
     "department": "",
     "customers": [{
-      "role": "Contact",
+      "role": "Primary user",
       "notices": [{
         "type": "Returns",
         "sendBy": "post",
         "addressID": "1",
-        "licences": "all",
+        "licences": ["03/28/60/0032", "03/28/60/0035"],
+      },
+      {
+        "type": "Water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "1",
+        "licences": ["03/28/60/0032", "03/28/60/0035"],
       }],
       "customer": "Bottled Water Plc",
     }],
@@ -965,16 +971,6 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills",
-        "sendBy": "post",
-        "addressID": "0",
-        "licences": "all",
-      },{
-        "type": "Returns",
-        "sendBy": "post",
-        "addressID": "0",
-        "licences": "all",
-      },{
-        "type": "Water abstraction alerts",
         "sendBy": "post",
         "addressID": "0",
         "licences": "all",
@@ -1087,19 +1083,24 @@ module.exports = {
     "name": "D.B. Beecham-Smith",
     "email": "",
     "post": "",
-    "type": "person",
+    "type": "company",
     "firstName": "D.B.",
     "lastName": "Beecham-Smith",
     "department": "",
     "customers": [{
-      "role": "Contact",
+      "role": "Licence holder",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Bills",
+        "sendBy": "post",
+        "addressID": "3",
+        "licences": "all",
+      },{
+        "type": "Returns",
         "sendBy": "post",
         "addressID": "5",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Water abstraction alerts",
         "sendBy": "post",
         "addressID": "5",
         "licences": "all",
@@ -1120,6 +1121,11 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
+        "type": "Bills",
+        "sendBy": "post",
+        "addressID": "3",
+        "licences": "all",
+      },{
         "type": "Water abstraction alerts",
         "sendBy": "post",
         "addressID": "6",
