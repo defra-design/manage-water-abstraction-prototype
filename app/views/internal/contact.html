@@ -15,64 +15,139 @@
 
 {% block content %}
 
-  <div class="govuk-grid-row">
-    
-    <div class="govuk-grid-column-three-quarters">
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-three-quarters">
 
-      <span class="govuk-caption-l">{{ licence.holder }}</span>
-      <h1 class="govuk-heading-l">
-        {{ contact.name }} 
-      </h1>
+		<span class="govuk-caption-l">{{ licence.holder }}</span>
+		<h1 class="govuk-heading-l">
+			{{ contact.name }} 
+		</h1>
 
-      {{ govukTag({
-        text: "Registered" if contact.wrls == "true" else "Not registered",
-				classes: (contact | contactRegStatus) + "govuk-!-font-size-24"
-      }) }}
-
-			{{ govukSummaryList({
-			classes: 'govuk-summary-list--no-border meta-data',
-			rows: [
-				{
-					key: {
-						text: "Date created",
-						classes: "meta-data__label "
-					},
-					value: {
-						text: "12 January 2020",
-						classes: "meta-data__value"
-					}
-				},
-				{
-					key: {
-						text: "Created by",
-						classes: "meta-data__label"
-					},
-					value: {
-						text: "admin@environment-agency.gov.uk",
-						classes: "meta-data__value"
-					}
-				},
-				{
-					key: {
-						text: "Last updated",
-						classes: "meta-data__label"
-					},
-					value: {
-						text: "1 June 2026
-",
-						classes: "meta-data__value"
-					}
-				}
-			]
+		{{ govukTag({
+			text: "Registered" if contact.wrls == "true" else "Not registered",
+			classes: (contact | contactRegStatus) + " govuk-!-font-size-24"
 		}) }}
 
-    <br>
-    <br>
+		{{ govukSummaryList({
+		classes: 'govuk-summary-list--no-border meta-data',
+		rows: [
+			{
+				key: {
+					text: "Date created",
+					classes: "meta-data__label "
+				},
+				value: {
+					text: "12 January 2020",
+					classes: "meta-data__value"
+				}
+			},
+			{
+				key: {
+					text: "Created by",
+					classes: "meta-data__label"
+				},
+				value: {
+					text: "admin@environment-agency.gov.uk",
+					classes: "meta-data__value"
+				}
+			},
+			{
+				key: {
+					text: "Last updated",
+					classes: "meta-data__label"
+				},
+				value: {
+					text: "1 June 2026",
+					classes: "meta-data__value"
+				}
+			}
+		]
+		}) }}
 
+		<!-- update contact-->
+		{{ govukButton({
+		text: "Update contact",
+		href: "#",
+		classes: "govuk-!-margin-right-3"
+		}) }}
 
+		<!-- remove contact-->
+		{{ govukButton({
+		text: "Remove contact",
+		href: "#",
+		classes: "govuk-button--secondary"
+		}) }}
+	</div>
+</div>
 
-      
-    </div>
-  </div>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact details</h2>
+
+	{{ govukSummaryList({
+		rows: [
+		{
+			key: {
+				text: "Name"
+			},
+			value: {
+				text: data.contacts[data.contactID].name
+			}
+
+		},
+			{
+				key: {
+					text: "Email address"
+				},
+				value: {
+					text: data.contacts[data.contactID].email
+				}
+				
+			},
+				{
+					key: {
+						text: "Postal address"
+					},
+					value: {
+						text: data.contacts[data.contactID].post
+					}
+				},
+				{
+					key: {
+						text: "Phone number"
+					},
+					value: {
+						text: data.contacts[data.contactID].phone
+					}
+				}
+		]
+	}) }}
+		
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
+
+      {{ govukSummaryList({
+				rows: [
+					{
+						key: {
+							text: "Water abstraction alerts"
+						},
+						value: {
+							html: waa + detailsWaa
+						}
+					},
+					{
+						key: {
+							text: "Returns invites and reminders"
+						},
+						value: {
+							html: returns + detailsReturns
+						}
+					}
+				]
+			}) }}
+
+	</div>
+</div>
 {% endblock %}
 
