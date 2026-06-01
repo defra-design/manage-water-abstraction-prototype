@@ -35,3 +35,14 @@ router.get('/internal/customer', (req, res) => {
   }
   res.render('internal/customer')
 })
+
+// Capture selected contact and optional licence ID from query parameters
+router.get('/internal/contact', (req, res) => {
+  if (req.query.ID) {
+    req.session.data.ID = parseInt(req.query.ID)
+  }
+  if (req.query.contactID) {
+    req.session.data.contactID = parseInt(req.query.contactID)
+  }
+  res.render('internal/contact')
+})

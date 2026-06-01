@@ -1,0 +1,37 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Contact" %}
+{% set licence = data['licences'][data.ID] %}
+{% set contact = data['contacts'][data.contactID] %}
+{% set breadcrumbType="licence" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+  href: "/internal/licence/licence-contacts?ID=" + data.ID,
+  text: "Back to licence contacts"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    
+    <div class="govuk-grid-column-one-quarter">
+    {% include "_includes/subnav-internal-licence.html" %}
+    </div>
+    
+    <div class="govuk-grid-column-three-quarters">
+
+      <span class="govuk-caption-l">{{ licence.holder }}</span>
+      <h1 class="govuk-heading-l">
+        {{ contact.name }} 
+      </h1>
+
+      <p class="govuk-body-l">The current version of the licence starting {{ licence.startDate }}.</p>
+
+      
+    </div>
+  </div>
+{% endblock %}
+
