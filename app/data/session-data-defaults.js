@@ -1,12 +1,12 @@
 module.exports = {
 
-  //Default licence (Lower Smith Road 00/22/001/08)
+  // Default licence (Lower Smith Road 00/22/001/08)
   "ID": 0,
 
   //Default customer (Irene Briton)
   "customerID": 2,
 
-  //Customer/Company
+  // Customers/Company – – – – – – – – – – – – – – – –
   "customers": [
     {
       "name": "Bottled Water Plc",
@@ -34,7 +34,7 @@ module.exports = {
     }
   ],
 
-  //licences
+  // Licences – – – – – – – – – – – – – – – –
   "licences": [
   // licence 1 – Lower Smith Road 00/22/001/08
   // Licence summary
@@ -822,6 +822,644 @@ module.exports = {
 
 
   }
-  ]
+  ],
   
+  // Contacts – – – – – – – – – – – – – – – –
+  "contacts": [
+    {
+    "wrls": "true",
+    "name": "Jim Smith",
+    "email": "",
+    "post": "Fernyhalgh Lane, Preston, PR2 5ST",
+    "type": "person",
+    "firstName": "Jim",
+    "lastName": "Smith",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "7",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Joanna Southall",
+    "email": "joanne.southall@bigsmithfarms.co.uk",
+    "post": "17 Hampshire way, Portsmouth, PO1 5YP",
+    "type": "person",
+    "firstName": "Joanna",
+    "lastName": "Southall",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "2",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Admin",
+    "email": "admin@bigsmithfarms.co.uk",
+    "post": "",
+    "type": "dept",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Frank Thomas",
+    "email": "fthomas@bsfarms.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "Frank",
+    "lastName": "Thomas",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "2",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Janice Betrand",
+    "email": "jbetrand@bsfarms.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "Janice",
+    "lastName": "Betrand",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "2",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Accounts",
+    "email": "accounts@bsfarms.co.uk",
+    "post": "",
+    "type": "department",
+    "firstName": "",
+    "lastName": "",
+    "department": "Accounts",
+    "customers": [{
+      "role": "Contact",
+      "notices": [],
+      "customer": "Big Smith Farms Ltd",
+      }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Geoffrey Billington",
+    "email": "",
+    "post": "",
+    "type": "person",
+    "firstName": "Geoffrey",
+    "lastName": "Billington",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "1",
+        "licences": "all",
+      }],
+      "customer": "Bottled Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Bottled Water Plc",
+    "email": "",
+    "post": "",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "department": "Head office",
+    "customers": [{
+      "role": "Licence holder,Billing contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "0",
+        "licences": "all",
+      }],
+      "customer": "Bottled Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Big Smith Farms Ltd",
+    "email": "",
+    "post": "",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "department": "Head office",
+    "customers": [{
+      "role": "Licence holder,Billing contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "0",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Irene Briton",
+    "email": "",
+    "post": "",
+    "type": "person",
+    "firstName": "Irene",
+    "lastName": "Briton",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "3",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "3",
+        "licences": "all",
+      }],
+      "customer": "Irene Briton",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Robin Vithlhem-Smith",
+    "email": "",
+    "post": "",
+    "type": "person",
+    "firstName": "Robin",
+    "lastName": "Vithlhem-Smith",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "4",
+        "licences": "all",
+      }],
+      "customer": "Robin Vithlhem-Smith",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Fiona Thomas",
+    "email": "",
+    "post": "",
+    "type": "person",
+    "firstName": "Fiona",
+    "lastName": "Thomas",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "4",
+        "licences": "all",
+      }],
+      "customer": "Robin Vithlhem-Smith",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "D.B. Beecham-Smith",
+    "email": "",
+    "post": "",
+    "type": "person",
+    "firstName": "D.B.",
+    "lastName": "Beecham-Smith",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "5",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "5",
+        "licences": "all",
+      }],
+      "customer": "D.B. Beecham-Smith",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Public Water Plc",
+    "email": "",
+    "post": "",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Licence holder,Billing contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "post",
+        "addressID": "6",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "post",
+        "addressID": "6",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Lee Bixby",
+    "email": "lbixby@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Leon Brabham",
+    "email": "lbrabham@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Sarah Jenkins",
+    "email": "sjenkins@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Marcus Thorne",
+    "email": "mthorne@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Elena Rodriguez",
+    "email": "erodriguez@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "David Cho",
+    "email": "dcho@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Fiona Gallagher",
+    "email": "fgallagher@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "['200/20/23/0111']",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Amit Patel",
+    "email": "apatel@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Siobhan O'Neill",
+    "email": "soneill@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "['200/20/23/0111']",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Julian Voss",
+    "email": "jvoss@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "phone": "012356 1122334",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Nadia Suleiman",
+    "email": "nsuleiman@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Victor Hugo",
+    "email": "vhugo@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "all",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Leigh Ashford",
+    "email": "lashford@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Tanya Miller",
+    "email": "tmiller@pwplc.co.uk",
+    "post": "",
+    "type": "person",
+    "firstName": "",
+    "lastName": "",
+    "department": "",
+    "customers": [{
+      "role": "Contact",
+      "notices": [{
+        "type": "water abstraction alerts",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      },{
+        "type": "returns",
+        "sendBy": "email",
+        "addressID": "",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }]
+    }
+
+  ]
+
 }
