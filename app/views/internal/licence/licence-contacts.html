@@ -25,45 +25,7 @@
 
       <p class="govuk-body">Go to customer contacts to <a href="#">set up a new contact</a>.</p>
 
-      {{ govukTable({
-        caption: "Caption text",
-        firstCellIsHeader: false,
-        head: [
-          {
-            text: "Name"
-          },
-          {
-            text: "Contact type"
-          },
-          {
-            text: "Communication type"
-          }
-        ],
-        rows: [
-          [
-            {
-              text: licence.holder
-            },
-            {
-              text: "Licence holder"
-            },
-            {
-              text: "Bills by post"
-            }
-          ],
-          [
-            {
-              text: contact.name
-            },
-            {
-              text: contact.role
-            },
-            {
-              text: notices.type + " by " + notices.sendBy
-            }
-          ]
-        ]
-      }) }}
+      {% include "_includes/contacts-table.html" %}
 
     </div>
 

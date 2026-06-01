@@ -1,0 +1,28 @@
+{% set contacts = data['contacts'] %}
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Contact type</th>
+      <th scope="col" class="govuk-table__header">Communication type</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    {% for contact in contacts %}
+      {% for customerEntry in contact.customers %}
+        {% if customerEntry.customer == licence.holder %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ contact.name }}</td>
+            <td class="govuk-table__cell">{{ customerEntry.role }}</td>
+            <td class="govuk-table__cell">
+              {% for notice in customerEntry.notices %}
+                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}, {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
