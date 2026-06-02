@@ -1,28 +1,12 @@
+@import "components/status.scss";
+
+
 .govuk-width-container {
    @include govuk-width-container(1100px);
 }
 
-.table__status {
-  font-size: 19px;
-  line-height: 1.25;
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 2px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.table__status--expired {
-  color: govuk-color("text");
-  border: 1px solid;
-  border-color: govuk-color("text");
-  line-height: 18px;
-  padding-bottom: 4px;
-}
-
-.table__status--heading {
-  font-size: 14px;
+.govuk-tag {
+  white-space: nowrap;
 }
 
 .meta-data {

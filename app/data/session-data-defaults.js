@@ -97,7 +97,7 @@ module.exports = {
 
   // Licences – – – – – – – – – – – – – – – –
   "licences": [
-  // licence 1 – Lower Smith Road 00/22/001/08
+  // licence 1 – Lower Smith Road 00/22/001/08 (live)
   // Licence summary
   {
     "name": "Lower Smith Road",
@@ -115,7 +115,7 @@ module.exports = {
     "conditions": ["General condition","Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "true",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -206,7 +206,7 @@ module.exports = {
 
   },      
 
-  // licence 2 – Glindenfold Lake 03/28/60/0032
+  // licence 2 – Glindenfold Lake 03/28/60/0032 (live)
   // Licence summary
   {
     "name": "Glindenfold Lake",
@@ -224,7 +224,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North West",
-    "expired": "false",
+    "status": "live",
     
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -291,8 +291,8 @@ module.exports = {
       "addressID": "6"
     }]
   },
-
-  // licence 3 - Honeydew Crescent 03/28/61/029
+ 
+  // licence 3 - Honeydew Crescent 03/28/61/029 (expired)
   // Licence summary
   {
     "name": "Honeydew Crescent",
@@ -310,7 +310,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
-    "expired": "false",
+    "status": "expired",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -362,7 +362,7 @@ module.exports = {
     }]
   },
 
-  // licence 4 - George Furrow 03/28/60/0035
+  // licence 4 - George Furrow 03/28/60/0035 (live)
   // licence summary
   {
     "name": "George Furrow",
@@ -380,7 +380,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "North East",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -437,7 +437,7 @@ module.exports = {
     }]
   },
 
-  // licence 5 - Dale Barrow 03/28/60/0033
+  // licence 5 - Dale Barrow 03/28/60/0033 (live)
   // licence summary
   {
     "name": "Dale Barrow",
@@ -455,7 +455,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Anglian",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -512,7 +512,7 @@ module.exports = {
     }]
   },
 
-  // licence 6 - River House 03/28/60/0726
+  // licence 6 - River House 03/28/60/0726 (revoked)
   // licence summary
   {
     "name": "River House",
@@ -530,7 +530,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "false",
+    "status": "revoked",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -581,7 +581,7 @@ module.exports = {
       "addressID": "0"
     }]
   },
-  // licence 7 - [No name] 11/22/32/02
+  // licence 7 - [No name] 11/22/32/02 (live)
   // licence summary
   {
     "name": "",
@@ -599,7 +599,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "South West",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -650,7 +650,7 @@ module.exports = {
     }]
   },
 
-  // licence 8 - Cherry Tree Farm 03/28/61/033
+  // licence 8 - Cherry Tree Farm 03/28/61/033 (live)
   // licence summary
   {
     "name": "Cherry Tree Farm",
@@ -668,7 +668,7 @@ module.exports = {
     "conditions": ["General condition", "Hands off flow condition (HOF)"],
     "absQuantities": "900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
     "billingRegion": "Midlands",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -761,7 +761,7 @@ module.exports = {
     }]
   },
 
-  // licence 9 - [No name] 100/22/33/0123
+  // licence 9 - [No name] 100/22/33/0123 (live)
   // licence summary
   {
     "name": "",
@@ -779,7 +779,7 @@ module.exports = {
     "conditions": ["Hands off flow condition (HOF)"],
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -818,7 +818,7 @@ module.exports = {
 
   },
 
-  // licence 10 - River Swale Intake 200/20/23/0111
+  // licence 10 - River Swale Intake 200/20/23/0111 (live)
   // licence summary
   {
     "name": "River Swale Intake",
@@ -836,7 +836,7 @@ module.exports = {
     "conditions": ["Hands off flow condition (HOF)"],
     "absQuantities": "6000000.00 cubic metres per year~30000.00 cubic metres per day",
     "billingRegion": "Southern",
-    "expired": "false",
+    "status": "live",
 
     // Purposes, periods and amounts, Points, Conditions
     "use": [{
@@ -1009,7 +1009,7 @@ module.exports = {
     },
 
     {
-    "wrls": "false",
+    "wrls": "live",
     "name": "Bottled Water Plc",
     "email": "",
     "phone": "01225 222000",

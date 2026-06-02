@@ -5,7 +5,7 @@
 {% set licences = true %}
 
 {% block containerStart %}
-{% include "_includes/breadcrumbs-internal.html" %}
+{% include "internal/_includes/breadcrumbs-internal.html" %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
     
     <div class="govuk-grid-column-one-quarter">
 
-    {% include "_includes/subnav-internal-customer.html" %}
+    {% include "internal/_includes/subnav-customer.html" %}
 
     </div>
     
@@ -23,7 +23,7 @@
     <span class="govuk-caption-l">Customer {{[data.customers[data.customerID]['name']]}}</span>
      {{pageName}}
     </h1>
-    {% include "_includes/licences-table.html" %}
+    {% include "internal/_includes/licences-table.html" %}
     
     </div>
 

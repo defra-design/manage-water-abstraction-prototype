@@ -5,7 +5,7 @@
 {% set breadcrumbType="licence" %}
 
 {% block containerStart %}
-{% include "_includes/breadcrumbs-internal.html" %}
+{% include "internal/_includes/breadcrumbs-internal.html" %}
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
   <div class="govuk-grid-row">
     
     <div class="govuk-grid-column-one-quarter">
-    {% include "_includes/subnav-internal-licence.html" %}
+    {% include "internal/_includes/subnav-licence.html" %}
     </div>
     
     <div class="govuk-grid-column-three-quarters">
@@ -31,7 +31,7 @@
 
       <p class="govuk-body-l">The current version of the licence starting {{ licence.startDate }}.</p>
 
-      {% include "_includes/licence-summary.html" %}
+      {% include "internal/_includes/licence-summary.html" %}
       
     </div>
   </div>
