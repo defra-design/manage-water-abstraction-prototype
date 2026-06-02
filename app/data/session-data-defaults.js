@@ -6,6 +6,10 @@ module.exports = {
   //Default customer (Irene Briton)
   "customerID": 2,
 
+  //Default contact (Jim Smith)
+  "contactID": 0,
+
+
   // Customers/Company – – – – – – – – – – – – – – – –
   "customers": [
     {
