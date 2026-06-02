@@ -1,62 +1,75 @@
 {% set contacts = data['contacts'] %}
+{% set contactsList = [] %}
 
-<table class="govuk-table">
-  <thead class="govuk-table__head">
-    <caption class="govuk-table__caption">List of contacts</caption>
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">Name</th>
-      <th scope="col" class="govuk-table__header">Contact type</th>
-      <th scope="col" class="govuk-table__header">Communication type</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    {% for contact in contacts %}
-      {% set contactIndex = loop.index0 %}
-      {% for customerEntry in contact.customers %}
-        {% if customerEntry.customer == licence.holder and contact.name == licence.holder %}
-          {% set applicableNotices = [] %}
-          {% for notice in customerEntry.notices %}
-            {% if notice.licences == "all" or licence.number in notice.licences %}
-              {% set applicableNotices = applicableNotices | push(notice) %}
-            {% endif %}
-          {% endfor %}
-          {% if applicableNotices.length %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a href="/internal/contact?ID={{ data.ID }}&contactID={{ contactIndex }}" class="govuk-link">{{ contact.name }}</a></td>
-            <td class="govuk-table__cell">{{ customerEntry.role }}</td>
-            <td class="govuk-table__cell">
-              {% for notice in applicableNotices %}
-                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}<br>{% endif %}
-              {% endfor %}
-            </td>
-          </tr>
-          {% endif %}
+{% for contact in contacts %}
+  {% set contactIndex = loop.index0 %}
+  {% for customerEntry in contact.customers %}
+    {% if customerEntry.customer == licence.holder and contact.name == licence.holder %}
+      {% set applicableNotices = [] %}
+      {% for notice in customerEntry.notices %}
+        {% if notice.licences == "all" or licence.number in notice.licences %}
+          {% set applicableNotices = applicableNotices | push(notice) %}
         {% endif %}
       {% endfor %}
-    {% endfor %}
-    {% for contact in contacts %}
-      {% set contactIndex = loop.index0 %}
-      {% for customerEntry in contact.customers %}
-        {% if customerEntry.customer == licence.holder and contact.name != licence.holder %}
-          {% set applicableNotices = [] %}
-          {% for notice in customerEntry.notices %}
-            {% if notice.licences == "all" or licence.number in notice.licences %}
-              {% set applicableNotices = applicableNotices | push(notice) %}
-            {% endif %}
+
+      {% if applicableNotices.length %}
+        {% set communicationHtml %}
+          {% for notice in applicableNotices %}
+            {{ notice.type }} {% if not loop.last %}<br>{% endif %}
           {% endfor %}
-          {% if applicableNotices.length %}
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell"><a href="/internal/contact?ID={{ data.ID }}&contactID={{ contactIndex }}" class="govuk-link">{{ contact.name }}</a></td>
-            <td class="govuk-table__cell">{{ customerEntry.role }}</td>
-            <td class="govuk-table__cell">
-              {% for notice in applicableNotices %}
-                {{ notice.type }} by {{ notice.sendBy }}{% if not loop.last %}<br>{% endif %}
-              {% endfor %}
-            </td>
-          </tr>
-          {% endif %}
+        {% endset %}
+
+        {% set contactsList = contactsList | push([
+          {html:'<a href="/internal/contact?ID=' + data.ID + '&contactID=' + contactIndex + '" class="govuk-link">' + contact.name + '</a>'},
+          {text:customerEntry.role},
+          {html:communicationHtml | safe}
+        ]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{% for contact in contacts %}
+  {% set contactIndex = loop.index0 %}
+  {% for customerEntry in contact.customers %}
+    {% if customerEntry.customer == licence.holder and contact.name != licence.holder %}
+      {% set applicableNotices = [] %}
+      {% for notice in customerEntry.notices %}
+        {% if notice.licences == "all" or licence.number in notice.licences %}
+          {% set applicableNotices = applicableNotices | push(notice) %}
         {% endif %}
       {% endfor %}
-    {% endfor %}
-  </tbody>
-</table>
+
+      {% if applicableNotices.length %}
+        {% set communicationHtml %}
+          {% for notice in applicableNotices %}
+            {{ notice.type }} {% if not loop.last %}<br>{% endif %}
+          {% endfor %}
+        {% endset %}
+
+        {% set contactsList = contactsList | push([
+          {html:'<a href="/internal/contact?ID=' + data.ID + '&contactID=' + contactIndex + '" class="govuk-link">' + contact.name + '</a>'},
+          {text:customerEntry.role},
+          {html:communicationHtml | safe}
+        ]) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+
+{{ govukTable({
+  caption: "List of contacts",
+  firstCellIsHeader: false,
+  head: [
+    {
+      text: "Name"
+    },
+    {
+      text: "Contact type"
+    },
+    {
+      text: "Communication type"
+    }
+  ],
+  rows: contactsList
+}) }}

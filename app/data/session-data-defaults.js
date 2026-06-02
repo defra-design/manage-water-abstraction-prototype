@@ -167,7 +167,7 @@ module.exports = {
       {
       "type": "Licence version",
       "reasonCreated": "Testing 2",
-      "reasonText":  "Changes to Returns requirements",
+      "reasonText":  "Changes to Returns by email requirements",
       "changedDate": "1 November 2002",
       "startDate": "2002-04-01",
       "changeType": "no licence issued",
@@ -177,7 +177,7 @@ module.exports = {
       {
       "type": "Licence version",
       "reasonCreated": "Testing 1",
-      "reasonText":  "Changes to Returns requirements",
+      "reasonText":  "Changes to Returns by email requirements",
       "changedDate": "1 April 1995",
       "startDate": "1995-04-01",
       "changeType": "no licence issued",
@@ -198,7 +198,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['6'],
       "method": "letter",
       "addressID": "6"
@@ -285,7 +285,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['3'],
       "method": "letter",
       "addressID": "6"
@@ -355,7 +355,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['1'],
       "method": "letter",
       "addressID": "4"
@@ -425,12 +425,12 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['3'],
       "method": "letter",
       "addressID": "1"
     },{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['2'],
       "method": "email",
       "addressID": "1"
@@ -500,12 +500,12 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['3'],
       "method": "letter",
       "addressID": "1"
     },{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['2'],
       "method": "email",
       "addressID": "1"
@@ -575,7 +575,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['3'],
       "method": "letter",
       "addressID": "0"
@@ -643,7 +643,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['8'],
       "method": "letter",
       "addressID": "6"
@@ -749,12 +749,12 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['1'],
       "method": "letter",
       "addressID": "6"
     },{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['2'],
       "method": "email",
       "addressID": ""
@@ -861,7 +861,7 @@ module.exports = {
 
     // Licence contacts
     "contacts": [{
-      "type": "Returns",
+      "type": "Returns by email",
       "id": ['10'],
       "method": "letter",
       "addressID": "6"
@@ -899,7 +899,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -919,7 +919,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -938,7 +938,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -957,7 +957,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -976,7 +976,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -995,12 +995,12 @@ module.exports = {
     "customers": [{
       "role": "Primary user",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "1",
         "licences": ["03/28/60/0032", "03/28/60/0035"],
       },
       {
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "1",
         "licences": ["03/28/60/0032", "03/28/60/0035"],
       }],
@@ -1020,7 +1020,7 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Bills",
+        "type": "Bills by post",
         "addressID": "1",
         "licences": "all",
       }],
@@ -1040,7 +1040,7 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "2",
         "licences": "all",
       }],
@@ -1059,15 +1059,15 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Bills",
+        "type": "Bills by post",
         "addressID": "3",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "3",
         "licences": "all",
       },{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "3",
         "licences": "all",
       }],
@@ -1086,11 +1086,11 @@ module.exports = {
     "customers": [{
       "role": "Primary user",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "3",
         "licences": "all",
       },{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "3",
         "licences": "all",
       }],
@@ -1109,11 +1109,11 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Bills",
+        "type": "Bills by post",
         "addressID": "4",
         "licences": "all",
       },{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "4",
         "licences": "all",
       }],
@@ -1132,7 +1132,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "4",
         "licences": "all",
       }],
@@ -1151,15 +1151,15 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Bills",
+        "type": "Bills by post",
         "addressID": "5",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "5",
         "licences": "all",
       },{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "5",
         "licences": "all",
       }],
@@ -1178,15 +1178,15 @@ module.exports = {
     "customers": [{
       "role": "Licence holder",
       "notices": [{
-        "type": "Bills",
+        "type": "Bills by post",
         "addressID": "6",
         "licences": "all",
       },{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "6",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "all",
       }],
@@ -1205,7 +1205,7 @@ module.exports = {
     "customers": [{
       "role": "Primary user",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
@@ -1224,7 +1224,7 @@ module.exports = {
     "customers": [{
       "role": "Primary user",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": ["200/20/23/0111"],
       }],
@@ -1243,7 +1243,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "6",
         "licences": "all",
       }],
@@ -1262,7 +1262,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "all",
       }],
@@ -1281,11 +1281,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": ["100/22/33/0123"],
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
@@ -1304,7 +1304,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
@@ -1323,7 +1323,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "6",
         "licences": ["200/20/23/0111"],
       }],
@@ -1342,11 +1342,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": ["100/22/33/0123"],
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
@@ -1365,11 +1365,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "['200/20/23/0111']",
       }],
@@ -1388,11 +1388,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": ["100/22/33/0111"],
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": ["100/22/33/0111"],
       }],
@@ -1411,7 +1411,7 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "all",
       }],
@@ -1430,11 +1430,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "all",
         "licences": "all",
       }],
@@ -1453,11 +1453,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "all",
       }],
@@ -1476,11 +1476,11 @@ module.exports = {
     "customers": [{
       "role": "Contact",
       "notices": [{
-        "type": "Water abstraction alerts",
+        "type": "Water abstraction alerts by email",
         "addressID": "",
         "licences": "all",
       },{
-        "type": "Returns",
+        "type": "Returns by email",
         "addressID": "6",
         "licences": "all",
       }],

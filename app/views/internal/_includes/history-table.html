@@ -5,7 +5,7 @@
 
         {% set changeTag %}
           {{govukTag({
-            text: changeLog.changeType |capitalize,
+            text: changeLog.changeType | capitalize,
             classes: changeLog.changeType | changeTypeColour
           })}}
         {% endset %}
