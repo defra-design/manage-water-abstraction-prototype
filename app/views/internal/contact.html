@@ -85,6 +85,18 @@
 
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact details</h2>
 
+	{% set contactAddress = "" %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder and customerEntry.notices %}
+			{% set addressID = customerEntry.notices[0].addressID %}
+			{% for addr in data.addresses %}
+				{% if addr.addressID == addressID %}
+					{% set contactAddress = addr.address1 + ", " + addr.city + ", " + addr.postcode %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
 	{{ govukSummaryList({
 		rows: [
 		{
@@ -110,7 +122,7 @@
 						text: "Postal address"
 					},
 					value: {
-						text: data.contacts[data.contactID].post
+						text: contactAddress
 					}
 				},
 				{
@@ -126,26 +138,73 @@
 		
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
-      {{ govukSummaryList({
-				rows: [
-					{
-						key: {
-							text: "Water abstraction alerts"
-						},
-						value: {
-							html: waa + detailsWaa
-						}
-					},
-					{
-						key: {
-							text: "Returns invites and reminders"
-						},
-						value: {
-							html: returns + detailsReturns
-						}
-					}
-				]
-			}) }}
+	{% set WAAStatus = "No" %}
+	{% set returnsStatus = "No" %}
+	{% set billsStatus = "No" %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder %}
+			{% for notice in customerEntry.notices %}
+
+				{% if notice.type == "Water abstraction alerts" %}
+					{% if notice.licences == "all" %}
+						{% set WAAStatus = "Yes, for all licences" %}
+					{% elif WAAStatus != "Yes, for all licences" %}
+						{% set WAAStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+				{% if notice.type == "Returns" %}
+					{% if notice.licences == "all" %}
+						{% set returnsStatus = "Yes, for all licences" %}
+					{% elif returnsStatus != "Yes, for all licences" %}
+						{% set returnsStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+				{% if notice.type == "Bills" %}
+					{% if notice.licences == "all" %}
+						{% set billsStatus = "Yes, for all licences" %}
+					{% elif billsStatus != "Yes, for all licences" %}
+						{% set billsStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
+	{{ govukSummaryList({
+		rows: [
+			{
+				key: {
+					text: "Water abstraction alerts"
+				},
+				value: {
+					text: WAAStatus
+				}
+			},
+			{
+				key: {
+					text: "Returns invites and reminders"
+				},
+				value: {
+					text: returnsStatus
+				}
+			},
+			{
+				key: {
+					text: "Bills"
+				},
+				value: {
+					text: billsStatus
+				}
+			}
+		]
+	}) }}
+
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-4 govuk-!-margin-top-7">Sent communications</h2>
+
+	<p class="govuk-body">No communications have been sent to this contact.</p>
 
 	</div>
 </div>
