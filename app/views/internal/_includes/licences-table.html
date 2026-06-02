@@ -18,7 +18,7 @@
     {% if licence.holder == customer.name %}
     <tr class="govuk-table__row">
       <td class="govuk-table__cell">
-        <a href="licence?ID={{ loop.index0 }}" class="govuk-link">
+        <a href="/internal/licence?ID={{ loop.index0 }}" class="govuk-link">
           {{ licence.number }}
         </a>
       </td>
