@@ -24,6 +24,11 @@
      {{pageName}}
     </h1>
 
+    {{ govukButton({
+      text: "Set up a new contact",
+      classes: "govuk-!-margin-bottom-4"
+    }) }}
+
     {% include "internal/_includes/contacts-filter.html" %}
 
     {% include "internal/_includes/contacts-table.html" %}
