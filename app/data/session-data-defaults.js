@@ -889,6 +889,150 @@ module.exports = {
   "contacts": [
     {
     "wrls": "true",
+    "name": "Bottled Water Plc",
+    "email": "",
+    "phone": "01225 222000",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "department": "Head office",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Bills by post",
+        "addressID": "1",
+        "licences": "all",
+      }],
+      "customer": "Bottled Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Big Smith Farms Ltd",
+    "email": "",
+    "phone": "01225 123456",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "department": "Head office",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Water abstraction alerts by email",
+        "addressID": "2",
+        "licences": "all",
+      }],
+      "customer": "Big Smith Farms Ltd",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Irene Briton",
+    "email": "",
+    "phone": "01225 123456",
+    "type": "company",
+    "firstName": "Irene",
+    "lastName": "Briton",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Bills by post",
+        "addressID": "3",
+        "licences": "all",
+      },{
+        "type": "Returns by email",
+        "addressID": "3",
+        "licences": "all",
+      },{
+        "type": "Water abstraction alerts by email",
+        "addressID": "3",
+        "licences": "all",
+      }],
+      "customer": "Irene Briton",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Robin Vithlhem-Smith",
+    "email": "",
+    "phone": "01225 123456",
+    "type": "person",
+    "firstName": "Robin",
+    "lastName": "Vithlhem-Smith",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Bills by post",
+        "addressID": "4",
+        "licences": "all",
+      },{
+        "type": "Water abstraction alerts by email",
+        "addressID": "4",
+        "licences": "all",
+      }],
+      "customer": "Robin Vithlhem-Smith",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "D.B. Beecham-Smith",
+    "email": "",
+    "phone": "01225 123456",
+    "type": "company",
+    "firstName": "D.B.",
+    "lastName": "Beecham-Smith",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Bills by post",
+        "addressID": "5",
+        "licences": "all",
+      },{
+        "type": "Returns by email",
+        "addressID": "5",
+        "licences": "all",
+      },{
+        "type": "Water abstraction alerts by email",
+        "addressID": "5",
+        "licences": "all",
+      }],
+      "customer": "D.B. Beecham-Smith",
+    }],
+    },
+
+    {
+    "wrls": "true",
+    "name": "Public Water Plc",
+    "email": "",
+    "phone": "01225 987987",
+    "type": "company",
+    "firstName": "",
+    "lastName": "",
+    "customers": [{
+      "role": "Licence holder",
+      "notices": [{
+        "type": "Bills by post",
+        "addressID": "6",
+        "licences": "all",
+      },{
+        "type": "Water abstraction alerts by email",
+        "addressID": "6",
+        "licences": "all",
+      },{
+        "type": "Returns by email",
+        "addressID": "6",
+        "licences": "all",
+      }],
+      "customer": "Public Water Plc",
+    }],
+    },
+
+    {
+    "wrls": "true",
     "name": "Jim Smith",
     "email": "",
     "phone": "01225 123456",
@@ -1009,73 +1153,6 @@ module.exports = {
     },
 
     {
-    "wrls": "live",
-    "name": "Bottled Water Plc",
-    "email": "",
-    "phone": "01225 222000",
-    "type": "company",
-    "firstName": "",
-    "lastName": "",
-    "department": "Head office",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Bills by post",
-        "addressID": "1",
-        "licences": "all",
-      }],
-      "customer": "Bottled Water Plc",
-    }],
-    },
-
-    {
-    "wrls": "true",
-    "name": "Big Smith Farms Ltd",
-    "email": "",
-    "phone": "01225 123456",
-    "type": "company",
-    "firstName": "",
-    "lastName": "",
-    "department": "Head office",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Water abstraction alerts by email",
-        "addressID": "2",
-        "licences": "all",
-      }],
-      "customer": "Big Smith Farms Ltd",
-    }],
-    },
-
-    {
-    "wrls": "true",
-    "name": "Irene Briton",
-    "email": "",
-    "phone": "01225 123456",
-    "type": "company",
-    "firstName": "Irene",
-    "lastName": "Briton",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Bills by post",
-        "addressID": "3",
-        "licences": "all",
-      },{
-        "type": "Returns by email",
-        "addressID": "3",
-        "licences": "all",
-      },{
-        "type": "Water abstraction alerts by email",
-        "addressID": "3",
-        "licences": "all",
-      }],
-      "customer": "Irene Briton",
-    }],
-    },
-
-    {
     "wrls": "true",
     "name": "Irene Briton",
     "email": "",
@@ -1100,29 +1177,6 @@ module.exports = {
 
     {
     "wrls": "true",
-    "name": "Robin Vithlhem-Smith",
-    "email": "",
-    "phone": "01225 123456",
-    "type": "person",
-    "firstName": "Robin",
-    "lastName": "Vithlhem-Smith",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Bills by post",
-        "addressID": "4",
-        "licences": "all",
-      },{
-        "type": "Water abstraction alerts by email",
-        "addressID": "4",
-        "licences": "all",
-      }],
-      "customer": "Robin Vithlhem-Smith",
-    }],
-    },
-
-    {
-    "wrls": "true",
     "name": "Fiona Thomas",
     "email": "",
     "phone": "01225 123456",
@@ -1137,60 +1191,6 @@ module.exports = {
         "licences": "all",
       }],
       "customer": "Robin Vithlhem-Smith",
-    }],
-    },
-
-    {
-    "wrls": "true",
-    "name": "D.B. Beecham-Smith",
-    "email": "",
-    "phone": "01225 123456",
-    "type": "company",
-    "firstName": "D.B.",
-    "lastName": "Beecham-Smith",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Bills by post",
-        "addressID": "5",
-        "licences": "all",
-      },{
-        "type": "Returns by email",
-        "addressID": "5",
-        "licences": "all",
-      },{
-        "type": "Water abstraction alerts by email",
-        "addressID": "5",
-        "licences": "all",
-      }],
-      "customer": "D.B. Beecham-Smith",
-    }],
-    },
-
-    {
-    "wrls": "true",
-    "name": "Public Water Plc",
-    "email": "",
-    "phone": "01225 987987",
-    "type": "company",
-    "firstName": "",
-    "lastName": "",
-    "customers": [{
-      "role": "Licence holder",
-      "notices": [{
-        "type": "Bills by post",
-        "addressID": "6",
-        "licences": "all",
-      },{
-        "type": "Water abstraction alerts by email",
-        "addressID": "6",
-        "licences": "all",
-      },{
-        "type": "Returns by email",
-        "addressID": "6",
-        "licences": "all",
-      }],
-      "customer": "Public Water Plc",
     }],
     },
 
