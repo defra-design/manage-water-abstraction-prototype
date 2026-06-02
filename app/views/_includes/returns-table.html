@@ -1,0 +1,61 @@
+{% set customers = data['customers'] %}
+{% set licences = data['licences'] %}
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption">Showing all returns</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header govuk-!-width-one-third">Return reference and dates</th>
+      <th scope="col" class="govuk-table__header govuk-!-width-one-half">	Purpose and description</th>
+      <th scope="col" class="govuk-table__header">Due</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">123456</a><br><span class="govuk-body-s">From 1 November 2023 to 31 October 2024</span></td>
+      <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
+      <td class="govuk-table__cell">28 November 2024</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Due",
+        classes: "Due" | returnsStatus
+        }) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">345678</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
+      <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
+      <td class="govuk-table__cell">28 November 2024</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Completed",
+        classes: "Completed" | returnsStatus
+        }) }}
+      </td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">345678</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
+      <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
+      <td class="govuk-table__cell">28 November 2024</td>
+      <td class="govuk-table__cell">        
+        {{ govukTag({
+        text: "Not due yet",
+        classes: "Not due yet" | returnsStatus
+        }) }}</td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">345678</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
+      <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
+      <td class="govuk-table__cell">28 November 2024</td>
+      <td class="govuk-table__cell">        
+        {{ govukTag({
+        text: "Overdue",
+        classes: "Overdue" | returnsStatus
+        }) }}</td>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+
+
+
+  </tbody>
+</table>

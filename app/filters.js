@@ -56,3 +56,19 @@ addFilter("contactRegStatus", (contactOrValue) => {
     return "govuk-tag--grey"
   }
 })
+
+addFilter("returnsStatus", (status) => {
+  if (status === "Due" || status === "Overdue") {
+    return "govuk-tag--red"
+  }
+
+  if (status === "Completed") {
+    return "govuk-tag--green"
+  }
+
+  if (status === "Not due yet") {
+    return "govuk-tag--grey"
+  }
+
+  return "govuk-tag--grey"
+})
