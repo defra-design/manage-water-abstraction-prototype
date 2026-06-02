@@ -3,6 +3,7 @@
 	{{ govukCheckboxes({
 		classes: "govuk-checkboxes--small",
 		name: "filter",
+		idPrefix: "contacts-filter",
 		fieldset: {
 			legend: {
 				text: "Communication type",
@@ -29,19 +30,29 @@
   {{ govukButton({
 		text: "Apply filter",
 		attributes: {
+			"type": "button",
+			"id": "apply-contacts-filter",
 			"data-close-filter-details": "true"
 		}
-  }) }}
+	}) }}
 
   {{ govukButton({
-    text: "Clear filter",
-    classes: "govuk-button--secondary"
+		text: "Clear filter",
+		classes: "govuk-button--secondary",
+		attributes: {
+			"type": "button",
+			"id": "clear-contacts-filter",
+			"data-close-filter-details": "true"
+		}
   }) }}
 </div>
 
 {% endset %}
 
 {{ govukDetails({
+	attributes: {
+		id: "contacts-filter-details"
+	},
 	summaryText: "Filter by",
 	html: searchfilterContent
 }) }}
