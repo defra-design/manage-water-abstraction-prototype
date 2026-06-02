@@ -1,38 +1,26 @@
 {% set searchfilterContent %}
 
-	{{ govukRadios({
-		classes: "govuk-radios--small",
+	{{ govukCheckboxes({
+		classes: "govuk-checkboxes--small",
 		name: "filter",
 		fieldset: {
 			legend: {
-				text: "Match type",
+				text: "Communication type",
 				classes: "govuk-fieldset__legend--s"
 			}
 		},
 		items: [
 			{
-				value: "billing",
-				text: "Billing accounts"
-			},
-			{
-				value: "holders",
-				text: "Licence holders"
-			},
-			{
-				value: "licences",
-				text: "Licences"
-			},
-			{
-				value: "stations",
-				text: "Monitoring stations"
+				value: "bills",
+				text: "Bills"
 			},
 			{
 				value: "returns",
-				text: "Return logs"
+				text: "Returns"
 			},
 			{
-				value: "users",
-				text: "Users"
+				value: "alerts",
+				text: "Alerts"
 			}
 		]
 	}) }}
@@ -54,6 +42,6 @@
 {% endset %}
 
 {{ govukDetails({
-	summaryText: "Filter matches",
+	summaryText: "Filter by",
 	html: searchfilterContent
 }) }}
