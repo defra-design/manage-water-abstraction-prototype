@@ -1,0 +1,136 @@
+{% set customers = data['customers'] %}
+{% set licences = data['licences'] %}
+
+<h2 class="govuk-heading-m">Requirements for returns</h2>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+      <th scope="col" class="govuk-table__header">Reason</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr>
+      <td class="govuk-table__cell">1 April 2018<br></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell">Major change</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Approved",
+        classes: "govuk-tag--green"
+        }) }}
+      </td>
+      <td class="govuk-table__cell"><a href="#">View</a></td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell">1 April 2015<br></td>
+      <td class="govuk-table__cell">31 March 2019</td>
+      <td class="govuk-table__cell">New licence</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Approved",
+        classes: "govuk-tag--green"
+        }) }}
+      </td>
+      <td class="govuk-table__cell"><a href="#">View</a></td>
+    </tr>
+  </tbody>
+</table>
+
+{{govukButton({
+    text: "Set up new requirements",
+    classes: "govuk-button--secondary"
+})}}
+<br>
+{{govukButton({
+    text: "Mark licence as 'no returns needed'",
+    classes: "govuk-button--secondary"
+})}}
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+<h2 class="govuk-heading-m">Charge information</h2>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+      <th scope="col" class="govuk-table__header">Reason</th>
+      <th scope="col" class="govuk-table__header">Status</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr>
+      <td class="govuk-table__cell">1 April 2018<br></td>
+      <td class="govuk-table__cell"></td>
+      <td class="govuk-table__cell">Major change</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Approved",
+        classes: "govuk-tag--green"
+        }) }}
+      </td>
+      <td class="govuk-table__cell"><a href="#">View</a></td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell">1 April 2015<br></td>
+      <td class="govuk-table__cell">31 March 2019</td>
+      <td class="govuk-table__cell">New licence</td>
+      <td class="govuk-table__cell">
+        {{ govukTag({
+        text: "Approved",
+        classes: "govuk-tag--green"
+        }) }}
+      </td>
+      <td class="govuk-table__cell"><a href="#">View</a></td>
+    </tr>
+  </tbody>
+</table>
+
+{{govukButton({
+    text: "Set up new charge information",
+    classes: "govuk-button--secondary"
+})}}
+<br>
+{{govukButton({
+    text: "Mark licence non-chargeable",
+    classes: "govuk-button--secondary"
+})}}
+
+<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+
+<h2 class="govuk-heading-m">Agreements</h2>
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Start date</th>
+      <th scope="col" class="govuk-table__header">End date</th>
+      <th scope="col" class="govuk-table__header">Agreement</th>
+      <th scope="col" class="govuk-table__header">Date signed</th>
+      <th scope="col" class="govuk-table__header">Action</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <tr>
+      <td class="govuk-table__cell">1 April 2020<br></td>
+      <td class="govuk-table__cell">5 May 2023</td>
+      <td class="govuk-table__cell">Two-part tariff (S127)</td>
+      <td class="govuk-table__cell">1 October 2020</td>
+      <td class="govuk-table__cell"><a href="#">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
+
+{{govukButton({
+    text: "Set up new agreement",
+    classes: "govuk-button--secondary"
+})}}

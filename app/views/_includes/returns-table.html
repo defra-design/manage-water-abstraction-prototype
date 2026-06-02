@@ -1,6 +1,7 @@
 {% set customers = data['customers'] %}
 {% set licences = data['licences'] %}
 
+
 <table class="govuk-table">
   <caption class="govuk-table__caption">Showing all returns</caption>
   <thead class="govuk-table__head">
@@ -10,6 +11,8 @@
       <th scope="col" class="govuk-table__header">Due</th>
       <th scope="col" class="govuk-table__header">Status</th>
     </tr>
+  </thead>
+  <tbody class="govuk-table__body">
     <tr>
       <td class="govuk-table__cell"><a href="#">123456</a><br><span class="govuk-body-s">From 1 November 2023 to 31 October 2024</span></td>
       <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
@@ -22,7 +25,7 @@
       </td>
     </tr>
     <tr>
-      <td class="govuk-table__cell"><a href="#">345678</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
+      <td class="govuk-table__cell"><a href="#">234567</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
       <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
       <td class="govuk-table__cell">28 November 2024</td>
       <td class="govuk-table__cell">
@@ -43,7 +46,7 @@
         }) }}</td>
     </tr>
     <tr>
-      <td class="govuk-table__cell"><a href="#">345678</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
+      <td class="govuk-table__cell"><a href="#">456789</a><br><span class="govuk-body-s">From 1 January 2022 to 31 May 2021</span></td>
       <td class="govuk-table__cell">Spray irrigation - direct.<br><span class="govuk-body-s">Underground strata comprising of Mercia Mudstone at Anarea, Atown.</span></td>
       <td class="govuk-table__cell">28 November 2024</td>
       <td class="govuk-table__cell">        
@@ -52,10 +55,5 @@
         classes: "Overdue" | returnsStatus
         }) }}</td>
     </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-
-
-
   </tbody>
 </table>

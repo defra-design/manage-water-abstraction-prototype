@@ -1,0 +1,53 @@
+{% set customers = data['customers'] %}
+{% set licences = data['licences'] %}
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption">Showing all current bills</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Bill number</th>
+      <th scope="col" class="govuk-table__header">Date created</th>
+      <th scope="col" class="govuk-table__header">Billing account</th>
+      <th scope="col" class="govuk-table__header">Bill run type</th>
+      <th scope="col" class="govuk-table__header">Financial year</th>
+      <th scope="col" class="govuk-table__header">Bill total</th>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">BN123456</a><br></td>
+      <td class="govuk-table__cell">5 March 2020</td>
+      <td class="govuk-table__cell"><a href="#">BA1234567A</a></td>
+      <td class="govuk-table__cell">Supplementary</td>
+      <td class="govuk-table__cell">2019</td>
+      <td class="govuk-table__cell">£5,345.00</td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">BN123456</a><br></td>
+      <td class="govuk-table__cell">5 March 2020</td>
+      <td class="govuk-table__cell"><a href="#">BA1234567A</a></td>
+      <td class="govuk-table__cell">Supplementary</td>
+      <td class="govuk-table__cell">2018</td>
+      <td class="govuk-table__cell">£3,002.75</td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">BN234567</a><br></td>
+      <td class="govuk-table__cell">1 April 2017</td>
+      <td class="govuk-table__cell"><a href="#">BA2345678B</a></td>
+      <td class="govuk-table__cell">Annual</td>
+      <td class="govuk-table__cell">2018</td>
+      <td class="govuk-table__cell">£5,345.00</td>
+    </tr>
+    <tr>
+      <td class="govuk-table__cell"><a href="#">BN345678</a><br></td>
+      <td class="govuk-table__cell">11 April 2016</td>
+      <td class="govuk-table__cell"><a href="#">BA2345678B</a></td>
+      <td class="govuk-table__cell">Annual</td>
+      <td class="govuk-table__cell">2018</td>
+      <td class="govuk-table__cell">£4,856.00</td>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+
+
+
+  </tbody>
+</table>

@@ -1,6 +1,6 @@
 {% extends "layouts/main-internal.html" %}
 
-{% set pageName="Licences set up" %}
+{% set pageName="Licence set up" %}
 {% set licence = data['licences'][data.ID] %}
 {% set breadcrumbType="licence-setup" %}
 {% set licenceSetup = true %}
@@ -23,7 +23,7 @@
         {{ pageName }}
       </h1>
 
-    <p class="govuk-body-l">Requirements for returns.</p>
+      {% include "_includes/licence-setup-table.html" %}
 
     </div>
 
