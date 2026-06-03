@@ -264,12 +264,3 @@ router.get("/internal/contact/cancel", (req, res) => {
 
 	res.redirect(`/internal/contact?${query}`);
 });
-
-// Redirect legacy contact edit URL to the new nested route
-router.get("/internal/contact-edit", (req, res) => {
-	const query = new URLSearchParams(req.query).toString();
-	const destination = query
-		? `/internal/contact/edit-contact?${query}`
-		: "/internal/contact/edit-contact";
-	res.redirect(destination);
-});
