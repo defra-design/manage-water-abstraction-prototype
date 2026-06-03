@@ -1141,7 +1141,7 @@ module.exports = {
 			wrls: "true",
 			name: "Geoffrey Billington",
 			email: "gbillington@bwplc.co.uk",
-			phone: "01225 123456",
+			phone: "",
 			type: "person",
 			firstName: "Geoffrey",
 			lastName: "Billington",

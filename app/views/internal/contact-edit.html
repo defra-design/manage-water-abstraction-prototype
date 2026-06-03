@@ -34,6 +34,11 @@
 			{% endif %}
 		{% endfor %}
 
+		{% set nameValue = data.contacts[data.contactID].name | default("") | trim %}
+		{% set emailValue = data.contacts[data.contactID].email | default("") | trim %}
+		{% set phoneValue = data.contacts[data.contactID].phone | default("") | trim %}
+		{% set addressValue = contactAddress | default("") | trim %}
+
 		{{ govukSummaryList({
 			rows: [
 			{
@@ -41,7 +46,16 @@
 					text: "Name"
 				},
 				value: {
-					text: data.contacts[data.contactID].name
+					text: nameValue
+				},
+				actions: {
+					items: [
+						{
+							href: "#",
+							text: "Change" if nameValue else "Add",
+							visuallyHiddenText: "name"
+						}
+					]
 				}
 
 			},
@@ -50,7 +64,16 @@
 						text: "Email address"
 					},
 					value: {
-						text: data.contacts[data.contactID].email
+						text: emailValue
+					},
+					actions: {
+						items: [
+							{
+								href: "#",
+								text: "Change" if emailValue else "Add",
+								visuallyHiddenText: "email address"
+							}
+						]
 					}
 					
 				},
@@ -59,7 +82,16 @@
 							text: "Postal address"
 						},
 						value: {
-							text: contactAddress
+							text: addressValue
+						},
+						actions: {
+							items: [
+								{
+									href: "#",
+									text: "Change" if addressValue else "Add",
+									visuallyHiddenText: "postal address"
+								}
+							]
 						}
 					},
 					{
@@ -67,11 +99,116 @@
 							text: "Phone number"
 						},
 						value: {
-							text: data.contacts[data.contactID].phone
+							text: phoneValue
+						},
+						actions: {
+							items: [
+								{
+									href: "#",
+									text: "Change" if phoneValue else "Add",
+									visuallyHiddenText: "phone number"
+								}
+							]
 						}
 					}
 			]
 		}) }}
+
+
+	{% set WAAStatus = "No" %}
+	{% set returnsStatus = "No" %}
+	{% set billsStatus = "No" %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder %}
+			{% for notice in customerEntry.notices %}
+
+				{% if notice.type == "Water abstraction alerts by email" %}
+					{% if notice.licences == "all" %}
+						{% set WAAStatus = "Yes, for all licences" %}
+					{% elif WAAStatus != "Yes, for all licences" %}
+						{% set WAAStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+				{% if notice.type == "Returns by email" %}
+					{% if notice.licences == "all" %}
+						{% set returnsStatus = "Yes, for all licences" %}
+					{% elif returnsStatus != "Yes, for all licences" %}
+						{% set returnsStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+				{% if notice.type == "Bills by post" %}
+					{% if notice.licences == "all" %}
+						{% set billsStatus = "Yes, for all licences" %}
+					{% elif billsStatus != "Yes, for all licences" %}
+						{% set billsStatus = "Yes, for some licences" %}
+					{% endif %}
+				{% endif %}
+
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
+	{% set WAAValue = WAAStatus | default("") | trim %}
+	{% set returnsValue = returnsStatus | default("") | trim %}
+	{% set billsValue = billsStatus | default("") | trim %}
+
+	{{ govukSummaryList({
+		rows: [
+			{
+				key: {
+					text: "Water abstraction alerts"
+				},
+				value: {
+					text: WAAValue
+				},
+				actions: {
+					items: [
+						{
+							href: "#",
+							text: "Change" if WAAValue else "Add",
+							visuallyHiddenText: "water abstraction alerts"
+						}
+					]
+				}
+			},
+			{
+				key: {
+					text: "Returns invites and reminders"
+				},
+				value: {
+					text: returnsValue
+				},
+				actions: {
+					items: [
+						{
+							href: "#",
+							text: "Change" if returnsValue else "Add",
+							visuallyHiddenText: "returns invites and reminders"
+						}
+					]
+				}
+			},
+			{
+				key: {
+					text: "Bills"
+				},
+				value: {
+					text: billsValue
+				},
+				actions: {
+					items: [
+						{
+							href: "#",
+							text: "Change" if billsValue else "Add",
+							visuallyHiddenText: "bills"
+						}
+					]
+				}
+			}
+		]
+	}) }}
 
 		<!-- update contact-->
 		{{ govukButton({

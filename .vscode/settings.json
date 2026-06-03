@@ -1,4 +1,6 @@
 {
+	"editor.tabSize": 2,
+	"editor.insertSpaces": false,
 	"prettier.requireConfig": true,
 	"[html]": {
 		"editor.defaultFormatter": "vscode.html-language-features",
