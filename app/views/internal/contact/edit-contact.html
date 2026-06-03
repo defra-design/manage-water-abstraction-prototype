@@ -126,6 +126,7 @@
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
 	{% set WAAStatus = "No" %}
+	{% set WAALicenceNumbers = [] %}
 	{% set returnsStatus = "No" %}
 	{% set billsStatus = "No" %}
 	{% for customerEntry in contact.customers %}
@@ -137,7 +138,7 @@
 						{% set WAAStatus = "Yes, for all licences" %}
 					{% elif notice.licences is iterable and notice.licences is not string %}
 						{% set WAAStatus = "Yes, for some licences" %}
-						{% set pendingLicences = notice.licences %}
+						{% set WAALicenceNumbers = notice.licences %}
 					{% elif notice.licences == "some" %}
 						{% set WAAStatus = "Yes, for some licences" %}
 					{% endif %}
@@ -164,23 +165,17 @@
 	{% endfor %}
 
 	{% set pendingWAA = (data.pendingChanges.waa if data.pendingChanges and data.pendingChanges.waa else "") | trim %}
-	{% if not pendingWAA %}
-		{% set pendingLicences = pendingLicences or (data.pendingChanges.waaLicences or []) %}
-	{% else %}
-		{% set pendingLicences = data.pendingChanges.waaLicences or [] %}
-	{% endif %}
+	{% set pendingLicences = data.pendingChanges.waaLicences or [] %}
 	
 	{% if pendingWAA == "all" %}
 		{% set WAAStatus = "Yes, for all licences" %}
+		{% set WAALicenceNumbers = [] %}
 	{% elif pendingWAA == "some" %}
 		{% set WAAStatus = "Yes, for some licences" %}
+		{% set WAALicenceNumbers = pendingLicences %}
 	{% elif pendingWAA == "no" %}
 		{% set WAAStatus = "No" %}
-	{% endif %}
-
-	{% set WAALicenceNumbers = [] %}
-	{% if WAAStatus == "Yes, for some licences" %}
-		{% set WAALicenceNumbers = pendingLicences %}
+		{% set WAALicenceNumbers = [] %}
 	{% endif %}
 
 	{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
@@ -192,7 +187,11 @@
 		{% endfor %}
 		{% if filteredLicences.length %}
 			{% set WAAStatus = WAAStatus + " [" + filteredLicences.join(", ") + "]" %}
+		{% else %}
+			{% set WAAStatus = "No" %}
 		{% endif %}
+	{% elif WAAStatus == "Yes, for some licences" %}
+		{% set WAAStatus = "No" %}
 	{% endif %}
 
 	{% set WAAValue = WAAStatus | default("") | trim %}
