@@ -1,11 +1,7 @@
 module.exports = {
-	// Default licence (Lower Smith Road 00/22/001/08)
+	// Default data
 	ID: 0,
-
-	//Default customer (Irene Briton)
 	customerID: 2,
-
-	//Default contact (Jim Smith)
 	contactID: 0,
 
 	// Customers – – – – – – – – – – – – – – – –
@@ -262,7 +258,7 @@ module.exports = {
 			holder: "Big Smith Farms Ltd",
 			startDate: "1 April 2022",
 			effectiveDate: "1 April 2022",
-			endDate: "31 March 2034",
+			endDate: "31 March 2024",
 			source:
 				"Underground strata comprising of Mercia Mudstone at Anarea, Atown.",
 			purpose: ["Spray irrigation"],

@@ -23,9 +23,14 @@
         {{pageName}} {{ licence.number }}
       </h1>
 
-      {% if licence.expired %}
+      {% if licence.status == "expired" %}
         {{ govukWarningText({
         text: "This licence expired on " ~ licence.endDate ~ "."
+        }) }}
+      {% endif %}
+      {% if licence.status == "revoked" %}
+        {{ govukWarningText({
+        text: "This licence was revoked on " ~ (licence.revokedDate or licence.endDate) ~ "."
         }) }}
       {% endif %}
 
