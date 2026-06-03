@@ -144,7 +144,7 @@
 		{% if customerEntry.customer == licence.holder %}
 			{% for notice in customerEntry.notices %}
 
-				{% if notice.type == "Water abstraction alerts" %}
+				{% if notice.type == "Water abstraction alerts by email" %}
 					{% if notice.licences == "all" %}
 						{% set WAAStatus = "Yes, for all licences" %}
 					{% elif WAAStatus != "Yes, for all licences" %}
@@ -152,7 +152,7 @@
 					{% endif %}
 				{% endif %}
 
-				{% if notice.type == "Returns" %}
+				{% if notice.type == "Returns by email" %}
 					{% if notice.licences == "all" %}
 						{% set returnsStatus = "Yes, for all licences" %}
 					{% elif returnsStatus != "Yes, for all licences" %}
@@ -160,7 +160,7 @@
 					{% endif %}
 				{% endif %}
 
-				{% if notice.type == "Bills" %}
+				{% if notice.type == "Bills by post" %}
 					{% if notice.licences == "all" %}
 						{% set billsStatus = "Yes, for all licences" %}
 					{% elif billsStatus != "Yes, for all licences" %}

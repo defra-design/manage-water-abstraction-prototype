@@ -23,6 +23,17 @@
 			{{ pageName }}
 		</h1>
 
+		{% set contactAddress = "" %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == licence.holder %}
+				{% for customer in data.customers %}
+					{% if customer.name == customerEntry.customer %}
+						{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+
 		{{ govukSummaryList({
 			rows: [
 			{

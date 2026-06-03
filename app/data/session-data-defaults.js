@@ -1312,6 +1312,58 @@ module.exports = {
     }]
     }
 
+  ],
+
+  // Billing accounts – – – – – – – – – – – – – – – –
+  "billingAccounts": [
+    {
+    "number": "BA1234567X",
+    "customer": "Bottled Water Plc",
+    "dateCreated": "1 June 2019",
+    "billingContact": "Geoffrey Billington",
+    },
+    {
+    "number": "BA1234567Y",
+    "customer": "Bottled Water Plc",
+    "dateCreated": "1 July 2023",
+    "billingContact": "Geoffrey Billington",
+    },
+    {
+    "number": "BA1234567Z",
+    "customer": "Bottled Water Plc",
+    "dateCreated": "1 August 2025",
+    "billingContact": "",
+    },
+    {
+    "number": "BA858586S",
+    "customer": "Big Smith Farms Ltd",
+    "dateCreated": "1 April 2018",
+    "billingContact": "",
+    },
+    {
+    "number": "BA4444436R",
+    "customer": "Robin Vithlhem-Smith",
+    "dateCreated": "1 November 2017",
+    "billingContact": "",
+    },
+    {
+    "number": "BA333339I",
+    "customer": "Irene Briton",
+    "dateCreated": "1 April 2016",
+    "billingContact": "",
+    },
+    {
+    "number": "BA839340D",
+    "customer": "D.B. Beecham-Smith",
+    "dateCreated": "1 December 2015",
+    "billingContact": "",
+    },
+    {
+    "number": "BA123241P",
+    "customer": "Public Water Plc",
+    "dateCreated": "1 April 2014",
+    "billingContact": "",
+    },
   ]
 
 }

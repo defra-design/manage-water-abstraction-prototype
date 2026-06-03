@@ -24,6 +24,26 @@
      {{pageName}}
     </h1>
 
+    {% set currentCustomer = data.customers[data.customerID]['name'] %}
+    {% set accountRows = [] %}
+    {% for account in data.billingAccounts %}
+      {% if account.customer == currentCustomer %}
+        {% for customer in data.customers %}
+          {% if customer.name == account.customer %}
+            {% set addressHtml = account.customer + "<br>" %}
+            {% if account.billingContact %}
+              {% set addressHtml = addressHtml + "c/o " + account.billingContact + "<br>" %}
+            {% endif %}
+            {% set addressHtml = addressHtml + customer.address1 + ",<br> " + customer.city + "<br> " + customer.postcode %}
+            {% set _ = accountRows.push([
+              { text: account.number },
+              { html: addressHtml }
+            ]) %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+
     {{ govukTable({
       caption: "Showing all billing accounts",
       head: [
@@ -34,16 +54,7 @@
           text: "Address"
         }
       ],
-      rows: [
-        [
-          {
-            text: "BA1234567A"
-          },
-          {
-            html: "500 Broad street,<br> London<br> E13 SWJ"
-          }
-        ]
-      ]
+      rows: accountRows
     }) }}
     
     </div>
