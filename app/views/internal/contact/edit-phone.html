@@ -4,6 +4,15 @@
 {% set licence = data['licences'][data.ID] %}
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
+{% set customerName = licence.holder %}
+{% if contact.customers and contact.customers.length %}
+	{% set customerName = contact.customers[0].customer %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder %}
+			{% set customerName = customerEntry.customer %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
 
 {% block containerStart %}
 {{ govukBackLink({
@@ -17,7 +26,7 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
-		<span class="govuk-caption-l">{{ licence.holder }}</span>
+		<span class="govuk-caption-l">{{ customerName }}</span>
 		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
 			{{ pageName }}
 		</h1>

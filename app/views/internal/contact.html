@@ -5,6 +5,15 @@
 {% set licence = data['licences'][data.ID] %}
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
+{% set customerName = licence.holder %}
+{% if contact.customers and contact.customers.length %}
+	{% set customerName = contact.customers[0].customer %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder %}
+			{% set customerName = customerEntry.customer %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
 
 {% block containerStart %}
 {{ govukBackLink({
@@ -18,7 +27,7 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-three-quarters">
 
-		<span class="govuk-caption-l">{{ licence.holder }}</span>
+		<span class="govuk-caption-l">{{ customerName }}</span>
 		<h1 class="govuk-heading-l">
 			{{ contact.name }} 
 		</h1>
@@ -88,7 +97,7 @@
 
 	{% set contactAddress = "" %}
 	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == licence.holder %}
+		{% if customerEntry.customer == customerName %}
 			{% for customer in data.customers %}
 				{% if customer.name == customerEntry.customer %}
 					{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
@@ -141,17 +150,21 @@
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
 	{% set WAAStatus = "No" %}
+	{% set WAALicenceNumbers = [] %}
 	{% set returnsStatus = "No" %}
 	{% set billsStatus = "No" %}
 	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == licence.holder %}
+		{% if customerEntry.customer == customerName %}
 			{% for notice in customerEntry.notices %}
 
 				{% if notice.type == "Water abstraction alerts by email" %}
 					{% if notice.licences == "all" %}
 						{% set WAAStatus = "Yes, for all licences" %}
-					{% elif WAAStatus != "Yes, for all licences" %}
-						{% set WAAStatus = "Yes, for some licences" %}
+					{% elif notice.licences == "some" %}
+						{% if WAAStatus != "Yes, for all licences" %}
+							{% set WAAStatus = "Yes, for some licences" %}
+							{% set WAALicenceNumbers = notice.licenceNumbers or [] %}
+						{% endif %}
 					{% endif %}
 				{% endif %}
 
@@ -174,6 +187,31 @@
 			{% endfor %}
 		{% endif %}
 	{% endfor %}
+
+	{% set pendingWAA = (data.pendingChanges.waa if data.pendingChanges and data.pendingChanges.waa else "") | trim %}
+	{% set pendingLicences = data.pendingChanges.waaLicences or [] %}
+	{% if pendingWAA == "all" %}
+		{% set WAAStatus = "Yes, for all licences" %}
+		{% set WAALicenceNumbers = [] %}
+	{% elif pendingWAA == "some" %}
+		{% set WAAStatus = "Yes, for some licences" %}
+		{% set WAALicenceNumbers = pendingLicences %}
+	{% elif pendingWAA == "no" %}
+		{% set WAAStatus = "No" %}
+		{% set WAALicenceNumbers = [] %}
+	{% endif %}
+
+	{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
+		{% set filteredLicences = [] %}
+		{% for licence in WAALicenceNumbers %}
+			{% if licence and licence != "_unchecked" %}
+				{% set filteredLicences = filteredLicences.concat([licence]) %}
+			{% endif %}
+		{% endfor %}
+		{% if filteredLicences.length %}
+			{% set WAAStatus = WAAStatus + " [" + filteredLicences.join(", ") + "]" %}
+		{% endif %}
+	{% endif %}
 
 	{{ govukSummaryList({
 		rows: [

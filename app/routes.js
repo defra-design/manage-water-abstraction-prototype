@@ -105,6 +105,28 @@ router.get("/internal/contact/edit-phone", (req, res) => {
 	res.render("internal/contact/edit-phone");
 });
 
+// Capture selected contact and optional licence ID for editing water abstraction alerts
+router.get("/internal/contact/edit-waa", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	res.render("internal/contact/edit-waa");
+});
+
+// Capture selected contact and optional licence ID for selecting WAA licences
+router.get("/internal/contact/select-waa", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	res.render("internal/contact/select-waa");
+});
+
 // Save pending name change to session and return to update contact page
 router.post("/internal/contact/edit-name", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
@@ -205,7 +227,63 @@ router.post("/internal/contact/edit-phone", (req, res) => {
 	res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
-// Confirm and persist all pending changes to contact data
+// Save pending WAA (Water Abstraction Alerts) change to session and return to update contact page
+router.post("/internal/contact/edit-waa", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const waaOption = String(req.body.waaOption ?? "").trim();
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	// If "some" is selected, go to select-waa page
+	if (waaOption === "some") {
+		res.redirect(`/internal/contact/select-waa?${query}`);
+	} else {
+		// Store as pending edit
+		if (!req.session.data.pendingChanges) {
+			req.session.data.pendingChanges = {};
+		}
+		req.session.data.pendingChanges.waa = waaOption;
+		res.redirect(`/internal/contact/edit-contact?${query}`);
+	}
+});
+
+// Save pending WAA licence selection to session and return to update contact page
+router.post("/internal/contact/select-waa", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const rawWaaLicences = req.body.waaLicences ?? [];
+	// Filter to only include checked (non-empty, non-_unchecked) licence values
+	const waaLicences = (Array.isArray(rawWaaLicences) ? rawWaaLicences : [rawWaaLicences])
+		.filter(licence => licence && String(licence).trim() !== "" && String(licence).trim() !== "_unchecked");
+
+	// Store as pending edit, not permanent
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.waa = "some";
+	req.session.data.pendingChanges.waaLicences = waaLicences;
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	res.redirect(`/internal/contact/edit-contact?${query}`);
+});
 router.post("/internal/contact/edit-contact", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
 	const contactID = Number.parseInt(
@@ -235,6 +313,45 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		if (req.session.data.pendingChanges.phone) {
 			req.session.data.contacts[contactID].phone =
 				req.session.data.pendingChanges.phone;
+		}
+
+		if (req.session.data.pendingChanges.waa) {
+			const waaType = "Water abstraction alerts by email";
+			const selectedWAA = req.session.data.pendingChanges.waa;
+			const licenceHolder = req.session.data.licences?.[id]?.holder;
+			const contactCustomers = req.session.data.contacts[contactID].customers;
+
+			if (licenceHolder && Array.isArray(contactCustomers)) {
+				const customerEntry = contactCustomers.find(
+					(entry) => entry.customer === licenceHolder,
+				);
+
+				if (customerEntry) {
+					if (!Array.isArray(customerEntry.notices)) {
+						customerEntry.notices = [];
+					}
+
+					// Remove existing WAA notices for this holder before saving selection.
+					customerEntry.notices = customerEntry.notices.filter(
+						(notice) => notice.type !== waaType,
+					);
+
+					if (selectedWAA === "all") {
+						customerEntry.notices.push({
+							type: waaType,
+							licences: "all",
+						});
+					} else if (selectedWAA === "some") {
+						const waaLicences = (req.session.data.pendingChanges.waaLicences || [])
+							.filter(licence => licence && String(licence).trim() !== "" && String(licence).trim() !== "_unchecked");
+						customerEntry.notices.push({
+							type: waaType,
+							licences: "some",
+							licenceNumbers: Array.isArray(waaLicences) ? waaLicences : [waaLicences],
+						});
+					}
+				}
+			}
 		}
 		// Clear pending changes after applying
 		req.session.data.pendingChanges = {};
