@@ -1,19 +1,18 @@
 @import "components/status.scss";
 
-
 .govuk-width-container {
-   @include govuk-width-container(1100px);
+	@include govuk-width-container(1100px);
 }
 
 .govuk-tag {
-  white-space: nowrap;
+	white-space: nowrap;
 }
 
 .meta-data {
-  margin-top: govuk-spacing(5);
-  .govuk-summary-list__key,
-  .govuk-summary-list__value {
-    padding: 0;
-    font-weight: 400;
-  }
+	margin-top: govuk-spacing(5);
+	.govuk-summary-list__key,
+	.govuk-summary-list__value {
+		padding: 0;
+		font-weight: 400;
+	}
 }

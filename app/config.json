@@ -1,9 +1,9 @@
 {
-  "serviceName": "Manage your water abstraction or impoundment licence",
-  "useServiceNavigation": true,
-  "plugins": {
-    "govuk-frontend": {
-      "rebrand": true
-    }
-  }
+	"serviceName": "Manage your water abstraction or impoundment licence",
+	"useServiceNavigation": true,
+	"plugins": {
+		"govuk-frontend": {
+			"rebrand": true
+		}
+	}
 }
