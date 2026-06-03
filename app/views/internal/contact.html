@@ -87,11 +87,10 @@
 
 	{% set contactAddress = "" %}
 	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == licence.holder and customerEntry.notices %}
-			{% set addressID = customerEntry.notices[0].addressID %}
-			{% for addr in data.addresses %}
-				{% if addr.addressID == addressID %}
-					{% set contactAddress = addr.address1 + ", " + addr.city + ", " + addr.postcode %}
+		{% if customerEntry.customer == licence.holder %}
+			{% for customer in data.customers %}
+				{% if customer.name == customerEntry.customer %}
+					{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
 				{% endif %}
 			{% endfor %}
 		{% endif %}

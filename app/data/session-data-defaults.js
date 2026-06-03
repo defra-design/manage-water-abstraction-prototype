@@ -10,88 +10,43 @@ module.exports = {
   "contactID": 0,
 
 
-  // Customers/Company – – – – – – – – – – – – – – – –
+  // Customers – – – – – – – – – – – – – – – –
   "customers": [
     {
       "name": "Bottled Water Plc",
-      "WAA": "post",
+      "address1": "15 Ward Street",
+      "city": "Bath",
+      "postcode": "BA1 5EH"
     },
     {
       "name": "Big Smith Farms Ltd",
-      "WAA": "email",
+      "address1": "17 Hampshire way",
+      "city": "Portsmouth",
+      "postcode": "PO1 5YP"
     },
     {
       "name": "Irene Briton",
-      "WAA": "post",
+      "address1": "1134 New road",
+      "city": "Liverpool",
+      "postcode": "L17 6RB"
     },
     {
       "name": "Robin Vithlhem-Smith",
-      "WAA": "post",
+      "address1": "73 Old road",
+      "city": "London",
+      "postcode": "E16 8VB"
     },
     {
       "name": "D.B. Beecham-Smith",
-      "WAA": "post",
+      "address1": "500 Long street",
+      "city": "Derby",
+      "postcode": "D1 2RR"
     },
     {
       "name": "Public Water Plc",
-      "WAA": "post",
-    }
-  ],
-
-  // Addresses – – – – – – – – – – – – – – – –
-  "addresses": [{
-      "addressID": "1",
-      "address1": "15 Ward Street",
-      "city": "Bath",
-      "postcode": "BA1 5EH",
-      "customers": [{
-        "customer": "Bottled Water Plc",
-      }]
-    },
-    {
-      "addressID": "2",
-      "address1": "17 Hampshire way",
-      "city": "Portsmouth",
-      "postcode": "PO1 5YP",
-      "customers": [{
-        "customer": "Big Smith Farms Ltd",
-      }]
-    },
-    {
-      "addressID": "3",
-      "address1": "1134 New road",
-      "city": "Liverpool",
-      "postcode": "L17 6RB",
-      "customers": [{
-        "customer": "Irene Briton",
-      }]
-    },
-    {
-      "addressID": "4",
-      "address1": "73 Old road",
-      "city": "London",
-      "postcode": "E16 8VB",
-      "customers": [{
-        "customer": "Robin Vithlhem-Smith",
-      }]
-    },
-    {
-      "addressID": "5",
-      "address1": "500 Long street",
-      "city": "Derby",
-      "postcode": "D1 2RR",
-      "customers": [{
-        "customer": "D.B. Beecham-Smith",
-      }]
-    },
-    {
-      "addressID": "6",
       "address1": "500 Broad street",
       "city": "London",
-      "postcode": "E13 SWJ",
-      "customers": [{
-        "customer": "Public Water Plc",
-      }]
+      "postcode": "E13 SWJ"
     }
   ],
 
@@ -194,15 +149,7 @@ module.exports = {
       "endDate": "",
       "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['6'],
-      "method": "letter",
-      "addressID": "6"
-    }]
+    ]
 
   },      
 
@@ -281,15 +228,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['3'],
-      "method": "letter",
-      "addressID": "6"
-    }]
+    ]
   },
  
   // licence 3 - Honeydew Crescent 03/28/61/029 (expired)
@@ -351,15 +290,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['1'],
-      "method": "letter",
-      "addressID": "4"
-    }]
+    ]
   },
 
   // licence 4 - George Furrow 03/28/60/0035 (live)
@@ -421,20 +352,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['3'],
-      "method": "letter",
-      "addressID": "1"
-    },{
-      "type": "Returns by email",
-      "id": ['2'],
-      "method": "email",
-      "addressID": "1"
-    }]
+    ]
   },
 
   // licence 5 - Dale Barrow 03/28/60/0033 (live)
@@ -496,20 +414,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['3'],
-      "method": "letter",
-      "addressID": "1"
-    },{
-      "type": "Returns by email",
-      "id": ['2'],
-      "method": "email",
-      "addressID": "1"
-    }]
+    ]
   },
 
   // licence 6 - River House 03/28/60/0726 (revoked)
@@ -571,15 +476,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['3'],
-      "method": "letter",
-      "addressID": "0"
-    }]
+    ]
   },
   // licence 7 - [No name] 11/22/32/02 (live)
   // licence summary
@@ -639,15 +536,7 @@ module.exports = {
         "endDate": "",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['8'],
-      "method": "letter",
-      "addressID": "6"
-    }]
+    ]
   },
 
   // licence 8 - Cherry Tree Farm 03/28/61/033 (live)
@@ -745,20 +634,7 @@ module.exports = {
         "endDate": "2019-03-31",
         "changedBy": "admin@gov.uk"
       }
-    ],
-
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['1'],
-      "method": "letter",
-      "addressID": "6"
-    },{
-      "type": "Returns by email",
-      "id": ['2'],
-      "method": "email",
-      "addressID": ""
-    }]
+    ]
   },
 
   // licence 9 - [No name] 100/22/33/0123 (live)
@@ -859,14 +735,6 @@ module.exports = {
       }
     ],
 
-    // Licence contacts
-    "contacts": [{
-      "type": "Returns by email",
-      "id": ['10'],
-      "method": "letter",
-      "addressID": "6"
-    }],
-
     // History
     "changeLog": [
       {
@@ -900,7 +768,6 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills by post",
-        "addressID": "1",
         "licences": "all",
       }],
       "customer": "Bottled Water Plc",
@@ -920,7 +787,6 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -939,15 +805,12 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills by post",
-        "addressID": "3",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "3",
         "licences": "all",
       },{
         "type": "Water abstraction alerts by email",
-        "addressID": "3",
         "licences": "all",
       }],
       "customer": "Irene Briton",
@@ -966,11 +829,9 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills by post",
-        "addressID": "4",
         "licences": "all",
       },{
         "type": "Water abstraction alerts by email",
-        "addressID": "4",
         "licences": "all",
       }],
       "customer": "Robin Vithlhem-Smith",
@@ -989,15 +850,12 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills by post",
-        "addressID": "5",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "5",
         "licences": "all",
       },{
         "type": "Water abstraction alerts by email",
-        "addressID": "5",
         "licences": "all",
       }],
       "customer": "D.B. Beecham-Smith",
@@ -1016,15 +874,12 @@ module.exports = {
       "role": "Licence holder",
       "notices": [{
         "type": "Bills by post",
-        "addressID": "6",
         "licences": "all",
       },{
         "type": "Water abstraction alerts by email",
-        "addressID": "6",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1044,7 +899,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -1064,7 +918,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -1083,7 +936,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -1102,7 +954,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -1121,7 +972,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "2",
         "licences": "all",
       }],
       "customer": "Big Smith Farms Ltd",
@@ -1140,12 +990,10 @@ module.exports = {
       "role": "Primary user",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "1",
         "licences": ["03/28/60/0032", "03/28/60/0035"],
       },
       {
         "type": "Water abstraction alerts by email",
-        "addressID": "1",
         "licences": ["03/28/60/0032", "03/28/60/0035"],
       }],
       "customer": "Bottled Water Plc",
@@ -1164,11 +1012,9 @@ module.exports = {
       "role": "Primary user",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "3",
         "licences": "all",
       },{
         "type": "Water abstraction alerts by email",
-        "addressID": "3",
         "licences": "all",
       }],
       "customer": "Irene Briton",
@@ -1187,7 +1033,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "4",
         "licences": "all",
       }],
       "customer": "Robin Vithlhem-Smith",
@@ -1206,7 +1051,6 @@ module.exports = {
       "role": "Primary user",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
       "customer": "Public Water Plc",
@@ -1225,7 +1069,6 @@ module.exports = {
       "role": "Primary user",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": ["200/20/23/0111"],
       }],
       "customer": "Public Water Plc",
@@ -1244,7 +1087,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1263,7 +1105,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1282,11 +1123,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": ["100/22/33/0123"],
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
       "customer": "Public Water Plc",
@@ -1305,7 +1144,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
       "customer": "Public Water Plc",
@@ -1324,7 +1162,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "6",
         "licences": ["200/20/23/0111"],
       }],
       "customer": "Public Water Plc",
@@ -1343,11 +1180,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": ["100/22/33/0123"],
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": ["100/22/33/0123"],
       }],
       "customer": "Public Water Plc",
@@ -1366,11 +1201,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "['200/20/23/0111']",
       }],
       "customer": "Public Water Plc",
@@ -1389,11 +1222,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": ["100/22/33/0111"],
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": ["100/22/33/0111"],
       }],
       "customer": "Public Water Plc",
@@ -1412,7 +1243,6 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1431,11 +1261,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "all",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1454,11 +1282,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
@@ -1477,11 +1303,9 @@ module.exports = {
       "role": "Contact",
       "notices": [{
         "type": "Water abstraction alerts by email",
-        "addressID": "",
         "licences": "all",
       },{
         "type": "Returns by email",
-        "addressID": "6",
         "licences": "all",
       }],
       "customer": "Public Water Plc",
