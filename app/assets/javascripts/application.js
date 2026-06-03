@@ -163,7 +163,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
       })
     }
 
-    const displayResults = (results, filterType) => {
+    const displayResults = (results, filterType, searchTerm) => {
       const isHoldersSearch = filterType === 'holders'
 
       updateTableHeaders(filterType)
@@ -178,7 +178,13 @@ window.GOVUKPrototypeKit.documentReady(() => {
 
       const caption = searchResultsTable.querySelector('caption')
       if (caption) {
-        caption.textContent = `Showing ${results.length} result${results.length !== 1 ? 's' : ''}`
+        caption.textContent = `Showing ${results.length} match${results.length !== 1 ? 'es' : ''}`
+      }
+
+      // Update page title with search term
+      const pageTitle = document.getElementById('page-title')
+      if (pageTitle && searchTerm) {
+        pageTitle.textContent = `Search results for "${searchTerm}"`
       }
 
       searchResultsContainer.style.display = 'block'
@@ -186,12 +192,17 @@ window.GOVUKPrototypeKit.documentReady(() => {
     }
 
     const performSearch = (filterType = 'licences') => {
-      const searchTerm = searchInput.value.trim().toLowerCase()
+      const originalSearchTerm = searchInput.value.trim()
+      const searchTerm = originalSearchTerm.toLowerCase()
+      const pageTitle = document.getElementById('page-title')
 
       if (!searchTerm) {
         searchResultsContainer.style.display = 'none'
         noResultsMessage.style.display = 'block'
         noResultsMessage.textContent = 'Enter a search term'
+        if (pageTitle) {
+          pageTitle.textContent = 'Search'
+        }
         return
       }
 
@@ -203,10 +214,13 @@ window.GOVUKPrototypeKit.documentReady(() => {
         searchResultsContainer.style.display = 'none'
         noResultsMessage.style.display = 'block'
         noResultsMessage.textContent = 'No results found'
+        if (pageTitle) {
+          pageTitle.textContent = `Search results for "${originalSearchTerm}"`
+        }
         return
       }
 
-      displayResults(results, filterType)
+      displayResults(results, filterType, originalSearchTerm)
     }
 
     const handleSearch = () => {
@@ -243,6 +257,11 @@ window.GOVUKPrototypeKit.documentReady(() => {
         searchResultsContainer.style.display = 'none'
         noResultsMessage.style.display = 'none'
         updateTableHeaders('licences')
+
+        const pageTitle = document.getElementById('page-title')
+        if (pageTitle) {
+          pageTitle.textContent = 'Search'
+        }
 
         const searchFilterDetails = document.getElementById('search-filter-details')
         if (searchFilterDetails) {
