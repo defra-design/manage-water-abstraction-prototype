@@ -1,0 +1,83 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Update contact" %}
+{% set licence = data['licences'][data.ID] %}
+{% set contact = data['contacts'][data.contactID] %}
+{% set breadcrumbType="licence" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+  href: "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID,
+  text: "Back to contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ licence.holder }}</span>
+		<h1 class="govuk-heading-l">
+			{{ pageName }}
+		</h1>
+
+		{{ govukSummaryList({
+			rows: [
+			{
+				key: {
+					text: "Name"
+				},
+				value: {
+					text: data.contacts[data.contactID].name
+				}
+
+			},
+				{
+					key: {
+						text: "Email address"
+					},
+					value: {
+						text: data.contacts[data.contactID].email
+					}
+					
+				},
+					{
+						key: {
+							text: "Postal address"
+						},
+						value: {
+							text: contactAddress
+						}
+					},
+					{
+						key: {
+							text: "Phone number"
+						},
+						value: {
+							text: data.contacts[data.contactID].phone
+						}
+					}
+			]
+		}) }}
+
+		<!-- update contact-->
+		{{ govukButton({
+		text: "Confirm",
+		href: "#",
+		classes: "govuk-!-margin-right-3"
+		}) }}
+
+		<!-- remove contact-->
+		{{ govukButton({
+		text: "Cancel",
+		href: "#",
+		classes: "govuk-button--secondary"
+		}) }}
+
+	</div>
+</div>
+
+{% endblock %}
+

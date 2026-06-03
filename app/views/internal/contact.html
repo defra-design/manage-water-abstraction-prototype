@@ -67,7 +67,7 @@
 		<!-- update contact-->
 		{{ govukButton({
 		text: "Update contact",
-		href: "#",
+		href: "/internal/contact-edit?contactID=" + data.contactID + "&ID=" + data.ID,
 		classes: "govuk-!-margin-right-3"
 		}) }}
 
@@ -208,5 +208,6 @@
 
 	</div>
 </div>
+
 {% endblock %}
 
