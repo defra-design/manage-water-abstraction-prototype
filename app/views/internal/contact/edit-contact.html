@@ -23,6 +23,8 @@
 			{{ pageName }}
 		</h1>
 
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact details</h2>
+
 		{% set contactAddress = "" %}
 		{% for customerEntry in contact.customers %}
 			{% if customerEntry.customer == licence.holder %}
@@ -34,7 +36,7 @@
 			{% endif %}
 		{% endfor %}
 
-		{% set nameValue = data.contacts[data.contactID].name | default("") | trim %}
+		{% set nameValue = (data.pendingChanges.name if data.pendingChanges and data.pendingChanges.name else data.contacts[data.contactID].name) | default("") | trim %}
 		{% set emailValue = data.contacts[data.contactID].email | default("") | trim %}
 		{% set phoneValue = data.contacts[data.contactID].phone | default("") | trim %}
 		{% set addressValue = contactAddress | default("") | trim %}
@@ -51,13 +53,12 @@
 				actions: {
 					items: [
 						{
-							href: "#",
+							href: "/internal/contact/edit-name?contactID=" + data.contactID + "&ID=" + data.ID,
 							text: "Change" if nameValue else "Add",
 							visuallyHiddenText: "name"
 						}
 					]
 				}
-
 			},
 				{
 					key: {
@@ -75,7 +76,6 @@
 							}
 						]
 					}
-					
 				},
 					{
 						key: {
@@ -114,6 +114,7 @@
 			]
 		}) }}
 
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
 	{% set WAAStatus = "No" %}
 	{% set returnsStatus = "No" %}
@@ -210,19 +211,23 @@
 		]
 	}) }}
 
-		<!-- update contact-->
-		{{ govukButton({
-		text: "Confirm",
-		href: "#",
-		classes: "govuk-!-margin-right-3"
-		}) }}
+<!-- confirm and update contact-->
+	<form method="post" action="/internal/contact/edit-contact?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
-		<!-- remove contact-->
-		{{ govukButton({
-		text: "Cancel",
-		href: "#",
-		classes: "govuk-button--secondary"
-		}) }}
+		<div class="govuk-button-group">
+			{{ govukButton({
+			text: "Confirm",
+			classes: "govuk-!-margin-right-3",
+			type: "submit"
+			}) }}
+			{{ govukButton({
+			text: "Cancel",
+			href: "/internal/contact/cancel?contactID=" + data.contactID + "&ID=" + data.ID,
+			classes: "govuk-button--secondary"
+			}) }}
+		</div>
+		
+	</form>
 
 	</div>
 </div>
