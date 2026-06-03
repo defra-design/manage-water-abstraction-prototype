@@ -17,6 +17,9 @@ router.get('/internal/licence', (req, res) => {
   if (req.query.ID) {
     req.session.data.ID = parseInt(req.query.ID)
   }
+  if (req.query.customerID) {
+    req.session.data.customerID = parseInt(req.query.customerID)
+  }
   res.render('internal/licence')
 })
 

@@ -19,12 +19,23 @@
     <input class="govuk-input govuk-!-width-two-thirds govuk-!-display-inline-block" id="search" name="search" type="text" aria-describedby="search-input" value="{{data['search']}}">
       {{ govukButton({
         text: "Search",
-        href: "/internal/customers",
+        attributes: {
+          type: "button",
+          id: "search-button"
+        },
         classes: "govuk-!-display-inline-block govuk-!-padding-right-6 govuk-!-padding-left-6 govuk-!-margin-bottom-0"
       }) }}
   </div>
 
+  {# Embed session data for client-side search #}
+  <script type="application/json" id="session-data">
+    {"licences": {{ data.licences | dump | safe }}, "customers": {{ data.customers | dump | safe }}}
+  </script>
+
   {% include "internal/_includes/search-filter.html" %}
+
+  {% include "internal/_includes/search-results.html" %}
+
 
   </div>
 </div>

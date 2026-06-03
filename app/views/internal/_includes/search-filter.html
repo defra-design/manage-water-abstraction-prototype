@@ -2,7 +2,8 @@
 
 	{{ govukRadios({
 		classes: "govuk-radios--small",
-		name: "filter",
+		name: "search-filter",
+		idPrefix: "search-filter",
 		fieldset: {
 			legend: {
 				text: "Match type",
@@ -41,19 +42,28 @@
   {{ govukButton({
 		text: "Apply filter",
 		attributes: {
+			"type": "button",
+			"id": "apply-search-filter",
 			"data-close-filter-details": "true"
 		}
   }) }}
 
   {{ govukButton({
     text: "Clear filter",
-    classes: "govuk-button--secondary"
+    classes: "govuk-button--secondary",
+    attributes: {
+      "type": "button",
+      "id": "clear-search-filter"
+    }
   }) }}
 </div>
 
 {% endset %}
 
 {{ govukDetails({
+	attributes: {
+		id: "search-filter-details"
+	},
 	summaryText: "Filter matches",
 	html: searchfilterContent
 }) }}

@@ -23,6 +23,28 @@
     <span class="govuk-caption-l">Customer {{[data.customers[data.customerID]['name']]}}</span>
      {{pageName}}
     </h1>
+
+    {{ govukTable({
+      caption: "Showing all billing accounts",
+      head: [
+        {
+          text: "Account number"
+        },
+        {
+          text: "Address"
+        }
+      ],
+      rows: [
+        [
+          {
+            text: "BA1234567A"
+          },
+          {
+            html: "500 Broad street,<br> London<br> E13 SWJ"
+          }
+        ]
+      ]
+    }) }}
     
     </div>
 
