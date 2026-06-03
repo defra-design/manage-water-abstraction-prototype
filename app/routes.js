@@ -72,6 +72,39 @@ router.get("/internal/contact/edit-name", (req, res) => {
 	res.render("internal/contact/edit-name");
 });
 
+// Capture selected contact and optional licence ID for editing contact email
+router.get("/internal/contact/edit-email", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	res.render("internal/contact/edit-email");
+});
+
+// Capture selected contact and optional licence ID for editing contact address
+router.get("/internal/contact/edit-address", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	res.render("internal/contact/edit-address");
+});
+
+// Capture selected contact and optional licence ID for editing contact phone
+router.get("/internal/contact/edit-phone", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	res.render("internal/contact/edit-phone");
+});
+
 // Save pending name change to session and return to update contact page
 router.post("/internal/contact/edit-name", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
@@ -86,6 +119,81 @@ router.post("/internal/contact/edit-name", (req, res) => {
 		req.session.data.pendingChanges = {};
 	}
 	req.session.data.pendingChanges.name = fullName;
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	res.redirect(`/internal/contact/edit-contact?${query}`);
+});
+
+// Save pending email change to session and return to update contact page
+router.post("/internal/contact/edit-email", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const email = String(req.body.email ?? "").trim();
+
+	// Store as pending edit, not permanent
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.email = email;
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	res.redirect(`/internal/contact/edit-contact?${query}`);
+});
+
+// Save pending address change to session and return to update contact page
+router.post("/internal/contact/edit-address", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const address = String(req.body.address ?? "").trim();
+
+	// Store as pending edit, not permanent
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.address = address;
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	res.redirect(`/internal/contact/edit-contact?${query}`);
+});
+
+// Save pending phone change to session and return to update contact page
+router.post("/internal/contact/edit-phone", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const phone = String(req.body.phone ?? "").trim();
+
+	// Store as pending edit, not permanent
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.phone = phone;
 
 	const query = new URLSearchParams({
 		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
@@ -115,6 +223,18 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		if (req.session.data.pendingChanges.name) {
 			req.session.data.contacts[contactID].name =
 				req.session.data.pendingChanges.name;
+		}
+		if (req.session.data.pendingChanges.email) {
+			req.session.data.contacts[contactID].email =
+				req.session.data.pendingChanges.email;
+		}
+		if (req.session.data.pendingChanges.address) {
+			req.session.data.contacts[contactID].address =
+				req.session.data.pendingChanges.address;
+		}
+		if (req.session.data.pendingChanges.phone) {
+			req.session.data.contacts[contactID].phone =
+				req.session.data.pendingChanges.phone;
 		}
 		// Clear pending changes after applying
 		req.session.data.pendingChanges = {};

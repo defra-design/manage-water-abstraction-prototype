@@ -37,9 +37,9 @@
 		{% endfor %}
 
 		{% set nameValue = (data.pendingChanges.name if data.pendingChanges and data.pendingChanges.name else data.contacts[data.contactID].name) | default("") | trim %}
-		{% set emailValue = data.contacts[data.contactID].email | default("") | trim %}
-		{% set phoneValue = data.contacts[data.contactID].phone | default("") | trim %}
-		{% set addressValue = contactAddress | default("") | trim %}
+		{% set emailValue = (data.pendingChanges.email if data.pendingChanges and data.pendingChanges.email else data.contacts[data.contactID].email) | default("") | trim %}
+		{% set phoneValue = (data.pendingChanges.phone if data.pendingChanges and data.pendingChanges.phone else data.contacts[data.contactID].phone) | default("") | trim %}
+		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
 
 		{{ govukSummaryList({
 			rows: [
@@ -70,7 +70,7 @@
 					actions: {
 						items: [
 							{
-								href: "#",
+								href: "/internal/contact/edit-email?contactID=" + data.contactID + "&ID=" + data.ID,
 								text: "Change" if emailValue else "Add",
 								visuallyHiddenText: "email address"
 							}
@@ -87,7 +87,7 @@
 						actions: {
 							items: [
 								{
-									href: "#",
+									href: "/internal/contact/edit-address?contactID=" + data.contactID + "&ID=" + data.ID,
 									text: "Change" if addressValue else "Add",
 									visuallyHiddenText: "postal address"
 								}
@@ -104,7 +104,7 @@
 						actions: {
 							items: [
 								{
-									href: "#",
+									href: "/internal/contact/edit-phone?contactID=" + data.contactID + "&ID=" + data.ID,
 									text: "Change" if phoneValue else "Add",
 									visuallyHiddenText: "phone number"
 								}

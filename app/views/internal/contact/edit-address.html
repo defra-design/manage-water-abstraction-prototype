@@ -1,0 +1,58 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Enter a postal address" %}
+{% set licence = data['licences'][data.ID] %}
+{% set contact = data['contacts'][data.contactID] %}
+{% set breadcrumbType="licence" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID,
+  text: "Back to update contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ licence.holder }}</span>
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		{% set contactAddress = "" %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == licence.holder %}
+				{% for customer in data.customers %}
+					{% if customer.name == customerEntry.customer %}
+						{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+
+		{% set addressValue = (data.contacts[data.contactID].address or contactAddress) | default("") | trim %}
+
+		<form method="post" action="/internal/contact/edit-address?contactID={{ data.contactID }}&ID={{ data.ID }}">
+
+		{{ govukInput({
+			id: "address",
+			name: "address",
+		  classes: "govuk-input--width-20",
+			value: addressValue
+		}) }}
+
+		{{ govukButton({
+		text: "Continue",
+		classes: "govuk-!-margin-right-3",
+		type: "submit"
+		}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
