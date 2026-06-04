@@ -36,10 +36,16 @@
 
     <p class="govuk-body">If you find errors in this data, email: <a href="#">water_abstractiondigital@environment-agency.gov.uk</a></p>
 
-
-
-    <h2 class="govuk-heading-m">Licence details</h2>
-   {{ govukSummaryList({
+    <h2 class="govuk-heading-m govuk-!-margin-top-7">Licence details</h2>
+    
+    {% set contactAddress = "" %}
+    {% for customer in data.customers %}
+      {% if customer.name == licence.holder %}
+        {% set contactAddress = customer.address1 + "<br>" + customer.city + "<br>" + customer.postcode %}
+      {% endif %}
+    {% endfor %}
+   
+    {{ govukSummaryList({
       card: {
         title: {
           text: licence.holder
@@ -51,13 +57,45 @@
             text: "Address"
           },
           value: {
-            html: licence.address
+            html: contactAddress
+          }
+        },
+          {
+          key: {
+            text: "Licence version start date"
+          },
+          value: {
+            html: selectedVersion.startDate | govukDate
+          }
+        },
+          {
+          key: {
+            text: "Licence version issue date"
+          },
+          value: {
+            html: selectedVersion.versionIssueDate | govukDate
+          }
+        },
+          {
+          key: {
+            text: "Application number"
+          },
+          value: {
+            html: selectedVersion.applicationNumber
+          }
+        },
+          {
+          key: {
+            text: "Licence version end date"
+          },
+          value: {
+            html: selectedVersion.endDate | govukDate
           }
         }
       ]
     }) }}
 
-    <h2 class="govuk-heading-m">Points</h2>
+    <h2 class="govuk-heading-m govuk-!-margin-top-7">Points</h2>
     {% for point in data.licences[data.ID].absPoints %}
     {{ govukSummaryList({
       card: {
@@ -93,7 +131,7 @@
     }) }}
     {% endfor %} 
 
-    <h2 class="govuk-heading-m">Purposes, periods and amounts</h2>
+    <h2 class="govuk-heading-m govuk-!-margin-top-7">Purposes, periods and amounts</h2>
     {% set uses = licence.use %}
     {% for use in uses %}
     {{ govukSummaryList({
@@ -131,7 +169,7 @@
     }) }}
     {% endfor %}
 
-    <h2 class="govuk-heading-m">Conditions</h2>
+    <h2 class="govuk-heading-m govuk-!-margin-top-7">Conditions</h2>
     {% for condition in data.licences[data.ID].absConditions %}
     {% if condition.type == "General condition" %}
       {{ govukSummaryList({

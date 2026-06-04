@@ -244,7 +244,9 @@ module.exports = {
 					changeType: "licence issued",
 					startDate: "2003-06-01",
 					endDate: "2013-06-01",
-					changedBy: "admin@gov.uk"
+					versionIssueDate: "1970-06-01",
+					changedBy: "admin@gov.uk",
+					applicationNumber: "NPS/GH026565"
 				},
 				// version 2
 				{
@@ -253,7 +255,9 @@ module.exports = {
 					changeType: "no licence issued",
 					startDate: "1993-06-01",
 					endDate: "2003-06-01",
-					changedBy: "admin@gov.uk"
+					versionIssueDate: "1970-06-01",
+					changedBy: "admin@gov.uk",
+					applicationNumber: "NPS/JK026565"
 				},
 				// version 3
 				{
@@ -262,7 +266,9 @@ module.exports = {
 					changeType: "no licence issued",
 					startDate: "1973-06-01",
 					endDate: "1993-06-01",
-					changedBy: "admin@gov.uk"
+					versionIssueDate: "1970-06-01",
+					changedBy: "admin@gov.uk",
+					applicationNumber: "NPS/MN026565"
 				}
 			],
 		},
