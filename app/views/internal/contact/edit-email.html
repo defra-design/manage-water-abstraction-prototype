@@ -31,16 +31,16 @@
 			{{ pageName }}
 		</h1>
 
-		{% set emailValue = data.contacts[data.contactID].email | default("") | trim %}
+		{% set emailValue = (data.pendingChanges.email if data.pendingChanges and data.pendingChanges.email else data.contacts[data.contactID].email) | default("") | trim %}
 
 		<form method="post" action="/internal/contact/edit-email?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
 		{{ govukInput({
 			id: "email",
 			name: "email",
+			type: "email",
 		  classes: "govuk-input--width-20",
-			value: emailValue,
-			type: "email"
+			value: emailValue
 		}) }}
 
 		{{ govukButton({

@@ -31,7 +31,7 @@
 			{{ pageName }}
 		</h1>
 
-		{% set phoneValue = data.contacts[data.contactID].phone | default("") | trim %}
+		{% set phoneValue = (data.pendingChanges.phone if data.pendingChanges and data.pendingChanges.phone else data.contacts[data.contactID].phone) | default("") | trim %}
 
 		<form method="post" action="/internal/contact/edit-phone?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
@@ -39,8 +39,8 @@
 			id: "phone",
 			name: "phone",
 		  classes: "govuk-input--width-20",
-			value: phoneValue,
-			type: "tel"
+			type: "tel",
+			value: phoneValue
 		}) }}
 
 		{{ govukButton({

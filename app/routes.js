@@ -45,7 +45,7 @@ router.get("/internal/contact", (req, res) => {
 	res.render("internal/contact");
 });
 
-// Capture selected contact and optional licence ID for the moved contact edit page
+// Capture selected contact and optional licence ID for the edit contact page
 router.get("/internal/contact/edit-contact", (req, res) => {
 	if (req.query.ID) {
 		req.session.data.ID = parseInt(req.query.ID);

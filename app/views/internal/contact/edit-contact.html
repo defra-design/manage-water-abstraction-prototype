@@ -6,6 +6,7 @@
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
 {% set customerName = licence.holder %}
+
 {% if contact.customers and contact.customers.length %}
 	{% set customerName = contact.customers[0].customer %}
 	{% for customerEntry in contact.customers %}
@@ -45,11 +46,16 @@
 			{% endif %}
 		{% endfor %}
 
+		{# Set name, email, phone and address values #}
 		{% set nameValue = (data.pendingChanges.name if data.pendingChanges and data.pendingChanges.name else data.contacts[data.contactID].name) | default("") | trim %}
+
 		{% set emailValue = (data.pendingChanges.email if data.pendingChanges and data.pendingChanges.email else data.contacts[data.contactID].email) | default("") | trim %}
+
 		{% set phoneValue = (data.pendingChanges.phone if data.pendingChanges and data.pendingChanges.phone else data.contacts[data.contactID].phone) | default("") | trim %}
+
 		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
 
+		{# Summary list for name, email, phone and address #}
 		{{ govukSummaryList({
 			rows: [
 			{
@@ -123,66 +129,67 @@
 			]
 		}) }}
 
-	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
+		<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
-	{{ govukSummaryList({
-		rows: [
-			{
-				key: {
-					text: "Water abstraction alerts"
+		{# Summary list for communications #}
+		{{ govukSummaryList({
+			rows: [
+				{
+					key: {
+						text: "Water abstraction alerts"
+					},
+					value: {
+						text: "apples"
+					},
+					actions: {
+						items: [
+							{
+								href: "#",
+								text: "Change",
+								visuallyHiddenText: "water abstraction alerts"
+							}
+						]
+					}
 				},
-				value: {
-					text: "apples"
+				{
+					key: {
+						text: "Returns invites and reminders"
+					},
+					value: {
+						text: "bananas"
+					},
+					actions: {
+						items: [
+							{
+								href: "#",
+								text: "Change",
+								visuallyHiddenText: "returns invites and reminders"
+							}
+						]
+					}
 				},
-				actions: {
-					items: [
-						{
-							href: "#",
-							text: "Change",
-							visuallyHiddenText: "water abstraction alerts"
-						}
-					]
+				{
+					key: {
+						text: "Bills"
+					},
+					value: {
+						text: "pears"
+					},
+					actions: {
+						items: [
+							{
+								href: "#",
+								text: "Change",
+								visuallyHiddenText: "bills"
+							}
+						]
+					}
 				}
-			},
-			{
-				key: {
-					text: "Returns invites and reminders"
-				},
-				value: {
-					text: "bananas"
-				},
-				actions: {
-					items: [
-						{
-							href: "#",
-							text: "Change",
-							visuallyHiddenText: "returns invites and reminders"
-						}
-					]
-				}
-			},
-			{
-				key: {
-					text: "Bills"
-				},
-				value: {
-					text: "pears"
-				},
-				actions: {
-					items: [
-						{
-							href: "#",
-							text: "Change",
-							visuallyHiddenText: "bills"
-						}
-					]
-				}
-			}
-		]
-	}) }}
+			]
+		}) }}
 
-<!-- confirm and update contact-->
-	<form method="post" action="/internal/contact/edit-contact?contactID={{ data.contactID }}&ID={{ data.ID }}">
+		{# Confirm or cancel buttons #}
+		<form method="post" action="/internal/contact/edit-contact?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
 		<div class="govuk-button-group">
 			{{ govukButton({

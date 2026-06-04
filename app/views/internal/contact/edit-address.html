@@ -42,7 +42,7 @@
 			{% endif %}
 		{% endfor %}
 
-		{% set addressValue = (data.contacts[data.contactID].address or contactAddress) | default("") | trim %}
+		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
 
 		<form method="post" action="/internal/contact/edit-address?contactID={{ data.contactID }}&ID={{ data.ID }}">
 

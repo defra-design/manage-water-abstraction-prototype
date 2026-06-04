@@ -32,7 +32,7 @@
 			{{ pageName }}
 		</h1>
 
-		{% set nameValue = data.contacts[data.contactID].name | default("") | trim %}
+		{% set nameValue = (data.pendingChanges.name if data.pendingChanges and data.pendingChanges.name else data.contacts[data.contactID].name) | default("") | trim %}
 
 		<form method="post" action="/internal/contact/edit-name?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
