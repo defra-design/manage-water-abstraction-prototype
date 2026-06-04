@@ -100,6 +100,85 @@ router.get("/internal/contact/edit-phone", (req, res) => {
 	res.render("internal/contact/edit-phone");
 });
 
+// Render the select-waa page
+router.get("/internal/contact/select-waa", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	if (req.query.from) {
+		req.session.data.from = req.query.from;
+	}
+	res.render("internal/contact/select-waa");
+});
+
+// Save WAA licence selection and return to edit-contact
+router.post("/internal/contact/select-waa", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const selected = req.body.waaSelectionOptions;
+
+	// Normalise to array and strip _unchecked sentinel values added by the prototype kit
+	const rawSelected = Array.isArray(selected)
+		? selected
+		: selected
+			? [selected]
+			: [];
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.waaLicences = rawSelected.filter(
+		(v) => !String(v).endsWith("_unchecked"),
+	);
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	const queryWithFrom =
+		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
+
+	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+});
+
+// Save WAA selection and route to the next step
+router.post("/internal/contact/edit-waa", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const waaSelection = String(req.body.waaSelection ?? "").trim();
+
+	req.session.data.waaSelection = waaSelection;
+
+	const query = new URLSearchParams({
+		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	}).toString();
+
+	const queryWithFrom =
+		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
+
+	if (waaSelection === "someLicences") {
+		return res.redirect(`/internal/contact/select-waa?${queryWithFrom}`);
+	}
+
+	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+});
+
 // Save pending name change to session and return to update contact page
 router.post("/internal/contact/edit-name", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
@@ -229,6 +308,31 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		if (req.session.data.pendingChanges.phone) {
 			req.session.data.contacts[contactID].phone =
 				req.session.data.pendingChanges.phone;
+		}
+		if (req.session.data.pendingChanges.waaLicences !== undefined) {
+			const customerName =
+				req.session.data.licences[id]?.holder ||
+				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			const contact = req.session.data.contacts[contactID];
+			if (customerName && contact?.customers) {
+				const customerEntry = contact.customers.find(
+					(c) => c.customer === customerName,
+				);
+				if (customerEntry) {
+					const noticeIndex = customerEntry.notices.findIndex(
+						(n) => n.type === "Water abstraction alerts by email",
+					);
+					const newLicences = req.session.data.pendingChanges.waaLicences;
+					if (noticeIndex >= 0) {
+						customerEntry.notices[noticeIndex].licences = newLicences;
+					} else {
+						customerEntry.notices.push({
+							type: "Water abstraction alerts by email",
+							licences: newLicences,
+						});
+					}
+				}
+			}
 		}
 		// Clear pending changes after applying
 		req.session.data.pendingChanges = {};

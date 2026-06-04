@@ -137,20 +137,25 @@
 
 		{% set WAAStatus = "No" %}
 		{% set WAALicenceNumbers = [] %}
-		{% for customerEntry in contact.customers %}
-			{% if customerEntry.customer == customerName %}
-				{% for notice in customerEntry.notices %}
-					{% if notice.type == "Water abstraction alerts by email" %}
-						{% if notice.licences == "all" %}
-							{% set WAAStatus = "Yes, for all licences" %}
-						{% elif notice.licences is iterable and notice.licences is not string %}
-							{% set WAAStatus = "Yes, for some licences" %}
-							{% set WAALicenceNumbers = notice.licences %}
+		{% if data.pendingChanges and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
+			{% set WAAStatus = "Yes, for some licences" %}
+			{% set WAALicenceNumbers = data.pendingChanges.waaLicences %}
+		{% else %}
+			{% for customerEntry in contact.customers %}
+				{% if customerEntry.customer == customerName %}
+					{% for notice in customerEntry.notices %}
+						{% if notice.type == "Water abstraction alerts by email" %}
+							{% if notice.licences == "all" %}
+								{% set WAAStatus = "Yes, for all licences" %}
+							{% elif notice.licences is iterable and notice.licences is not string %}
+								{% set WAAStatus = "Yes, for some licences" %}
+								{% set WAALicenceNumbers = notice.licences %}
+							{% endif %}
 						{% endif %}
-					{% endif %}
-				{% endfor %}
-			{% endif %}
-		{% endfor %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 
 		{% set WAAHtml = WAAStatus %}
 		{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
@@ -219,6 +224,11 @@
 			{% endset %}
 		{% endif %}
 
+		{% set editWAAHref = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.from %}
+			{% set editWAAHref = editWAAHref + "&from=" + data.from %}
+		{% endif %}
+
 		{{ govukSummaryList({
 			rows: [
 				{
@@ -231,7 +241,7 @@
 					actions: {
 						items: [
 							{
-								href: "#",
+								href: editWAAHref,
 								text: "Change",
 								visuallyHiddenText: "water abstraction alerts"
 							}
