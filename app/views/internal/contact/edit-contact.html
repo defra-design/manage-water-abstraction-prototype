@@ -137,7 +137,11 @@
 
 		{% set WAAStatus = "No" %}
 		{% set WAALicenceNumbers = [] %}
-		{% if data.pendingChanges and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
+		{% if data.pendingChanges and data.pendingChanges.waaSelection == "noLicences" %}
+			{% set WAAStatus = "No" %}
+		{% elif data.pendingChanges and data.pendingChanges.waaSelection == "allLicences" %}
+			{% set WAAStatus = "Yes, for all licences" %}
+		{% elif data.pendingChanges and data.pendingChanges.waaLicences is defined and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
 			{% set WAAStatus = "Yes, for some licences" %}
 			{% set WAALicenceNumbers = data.pendingChanges.waaLicences %}
 		{% else %}

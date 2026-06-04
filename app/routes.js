@@ -150,6 +150,22 @@ router.post("/internal/contact/select-waa", (req, res) => {
 	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
 });
 
+// Clear stale WAA selection and render the edit-waa page
+router.get("/internal/contact/edit-waa", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	if (req.query.from) {
+		req.session.data.from = req.query.from;
+	}
+	// Clear stale selection so the template always derives from contact data
+	delete req.session.data.waaSelection;
+	res.render("internal/contact/edit-waa");
+});
+
 // Save WAA selection and route to the next step
 router.post("/internal/contact/edit-waa", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
@@ -161,6 +177,16 @@ router.post("/internal/contact/edit-waa", (req, res) => {
 	const waaSelection = String(req.body.waaSelection ?? "").trim();
 
 	req.session.data.waaSelection = waaSelection;
+
+	// Save as pending change so edit-contact shows the updated value before confirming
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	req.session.data.pendingChanges.waaSelection = waaSelection;
+	// Clear any stale licence list if moving away from someLicences
+	if (waaSelection !== "someLicences") {
+		delete req.session.data.pendingChanges.waaLicences;
+	}
 
 	const query = new URLSearchParams({
 		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
@@ -309,7 +335,9 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 			req.session.data.contacts[contactID].phone =
 				req.session.data.pendingChanges.phone;
 		}
-		if (req.session.data.pendingChanges.waaLicences !== undefined) {
+		const waaSelection = req.session.data.pendingChanges.waaSelection;
+		const waaLicences = req.session.data.pendingChanges.waaLicences;
+		if (waaSelection || waaLicences !== undefined) {
 			const customerName =
 				req.session.data.licences[id]?.holder ||
 				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
@@ -322,14 +350,29 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 					const noticeIndex = customerEntry.notices.findIndex(
 						(n) => n.type === "Water abstraction alerts by email",
 					);
-					const newLicences = req.session.data.pendingChanges.waaLicences;
-					if (noticeIndex >= 0) {
-						customerEntry.notices[noticeIndex].licences = newLicences;
-					} else {
-						customerEntry.notices.push({
-							type: "Water abstraction alerts by email",
-							licences: newLicences,
-						});
+					if (waaSelection === "noLicences") {
+						// Remove the notice entirely
+						if (noticeIndex >= 0) {
+							customerEntry.notices.splice(noticeIndex, 1);
+						}
+					} else if (waaSelection === "allLicences") {
+						if (noticeIndex >= 0) {
+							customerEntry.notices[noticeIndex].licences = "all";
+						} else {
+							customerEntry.notices.push({
+								type: "Water abstraction alerts by email",
+								licences: "all",
+							});
+						}
+					} else if (waaLicences !== undefined) {
+						if (noticeIndex >= 0) {
+							customerEntry.notices[noticeIndex].licences = waaLicences;
+						} else {
+							customerEntry.notices.push({
+								type: "Water abstraction alerts by email",
+								licences: waaLicences,
+							});
+						}
 					}
 				}
 			}

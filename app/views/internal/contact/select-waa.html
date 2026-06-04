@@ -41,7 +41,7 @@
 		{% set selectedWaaLicences = [] %}
 		{% set selectAllWaaLicences = false %}
 
-		{% if data.pendingChanges and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
+		{% if data.pendingChanges and data.pendingChanges.waaLicences is defined and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
 			{% set selectedWaaLicences = data.pendingChanges.waaLicences %}
 		{% else %}
 			{% for customerEntry in contact.customers %}
