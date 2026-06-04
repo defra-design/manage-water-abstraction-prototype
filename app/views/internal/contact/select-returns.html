@@ -1,0 +1,101 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Select the licences they should get returns emails for" %}
+{% set licence = data['licences'][data.ID] %}
+{% set contact = data['contacts'][data.contactID] %}
+{% set breadcrumbType="licence" %}
+{% set customerName = licence.holder %}
+{% if contact.customers and contact.customers.length %}
+	{% set customerName = contact.customers[0].customer %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == licence.holder %}
+			{% set customerName = customerEntry.customer %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID,
+  text: "Back to update contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ customerName }}</span>
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		{% set customerLicenceNumbers = [] %}
+		{% for customerLicence in data.licences %}
+			{% if customerLicence.holder == customerName %}
+				{% set customerLicenceNumbers = customerLicenceNumbers | push(customerLicence.number) %}
+			{% endif %}
+		{% endfor %}
+
+		{% set selectedWaaLicences = [] %}
+		{% set selectAllWaaLicences = false %}
+
+		{% if data.pendingChanges and data.pendingChanges.waaLicences is defined and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
+			{% set selectedWaaLicences = data.pendingChanges.waaLicences %}
+		{% else %}
+			{% for customerEntry in contact.customers %}
+				{% if customerEntry.customer == customerName %}
+					{% for notice in customerEntry.notices %}
+						{% if notice.type == "Water abstraction alerts by email" %}
+							{% if notice.licences == "all" %}
+								{% set selectAllWaaLicences = true %}
+							{% elif notice.licences is iterable and notice.licences is not string %}
+								{% set selectedWaaLicences = notice.licences %}
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if selectAllWaaLicences %}
+			{% set selectedWaaLicences = customerLicenceNumbers %}
+		{% endif %}
+
+		{% set waaCheckboxItems = [] %}
+		{% for licenceNumber in customerLicenceNumbers %}
+			{% set waaCheckboxItems = waaCheckboxItems | push({
+				value: licenceNumber,
+				text: licenceNumber,
+				checked: true if licenceNumber in selectedWaaLicences else false
+			}) %}
+		{% endfor %}
+
+		{% set selectWAAAction = "/internal/contact/select-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.from %}
+			{% set selectWAAAction = selectWAAAction + "&from=" + data.from %}
+		{% endif %}
+
+		<form method="post" action="{{ selectWAAAction }}">
+
+		{{ govukCheckboxes({
+			name: "waaSelectionOptions",
+			hint: {
+				text: "Select all that apply"
+			},
+			items: waaCheckboxItems
+		}) }}
+
+		{{ govukButton({
+		text: "Continue",
+		classes: "govuk-!-margin-right-3",
+		type: "submit"
+		}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
