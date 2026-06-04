@@ -31,19 +31,19 @@
 			{{ pageName }}
 		</h1>
 
-		{% set waaSelectionValue = data.waaSelection %}
-		{% if not waaSelectionValue %}
-			{% set waaSelectionValue = "noLicences" %}
+		{% set returnsSelectionValue = data.returnsSelection %}
+		{% if not returnsSelectionValue %}
+			{% set returnsSelectionValue = "noLicences" %}
 			{% for customerEntry in contact.customers %}
 				{% if customerEntry.customer == customerName %}
 					{% for notice in customerEntry.notices %}
-						{% if notice.type == "Water abstraction alerts by email" %}
+						{% if notice.type == "Returns by email" %}
 							{% if notice.licences == "all" %}
-								{% set waaSelectionValue = "allLicences" %}
+								{% set returnsSelectionValue = "allLicences" %}
 							{% elif notice.licences is iterable and notice.licences is not string and notice.licences.length %}
-								{% set waaSelectionValue = "someLicences" %}
+								{% set returnsSelectionValue = "someLicences" %}
 							{% else %}
-								{% set waaSelectionValue = "noLicences" %}
+								{% set returnsSelectionValue = "noLicences" %}
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -51,16 +51,16 @@
 			{% endfor %}
 		{% endif %}
 
-		{% set editWAAAction = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% set editReturnsAction = "/internal/contact/edit-returns?contactID=" + data.contactID + "&ID=" + data.ID %}
 		{% if data.from %}
-			{% set editWAAAction = editWAAAction + "&from=" + data.from %}
+			{% set editReturnsAction = editReturnsAction + "&from=" + data.from %}
 		{% endif %}
 
-		<form method="post" action="{{ editWAAAction }}">
+		<form method="post" action="{{ editReturnsAction }}">
 
 		{{ govukRadios({
-			name: "waaSelection",
-			value: waaSelectionValue,
+			name: "returnsSelection",
+			value: returnsSelectionValue,
 			items: [
 				{
 					value: "allLicences",

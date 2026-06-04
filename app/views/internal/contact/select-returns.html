@@ -38,20 +38,20 @@
 			{% endif %}
 		{% endfor %}
 
-		{% set selectedWaaLicences = [] %}
-		{% set selectAllWaaLicences = false %}
+		{% set selectedReturnsLicences = [] %}
+		{% set selectAllReturnsLicences = false %}
 
-		{% if data.pendingChanges and data.pendingChanges.waaLicences is defined and data.pendingChanges.waaLicences is iterable and data.pendingChanges.waaLicences is not string %}
-			{% set selectedWaaLicences = data.pendingChanges.waaLicences %}
+		{% if data.pendingChanges and data.pendingChanges.returnsLicences is defined and data.pendingChanges.returnsLicences is iterable and data.pendingChanges.returnsLicences is not string %}
+			{% set selectedReturnsLicences = data.pendingChanges.returnsLicences %}
 		{% else %}
 			{% for customerEntry in contact.customers %}
 				{% if customerEntry.customer == customerName %}
 					{% for notice in customerEntry.notices %}
-						{% if notice.type == "Water abstraction alerts by email" %}
+						{% if notice.type == "Returns by email" %}
 							{% if notice.licences == "all" %}
-								{% set selectAllWaaLicences = true %}
+								{% set selectAllReturnsLicences = true %}
 							{% elif notice.licences is iterable and notice.licences is not string %}
-								{% set selectedWaaLicences = notice.licences %}
+								{% set selectedReturnsLicences = notice.licences %}
 							{% endif %}
 						{% endif %}
 					{% endfor %}
@@ -59,32 +59,32 @@
 			{% endfor %}
 		{% endif %}
 
-		{% if selectAllWaaLicences %}
-			{% set selectedWaaLicences = customerLicenceNumbers %}
+		{% if selectAllReturnsLicences %}
+			{% set selectedReturnsLicences = customerLicenceNumbers %}
 		{% endif %}
 
-		{% set waaCheckboxItems = [] %}
+		{% set returnsCheckboxItems = [] %}
 		{% for licenceNumber in customerLicenceNumbers %}
-			{% set waaCheckboxItems = waaCheckboxItems | push({
+			{% set returnsCheckboxItems = returnsCheckboxItems | push({
 				value: licenceNumber,
 				text: licenceNumber,
-				checked: true if licenceNumber in selectedWaaLicences else false
+				checked: true if licenceNumber in selectedReturnsLicences else false
 			}) %}
 		{% endfor %}
 
-		{% set selectWAAAction = "/internal/contact/select-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% set selectReturnsAction = "/internal/contact/select-returns?contactID=" + data.contactID + "&ID=" + data.ID %}
 		{% if data.from %}
-			{% set selectWAAAction = selectWAAAction + "&from=" + data.from %}
+			{% set selectReturnsAction = selectReturnsAction + "&from=" + data.from %}
 		{% endif %}
 
-		<form method="post" action="{{ selectWAAAction }}">
+		<form method="post" action="{{ selectReturnsAction }}">
 
 		{{ govukCheckboxes({
-			name: "waaSelectionOptions",
+			name: "returnsSelectionOptions",
 			hint: {
 				text: "Select all that apply"
 			},
-			items: waaCheckboxItems
+			items: returnsCheckboxItems
 		}) }}
 
 		{{ govukButton({

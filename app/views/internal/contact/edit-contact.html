@@ -174,20 +174,29 @@
 
 		{% set returnsStatus = "No" %}
 		{% set returnsLicenceNumbers = [] %}
-		{% for customerEntry in contact.customers %}
-			{% if customerEntry.customer == customerName %}
-				{% for notice in customerEntry.notices %}
-					{% if notice.type == "Returns by email" %}
-						{% if notice.licences == "all" %}
-							{% set returnsStatus = "Yes, for all licences" %}
-						{% elif notice.licences is iterable and notice.licences is not string %}
-							{% set returnsStatus = "Yes, for some licences" %}
-							{% set returnsLicenceNumbers = notice.licences %}
+		{% if data.pendingChanges and data.pendingChanges.returnsSelection == "noLicences" %}
+			{% set returnsStatus = "No" %}
+		{% elif data.pendingChanges and data.pendingChanges.returnsSelection == "allLicences" %}
+			{% set returnsStatus = "Yes, for all licences" %}
+		{% elif data.pendingChanges and data.pendingChanges.returnsLicences is defined and data.pendingChanges.returnsLicences is iterable and data.pendingChanges.returnsLicences is not string %}
+			{% set returnsStatus = "Yes, for some licences" %}
+			{% set returnsLicenceNumbers = data.pendingChanges.returnsLicences %}
+		{% else %}
+			{% for customerEntry in contact.customers %}
+				{% if customerEntry.customer == customerName %}
+					{% for notice in customerEntry.notices %}
+						{% if notice.type == "Returns by email" %}
+							{% if notice.licences == "all" %}
+								{% set returnsStatus = "Yes, for all licences" %}
+							{% elif notice.licences is iterable and notice.licences is not string %}
+								{% set returnsStatus = "Yes, for some licences" %}
+								{% set returnsLicenceNumbers = notice.licences %}
+							{% endif %}
 						{% endif %}
-					{% endif %}
-				{% endfor %}
-			{% endif %}
-		{% endfor %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 
 		{% set returnsHtml = returnsStatus %}
 		{% if returnsStatus == "Yes, for some licences" and returnsLicenceNumbers.length %}
@@ -233,6 +242,11 @@
 			{% set editWAAHref = editWAAHref + "&from=" + data.from %}
 		{% endif %}
 
+		{% set editReturnsHref = "/internal/contact/edit-returns?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.from %}
+			{% set editReturnsHref = editReturnsHref + "&from=" + data.from %}
+		{% endif %}
+
 		{{ govukSummaryList({
 			rows: [
 				{
@@ -262,7 +276,7 @@
 					actions: {
 						items: [
 							{
-								href: "#",
+								href: editReturnsHref,
 								text: "Change",
 								visuallyHiddenText: "returns invites and reminders"
 							}
