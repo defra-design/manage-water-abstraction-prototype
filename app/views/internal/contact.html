@@ -147,7 +147,68 @@
 		]
 	}) }}
 		
-	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
+	{% set WAAStatus = "No" %}
+	{% set WAALicenceNumbers = [] %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == customerName %}
+			{% for notice in customerEntry.notices %}
+				{% if notice.type == "Water abstraction alerts by email" %}
+					{% if notice.licences == "all" %}
+						{% set WAAStatus = "Yes, for all licences" %}
+					{% elif notice.licences is iterable and notice.licences is not string %}
+						{% set WAAStatus = "Yes, for some licences" %}
+						{% set WAALicenceNumbers = notice.licences %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
+	{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
+		{% set WAAStatus = WAAStatus + " [" + WAALicenceNumbers.join(", ") + "]" %}
+	{% endif %}
+
+	{% set returnsStatus = "No" %}
+	{% set returnsLicenceNumbers = [] %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == customerName %}
+			{% for notice in customerEntry.notices %}
+				{% if notice.type == "Returns by email" %}
+					{% if notice.licences == "all" %}
+						{% set returnsStatus = "Yes, for all licences" %}
+					{% elif notice.licences is iterable and notice.licences is not string %}
+						{% set returnsStatus = "Yes, for some licences" %}
+						{% set returnsLicenceNumbers = notice.licences %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
+	{% if returnsStatus == "Yes, for some licences" and returnsLicenceNumbers.length %}
+		{% set returnsStatus = returnsStatus + " [" + returnsLicenceNumbers.join(", ") + "]" %}
+	{% endif %}
+
+	{% set billsStatus = "No" %}
+	{% set billsLicenceNumbers = [] %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == customerName %}
+			{% for notice in customerEntry.notices %}
+				{% if notice.type == "Bills by post" %}
+					{% if notice.licences == "all" %}
+						{% set billsStatus = "Yes, for all licences" %}
+					{% elif notice.licences is iterable and notice.licences is not string %}
+						{% set billsStatus = "Yes, for some licences" %}
+						{% set billsLicenceNumbers = notice.licences %}
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+
+	{% if billsStatus == "Yes, for some licences" and billsLicenceNumbers.length %}
+		{% set billsStatus = billsStatus + " [" + billsLicenceNumbers.join(", ") + "]" %}
+	{% endif %}
 
 	{{ govukSummaryList({
 		rows: [
@@ -156,7 +217,7 @@
 					text: "Water abstraction alerts"
 				},
 				value: {
-					text: "apples"
+					text: WAAStatus
 				}
 			},
 			{
@@ -164,7 +225,7 @@
 					text: "Returns invites and reminders"
 				},
 				value: {
-					text: "bananas"
+					text: returnsStatus
 				}
 			},
 			{
@@ -172,7 +233,7 @@
 					text: "Bills"
 				},
 				value: {
-					text: "pears"
+					text: billsStatus
 				}
 			}
 		]

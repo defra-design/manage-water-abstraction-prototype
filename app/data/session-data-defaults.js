@@ -879,7 +879,7 @@ module.exports = {
 						{
 							type: "Bills by post",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Bottled Water Plc",
 				},
@@ -903,6 +903,10 @@ module.exports = {
 							type: "Water abstraction alerts by email",
 							licences: "all",
 						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -932,7 +936,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Irene Briton",
 				},
@@ -958,7 +962,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Robin Vithlhem-Smith",
 				},
@@ -988,7 +992,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "D.B. Beecham-Smith",
 				},
@@ -1018,7 +1022,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1041,7 +1045,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -1065,6 +1069,10 @@ module.exports = {
 							type: "Returns by email",
 							licences: "all",
 						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -1086,7 +1094,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -1108,7 +1116,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -1130,7 +1138,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Big Smith Farms Ltd",
 				},
@@ -1151,12 +1159,12 @@ module.exports = {
 					notices: [
 						{
 							type: "Returns by email",
-							licences: ["03/28/60/0032", "03/28/60/0035"],
+							licences: ["03/28/60/0032"],
 						},
 						{
 							type: "Water abstraction alerts by email",
 							licences: ["03/28/60/0032", "03/28/60/0035"],
-						},
+						}
 					],
 					customer: "Bottled Water Plc",
 				},
@@ -1182,7 +1190,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Irene Briton",
 				},
@@ -1204,7 +1212,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Robin Vithlhem-Smith",
 				},
@@ -1226,7 +1234,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: ["100/22/33/0123"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1248,7 +1256,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: ["200/20/23/0111"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1270,7 +1278,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1292,7 +1300,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1318,7 +1326,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: ["100/22/33/0123"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1340,7 +1348,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: ["100/22/33/0123"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1362,7 +1370,7 @@ module.exports = {
 						{
 							type: "Water abstraction alerts by email",
 							licences: ["200/20/23/0111"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1388,7 +1396,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: ["100/22/33/0123"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1414,7 +1422,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "['200/20/23/0111']",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1440,7 +1448,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: ["100/22/33/0111"],
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1462,7 +1470,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1488,7 +1496,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1514,7 +1522,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
@@ -1540,7 +1548,7 @@ module.exports = {
 						{
 							type: "Returns by email",
 							licences: "all",
-						},
+						}
 					],
 					customer: "Public Water Plc",
 				},
