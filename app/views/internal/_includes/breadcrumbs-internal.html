@@ -25,6 +25,20 @@
     }) }}
 
   {% elif breadcrumbType == "licence" or breadcrumbType == "licenceContacts" or breadcrumbType == "history" or breadcrumbType == "sentComms" or breadcrumbType == "returns" or breadcrumbType == "bills" or breadcrumbType == "licence-setup" %}
+    {% set customerName = "" %}
+    {% set customerHref = "" %}
+    {% if breadcrumbType == "history" and data.licences[data.ID] %}
+      {% set licenceHolder = data.licences[data.ID].holder %}
+      {% for customer in data.customers %}
+        {% if customer.name == licenceHolder %}
+          {% set customerName = customer.name %}
+          {% set customerHref = "/internal/customer?customerID=" + loop.index0 %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% set customerName = data.customers[data.customerID].name %}
+      {% set customerHref = "/internal/customer?customerID=" + data.customerID %}
+    {% endif %}
     {{ govukBreadcrumbs({
       items: [
         {
@@ -36,8 +50,8 @@
           href: "/internal/customers"
         },
         {
-          text: data.customers[data.customerID].name,
-          href: "/internal/customer?customerID=" + data.customerID
+          text: customerName,
+          href: customerHref
         }
       ]
     }) }}
