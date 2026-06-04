@@ -253,12 +253,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					changedDate: "1 April 2019",
 					changeType: "licence issued",
 					startDate: "1973-06-01",
 					endDate: "1993-06-01",
 					changedBy: "admin@gov.uk",
-					version: [
+					licenceVersion: [
 									{
 										name: "Glindenfold Lake",
 										number: "03/28/60/0032",
@@ -312,12 +311,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "change to licence details",
-					changedDate: "1 April 2010",
 					changeType: "licence issued",
 					startDate: "1993-06-01",
 					endDate: "2003-06-01",
 					changedBy: "admin@gov.uk",
-					version: [
+					licenceVersion: [
 									{
 
 										name: "Glindenfold Lake",
@@ -373,11 +371,10 @@ module.exports = {
 					type: "Licence version",
 					reasonCreated: "new Licence",
 					changeType: "licence issued",
-					changedDate: "1 April 1998",
 					startDate: "2003-06-01",
 					endDate: "2013-06-01",
 					changedBy: "admin@gov.uk",
-					version: [
+					licenceVersion: [
 									{
 										name: "Glindenfold Lake",
 										number: "03/28/60/0032",
