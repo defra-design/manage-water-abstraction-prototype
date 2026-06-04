@@ -17,8 +17,12 @@
 {% endif %}
 
 {% block containerStart %}
+{% set backLinkHref = "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+{% if data.from %}
+	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
+{% endif %}
 {{ govukBackLink({
-  href: "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID,
+  href: backLinkHref,
   text: "Back to contact"
 }) }}
 {% endblock %}
@@ -148,8 +152,15 @@
 			{% endif %}
 		{% endfor %}
 
+		{% set WAAHtml = WAAStatus %}
 		{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
-			{% set WAAStatus = WAAStatus + " [" + WAALicenceNumbers.join(", ") + "]" %}
+			{% set WAAHtml %}
+				<p class="govuk-body">Yes, for some licences</p>
+				{{ govukDetails({
+					summaryText: "Licence details",
+					html: WAALicenceNumbers | join("<br>")
+				}) }}
+			{% endset %}
 		{% endif %}
 
 		{% set returnsStatus = "No" %}
@@ -169,8 +180,15 @@
 			{% endif %}
 		{% endfor %}
 
+		{% set returnsHtml = returnsStatus %}
 		{% if returnsStatus == "Yes, for some licences" and returnsLicenceNumbers.length %}
-			{% set returnsStatus = returnsStatus + " [" + returnsLicenceNumbers.join(", ") + "]" %}
+			{% set returnsHtml %}
+				<p class="govuk-body">Yes, for some licences</p>
+				{{ govukDetails({
+					summaryText: "Licence details",
+					html: returnsLicenceNumbers | join("<br>")
+				}) }}
+			{% endset %}
 		{% endif %}
 
 		{% set billsStatus = "No" %}
@@ -190,8 +208,15 @@
 			{% endif %}
 		{% endfor %}
 
+		{% set billsHtml = billsStatus %}
 		{% if billsStatus == "Yes, for some licences" and billsLicenceNumbers.length %}
-			{% set billsStatus = billsStatus + " [" + billsLicenceNumbers.join(", ") + "]" %}
+			{% set billsHtml %}
+				<p class="govuk-body">Yes, for some licences</p>
+				{{ govukDetails({
+					summaryText: "Licence details",
+					html: billsLicenceNumbers | join("<br>")
+				}) }}
+			{% endset %}
 		{% endif %}
 
 		{{ govukSummaryList({
@@ -201,7 +226,7 @@
 						text: "Water abstraction alerts"
 					},
 					value: {
-						text: WAAStatus
+						html: WAAHtml | safe
 					},
 					actions: {
 						items: [
@@ -218,7 +243,7 @@
 						text: "Returns invites and reminders"
 					},
 					value: {
-						text: returnsStatus
+						html: returnsHtml | safe
 					},
 					actions: {
 						items: [
@@ -235,7 +260,7 @@
 						text: "Bills"
 					},
 					value: {
-						text: billsStatus
+						html: billsHtml | safe
 					},
 					actions: {
 						items: [
