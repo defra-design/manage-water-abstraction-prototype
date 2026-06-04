@@ -1,6 +1,12 @@
 {% extends "layouts/main-internal.html" %}
 
 {% set licence = data['licences'][data.ID] %}
+{% set versionIndex = data.versionIndex | default(0) %}
+{% set selectedVersion = licence.changeLog[versionIndex] %}
+{% set selectedLicenceVersion = {} %}
+{% if selectedVersion and selectedVersion.licenceVersion and selectedVersion.licenceVersion[0] %}
+  {% set selectedLicenceVersion = selectedVersion.licenceVersion[0] %}
+{% endif %}
 
 {% block containerStart %}
 {{ govukBackLink({
@@ -16,15 +22,17 @@
 
       <span class="govuk-caption-l">{{ licence.number }}</span>
       <h1 class="govuk-heading-l">
-        Licence version starting {{ data.licences[data.ID]['changeLog'][data.versionIndex].startDate | govukDate }}
+        Licence version starting {{ selectedVersion.startDate | govukDate }}
       </h1>
 
+    {% if selectedVersion %}
+      {{ govukTag({
+        text: selectedVersion.changeType | capitalize,
+        classes: selectedVersion.changeType | changeTypeColour
+      }) }}
+    {% endif %}
 
-    {# Change type tag goes here #}
-
-    {# Reason created goes in this paragraph: #} 
-    
-    <p class="govuk-body-l"></p>
+    <p class="govuk-body-l">Reason created: {{ selectedVersion.reasonCreated | capitalize }}</p>
 
     <p class="govuk-body">If you find errors in this data, email: <a href="#">water_abstractiondigital@environment-agency.gov.uk</a></p>
 
