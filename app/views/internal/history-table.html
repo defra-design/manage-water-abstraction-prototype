@@ -15,7 +15,7 @@
           {% set endDate = changeLog.endDate | govukDate %}
         {% endif %}
 
-        {% set versions = versions | push([{text:changeLog.startDate|govukDate},{text:endDate},{text:changeLog.reasonCreated|capitalize},{html:changeTag|safe},{html:'<a class="govuk-link" href="/internal/licence/history-version?ID=' + data.ID + '&versionIndex=' + loop.index0 + '">View</a>'}])%}
+        {% set versions = versions | push([{text:changeLog.startDate|govukDate},{text:endDate},{text:changeLog.reasonCreated|capitalize},{html:changeTag|safe},{html:'<a class="govuk-link" href="#">View</a>'}])%}
 
       {% endfor %}
 

@@ -1,0 +1,56 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set licence = data['licences'][data.ID] %}
+{% set breadcrumbType="history" %}
+{% set history = true %}
+
+{% if data.currentVersionIndex and licence.changeLog[data.currentVersionIndex] and licence.changeLog[data.currentVersionIndex].version and licence.changeLog[data.currentVersionIndex].version[0] %}
+	{% set versionData = licence.changeLog[data.currentVersionIndex].version[0] %}
+	{% set pageName="Licence version " + versionData.versionNumber %}
+{% else %}
+	{% set pageName="Licence version" %}
+{% endif %}
+
+{% block containerStart %}
+{% include "internal/_includes/breadcrumbs-internal.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-quarter">
+    {% include "internal/_includes/subnav-licence.html" %}
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <span class="govuk-caption-l">{{ licence.number }}</span>
+      <h1 class="govuk-heading-l">
+        Licence version starting {{ licence.startDate }}
+      </h1>
+
+      <p class="govuk-body">If you find errors in this data, email: <a href="#">water_abstractiondigital@environment-agency.gov.uk</a></p>
+
+      <ul class="govuk-list">
+        <li>
+          Licence details
+        </li>
+        <li>
+          Points
+        </li>
+        <li>
+          Purposes, periods and amounts
+        </li>
+        <li>
+          Conditions
+        </li>
+      </ul>
+
+      <h2 class="govuk-heading-l">Licence details</h2>
+
+
+    </div>
+
+  </div>
+{% endblock %}
+

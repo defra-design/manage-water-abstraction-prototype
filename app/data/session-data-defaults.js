@@ -160,7 +160,19 @@ module.exports = {
 			],
 		},
 
-		// licence 2 – Glindenfold Lake 03/28/60/0032 (live)
+
+
+
+
+
+
+
+
+
+
+
+
+		// licence 2 – Glindenfold Lake 03/28/60/0032 (live) & history with 3 versions
 		// Licence summary
 		{
 			name: "Glindenfold Lake",
@@ -237,16 +249,184 @@ module.exports = {
 
 			// History
 			changeLog: [
+				// version 1
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
 					changedDate: "1 April 2019",
-					startDate: "1985-06-01",
 					changeType: "licence issued",
-					endDate: "",
+					startDate: "1973-06-01",
+					endDate: "1993-06-01",
 					changedBy: "admin@gov.uk",
+					version: [
+									{
+										name: "Glindenfold Lake",
+										number: "03/28/60/0032",
+										holder: "Bottled Water Plc", 
+										applicationNumber: "",  
+										use: [ 
+											{
+												purpose: "Spray irrigation - direct",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "125",
+												timeLimit: "No",
+											},
+											{
+												purpose: "General machine washing",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "20",
+												timeLimit: "No",
+											},
+										],
+										means: ["Unspecified pump"],
+										sourceType: "Surface water",
+										absConditions: [
+											{
+												type: "General condition",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "",
+												text: "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692.",
+											},
+											{
+												type: "Hands off flow condition (HOF)",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "Bourton Dickler",
+												param2: "180 millilitres per day",
+												text: "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day.",
+											},
+										]
+									}
+									]
 				},
+				// version 2
+				{
+					type: "Licence version",
+					reasonCreated: "change to licence details",
+					changedDate: "1 April 2010",
+					changeType: "licence issued",
+					startDate: "1993-06-01",
+					endDate: "2003-06-01",
+					changedBy: "admin@gov.uk",
+					version: [
+									{
+
+										name: "Glindenfold Lake",
+										number: "03/28/60/0032",
+										holder: "Bottled Water Plc", 
+										applicationNumber: "",  
+										use: [ 
+											{
+												purpose: "Spray irrigation - direct",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "125",
+												timeLimit: "No",
+											},
+											{
+												purpose: "General machine washing",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "20",
+												timeLimit: "No",
+											},
+										],
+										means: ["Unspecified pump"],
+										sourceType: "Surface water",
+										absConditions: [
+											{
+												type: "General condition",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "",
+												text: "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692.",
+											},
+											{
+												type: "Hands off flow condition (HOF)",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "Bourton Dickler",
+												param2: "180 millilitres per day",
+												text: "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day.",
+											},
+										]
+									}
+									]
+				},
+				// version 3
+				{
+					type: "Licence version",
+					reasonCreated: "new Licence",
+					changeType: "licence issued",
+					changedDate: "1 April 1998",
+					startDate: "2003-06-01",
+					endDate: "2013-06-01",
+					changedBy: "admin@gov.uk",
+					version: [
+									{
+										name: "Glindenfold Lake",
+										number: "03/28/60/0032",
+										holder: "Bottled Water Plc", 
+										applicationNumber: "",  
+										use: [ 
+											{
+												purpose: "Spray irrigation - direct",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "125",
+												timeLimit: "No",
+											},
+											{
+												purpose: "General machine washing",
+												points: [
+													"At National Grid Reference SK 675126 (RIVER SWALE - HELPERBY)",
+												],
+												periodStart: "0401",
+												periodEnd: "1031",
+												amount: "20",
+												timeLimit: "No",
+											},
+										],
+										means: ["Unspecified pump"],
+										sourceType: "Surface water",
+										absConditions: [
+											{
+												type: "General condition",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "",
+												text: "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692.",
+											},
+											{
+												type: "Hands off flow condition (HOF)",
+												purposeIndex: ["0"],
+												pointsIndex: ["0"],
+												param1: "Bourton Dickler",
+												param2: "180 millilitres per day",
+												text: "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day.",
+											},
+										]
+									}
+									]
+				}
 			],
 		},
 

@@ -26,6 +26,17 @@ router.get("/internal/licence/purposes", (req, res) => {
 	res.render("internal/licence/purposes");
 });
 
+// Render history version detail page
+router.get("/internal/licence/history-version", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.versionIndex) {
+		req.session.data.currentVersionIndex = parseInt(req.query.versionIndex);
+	}
+	res.render("internal/licence/history-version");
+});
+
 // Capture customer ID from query parameter
 router.get("/internal/customer", (req, res) => {
 	if (req.query.customerID) {
