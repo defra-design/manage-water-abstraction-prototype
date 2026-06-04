@@ -117,46 +117,25 @@ module.exports = {
 
 			// History
 			changeLog: [
+				// version 1
 				{
 					type: "Licence version",
-					reasonCreated: "Testing 3",
-					reasonText: "Special Agreement - Change",
-					changedDate: "1 April 2015",
+					reasonCreated: "Special Agreement - Change",
+					changeType: "no licence issued",
 					startDate: "2005-04-01",
-					changeType: "no licence issued",
-					endDate: "2010-03-31",
-					changedBy: "admin@gov.uk",
+					endDate: "2025-03-31",
+					versionIssueDate: "1998-04-01",
+					applicationNumber: "NPS/PJ026565"
 				},
 				{
 					type: "Licence version",
-					reasonCreated: "Testing 2",
-					reasonText: "Changes to Returns by email requirements",
-					changedDate: "1 November 2002",
+					reasonCreated: "Changes to Returns by email requirements",
+					changeType: "no licence issued",
 					startDate: "2002-04-01",
-					changeType: "no licence issued",
 					endDate: "2005-04-01",
-					changedBy: "admin@gov.uk",
-				},
-				{
-					type: "Licence version",
-					reasonCreated: "Testing 1",
-					reasonText: "Changes to Returns by email requirements",
-					changedDate: "1 April 1995",
-					startDate: "1995-04-01",
-					changeType: "no licence issued",
-					endDate: "2002-03-31",
-					changedBy: "admin@gov.uk",
-				},
-				{
-					type: "Licence version",
-					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "",
-					startDate: "1985-06-01",
-					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
-				},
+					versionIssueDate: "1998-04-01",
+					applicationNumber: "NPS/PJ026564"
+				}
 			],
 		},
 
@@ -245,7 +224,6 @@ module.exports = {
 					startDate: "2003-06-01",
 					endDate: "2013-06-01",
 					versionIssueDate: "1970-06-01",
-					changedBy: "admin@gov.uk",
 					applicationNumber: "NPS/GH026565"
 				},
 				// version 2
@@ -256,7 +234,6 @@ module.exports = {
 					startDate: "1993-06-01",
 					endDate: "2003-06-01",
 					versionIssueDate: "1970-06-01",
-					changedBy: "admin@gov.uk",
 					applicationNumber: "NPS/JK026565"
 				},
 				// version 3
@@ -267,7 +244,6 @@ module.exports = {
 					startDate: "1973-06-01",
 					endDate: "1993-06-01",
 					versionIssueDate: "1970-06-01",
-					changedBy: "admin@gov.uk",
 					applicationNumber: "NPS/MN026565"
 				}
 			],
@@ -337,12 +313,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "2022-04-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -415,12 +390,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "1985-06-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -489,12 +463,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "1990-09-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -560,12 +533,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "2015-04-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -629,12 +601,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "2016-10-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -718,35 +689,12 @@ module.exports = {
 			changeLog: [
 				{
 					type: "Licence version",
-					reasonCreated: "major variation",
-					reasonText:
-						"Major variation increase to spray irrigation storage volume on SK 675124 and SK 675126",
-					changedDate: "31 March 2025",
-					startDate: "2025-04-01",
-					endDate: "",
-					changeType: "licence issued",
-					changedBy: "admin@gov.uk",
-				},
-				{
-					type: "Licence version",
-					reasonCreated: "minor variation",
-					reasonText:
-						"Minor variation time limited increase for reservoir storage for subsequent spray irrigation volume on SK 675124 and SK 675126",
-					changedDate: "31 March 2019",
-					startDate: "2019-04-01",
-					endDate: "2025-03-31",
-					changeType: "no licence issued",
-					changedBy: "admin@gov.uk",
-				},
-				{
-					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2017",
-					startDate: "2017-04-01",
 					changeType: "licence issued",
-					endDate: "2019-03-31",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -811,12 +759,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "2018-01-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
@@ -873,12 +820,11 @@ module.exports = {
 				{
 					type: "Licence version",
 					reasonCreated: "new Licence",
-					reasonText: "",
-					changedDate: "1 April 2019",
-					startDate: "2024-04-01",
 					changeType: "licence issued",
-					endDate: "",
-					changedBy: "admin@gov.uk",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
 				},
 			],
 		},
