@@ -18,7 +18,7 @@
 {% block content %}
   <div class="govuk-grid-row">
 
-    <div class="govuk-grid-column-three-quarters">
+    <div class="govuk-grid-column-full">
 
       <span class="govuk-caption-l">{{ licence.number }}</span>
       <h1 class="govuk-heading-l">
@@ -32,19 +32,195 @@
       }) }}
     {% endif %}
 
-    <p class="govuk-body-l">Reason created: {{ selectedVersion.reasonCreated | capitalize }}</p>
+    <p class="govuk-body-l govuk-!-margin-top-5">{{ selectedVersion.reasonCreated | capitalize }}</p>
 
     <p class="govuk-body">If you find errors in this data, email: <a href="#">water_abstractiondigital@environment-agency.gov.uk</a></p>
 
+
+
     <h2 class="govuk-heading-m">Licence details</h2>
+   {{ govukSummaryList({
+      card: {
+        title: {
+          text: licence.holder
+        }
+      },
+      rows: [
+        {
+          key: {
+            text: "Address"
+          },
+          value: {
+            html: licence.address
+          }
+        }
+      ]
+    }) }}
+
+    <h2 class="govuk-heading-m">Points</h2>
+    {% for point in data.licences[data.ID].absPoints %}
+    {{ govukSummaryList({
+      card: {
+        title: {
+          text: data.licences[data.ID].use[0].points | bracketedText
+        }
+      },
+      rows: [
+        {
+          key: {
+            text: "Abstraction point"
+          },
+          value: {
+            html: point
+          }
+        },
+        {
+          key: {
+            text: "Means of abstraction"
+          },
+          value: {
+            html: data.licences[data.ID].means[0]
+          }
+        }, {
+          key: {
+            text: "Source type"
+          },
+          value: {
+            html: data.licences[data.ID].sourceType
+          }
+        }
+      ]
+    }) }}
+    {% endfor %} 
 
     <h2 class="govuk-heading-m">Purposes, periods and amounts</h2>
+    {% set uses = licence.use %}
+    {% for use in uses %}
+    {{ govukSummaryList({
+    card: {
+        title: {
+          text: use.purpose
+        }
+      },
+      rows: [
+        {
+          key: {
+            text: "Points" 
+          },
+          value: {
+            html: use.points | newLine
+          }
+        },
+        {
+          key: {
+            text: "Abstraction period"
+          },
+          value: {
+            html: use.periodStart | mmddToDate + " to " + use.periodEnd | mmddToDate
+          }
+        },
+        {
+          key: {
+            text: "Amount"
+          },
+          value: {
+            html: use.amount + " " + (use.units | unitsToWords)
+          }
+        }
+      ]
+    }) }}
+    {% endfor %}
 
     <h2 class="govuk-heading-m">Conditions</h2>
-
+    {% for condition in data.licences[data.ID].absConditions %}
+    {% if condition.type == "General condition" %}
+      {{ govukSummaryList({
+        card: {
+          title: {
+            text: condition.type
+          }
+        },
+        rows: [
+          {
+            key: {
+              text: "Abstraction point"
+            },
+            value: {
+              html: data.licences[data.ID].absPoints[condition.pointsIndex]
+            }
+          },
+          {
+            key: {
+              text: "Purpose"
+            },
+            value: {
+              html: data.licences[data.ID].purpose[condition.purposeIndex]
+            }
+          },
+          {
+            key: {
+              text: "Other information"
+            },
+            value: {
+              html: condition.text
+            }
+          }
+        ]
+      }) }}
+      {% else %}
+      {{ govukSummaryList({
+        card: {
+          title: {
+            text: condition.type
+          }
+        },
+        rows: [
+          {
+            key: {
+              text: "Abstraction point"
+            },
+            value: {
+              html: data.licences[data.ID].absPoints[condition.pointsIndex]
+            }
+          },
+          {
+            key: {
+              text: "Purpose"
+            },
+            value: {
+              html: data.licences[data.ID].purpose[condition.purposeIndex]
+            }
+          },
+          {
+            key: {
+              text: "Monitoring station"
+            },
+            value: {
+              html: condition.param1
+            }
+          },
+          {
+            key: {
+              text: "Threshold"
+            },
+            value: {
+              html: condition.param2
+            }
+          },
+          {
+            key: {
+              text: "Other information"
+            },
+            value: {
+              html: condition.text
+            }
+          }
+        ]
+      }) }}
+      {% endif %}
+    {% endfor %} 
 
     </div>
-
   </div>
 {% endblock %}
 
