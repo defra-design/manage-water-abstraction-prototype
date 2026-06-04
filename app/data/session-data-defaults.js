@@ -1,8 +1,8 @@
 module.exports = {
 	// Default data
-	ID: 0,
-	customerID: 2,
-	contactID: 0,
+	// ID: 0,
+	// customerID: 2,
+	// contactID: 0,
 
 	// Customers – – – – – – – – – – – – – – – –
 	customers: [

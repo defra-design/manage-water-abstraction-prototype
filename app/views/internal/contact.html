@@ -16,10 +16,12 @@
 {% endif %}
 
 {% block containerStart %}
-{{ govukBackLink({
-  href: "/internal/licence/licence-contacts?ID=" + data.ID,
-  text: "Back to licence contacts"
-}) }}
+
+	{{ govukBackLink({
+	  href: "#",
+	  text: "Back to contacts"
+	}) }}
+
 {% endblock %}
 
 {% block content %}
