@@ -5,6 +5,10 @@
 {% else %}
   {% set selectedCustomer = data.customers[data.customerID].name %}
 {% endif %}
+{% set fromPage = "customer" %}
+{% if licence %}
+  {% set fromPage = "licence" %}
+{% endif %}
 
 {% for contact in contacts %}
   {% set contactIndex = loop.index0 %}
@@ -29,7 +33,7 @@
         {% endset %}
 
         {% set contactsList = contactsList | push([
-          {html:'<a href="/internal/contact?ID=' + data.ID + '&contactID=' + contactIndex + '" class="govuk-link">' + contact.name + '</a>'},
+          {html:'<a href="/internal/contact?ID=' + data.ID + '&contactID=' + contactIndex + '&from=' + fromPage + '" class="govuk-link">' + contact.name + '</a>'},
           {text:contactEntry.role},
           {html:communicationHtml | safe}
         ]) %}

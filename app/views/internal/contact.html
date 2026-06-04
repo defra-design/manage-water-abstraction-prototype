@@ -16,11 +16,17 @@
 {% endif %}
 
 {% block containerStart %}
-
-	{{ govukBackLink({
-	  href: "#",
-	  text: "Back to contacts"
-	}) }}
+	{% if data.from == "customer" %}
+		{{ govukBackLink({
+		  href: "/internal/customer/customer-contacts?ID=" + data.ID,
+		  text: "Back to customer"
+		}) }}
+	{% else %}
+		{{ govukBackLink({
+		  href: "/internal/licence/licence-contacts?ID=" + data.ID,
+		  text: "Back to licence"
+		}) }}
+	{% endif %}
 
 {% endblock %}
 
