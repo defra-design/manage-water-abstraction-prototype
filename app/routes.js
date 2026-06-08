@@ -45,6 +45,14 @@ router.get("/internal/customer", (req, res) => {
 	res.render("internal/customer");
 });
 
+// Capture customer ID from query parameter for the contacts page
+router.get("/internal/customer/customer-contacts", (req, res) => {
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
+	res.render("internal/customer/customer-contacts");
+});
+
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
 	if (req.query.ID) {

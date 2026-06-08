@@ -23,7 +23,14 @@
         {{ pageName }}
       </h1>
 
-      <p class="govuk-body">Go to customer contacts to <a href="#">set up a new contact</a>.</p>
+      {% set holderCustomerID = data.customerID %}
+      {% for customer in data.customers %}
+        {% if customer.name == licence.holder %}
+          {% set holderCustomerID = loop.index0 %}
+        {% endif %}
+      {% endfor %}
+
+      <p class="govuk-body">Go to customer contacts to <a href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a>.</p>
 
       {% include "internal/_includes/contacts-filter.html" %}
 
