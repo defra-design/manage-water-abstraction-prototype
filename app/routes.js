@@ -145,6 +145,64 @@ router.get("/internal/contact/edit-contact", (req, res) => {
 	res.render("internal/contact/edit-contact");
 });
 
+// Capture selected contact and optional context for delete contact page
+router.get("/internal/contact/delete-contact", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
+	if (req.query.from) {
+		req.session.data.from = req.query.from;
+	}
+	res.render("internal/contact/delete-contact");
+});
+
+// Delete selected contact and return to customer contacts
+router.post("/internal/contact/delete-contact", (req, res) => {
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	let customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+
+	if (
+		Number.isInteger(contactID) &&
+		Array.isArray(req.session.data.contacts) &&
+		req.session.data.contacts[contactID]
+	) {
+		if (!Number.isInteger(customerID)) {
+			const customerName =
+				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			if (customerName && Array.isArray(req.session.data.customers)) {
+				customerID = req.session.data.customers.findIndex(
+					(customer) => customer.name === customerName,
+				);
+			}
+		}
+
+		req.session.data.contacts.splice(contactID, 1);
+	}
+
+	delete req.session.data.contactID;
+
+	if (Number.isInteger(customerID) && customerID >= 0) {
+		req.session.data.customerID = customerID;
+		return res.redirect(
+			`/internal/customer/customer-contacts?customerID=${customerID}`,
+		);
+	}
+
+	return res.redirect("/internal/customers");
+});
+
 // Capture selected contact and optional licence ID for editing contact name
 router.get("/internal/contact/edit-name", (req, res) => {
 	if (req.query.ID) {

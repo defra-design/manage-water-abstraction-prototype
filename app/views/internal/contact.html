@@ -93,9 +93,16 @@
 		}) }}
 
 		<!-- remove contact-->
+		{% set removeContactHref = "/internal/contact/delete-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set removeContactHref = removeContactHref + "&customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.from %}
+			{% set removeContactHref = removeContactHref + "&from=" + data.from %}
+		{% endif %}
 		{{ govukButton({
 		text: "Remove contact",
-		href: "#",
+		href: removeContactHref,
 		classes: "govuk-button--secondary"
 		}) }}
 

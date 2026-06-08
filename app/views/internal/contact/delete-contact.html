@@ -1,0 +1,72 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set licence = data['licences'][data.ID] if data.ID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set breadcrumbType="licence" %}
+{% set customerName = "" %}
+{% if data.customerID is not undefined and data.customers[data.customerID] %}
+	{% set customerName = data.customers[data.customerID].name %}
+{% elif licence %}
+	{% set customerName = licence.holder %}
+{% endif %}
+{% if contact and contact.customers and contact.customers.length %}
+	{% if customerName %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == customerName %}
+				{% set customerName = customerEntry.customer %}
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		{% set customerName = contact.customers[0].customer %}
+	{% endif %}
+{% endif %}
+{% set contactName = contact.name if contact else "this contact" %}
+{% set customerLabel = customerName if customerName else "this customer" %}
+{% set pageName="You are about to remove " + contactName + " from " + customerLabel %}
+
+{% block containerStart %}
+{% set backLinkHref = "/internal/contact?contactID=" + data.contactID %}
+{% if data.ID %}
+	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
+{% endif %}
+{% if data.customerID %}
+	{% set backLinkHref = backLinkHref + "&customerID=" + data.customerID %}
+{% endif %}
+{% if data.from %}
+	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
+{% endif %}
+{{ govukBackLink({
+	href: backLinkHref,
+  text: "Back to contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ customerName }}</span>
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		{% set deleteAction = "/internal/contact/delete-contact?contactID=" + data.contactID %}
+		{% if data.customerID %}
+			{% set deleteAction = deleteAction + "&customerID=" + data.customerID %}
+		{% endif %}
+		<form method="post" action="{{ deleteAction }}">
+
+		{{ govukButton({
+		text: "Remove",
+		classes: "govuk-!-margin-right-3"
+		}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+
