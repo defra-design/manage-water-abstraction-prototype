@@ -1,6 +1,7 @@
 @import "components/status.scss";
 
-.govuk-width-container {
+
+.app-layout-internal .govuk-width-container {
 	@include govuk-width-container(1100px);
 }
 

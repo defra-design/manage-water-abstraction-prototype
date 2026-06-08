@@ -1,0 +1,45 @@
+{% extends "layouts/main-external.html" %}
+
+{% set pageName="Create an account to manage your water abstraction licence online" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">You must be a licence holder to create an online account. Once registered you will be able to:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li class="govuk-body">view your abstraction licence information</li>
+      <li class="govuk-body">submit abstraction returns</li>
+      <li class="govuk-body">give others access to your account and permission to submit returns</li>
+    </ul>
+
+    <p class="govuk-body">To protect your data we have to post a security code to the registered address of the licence.</p>
+
+    {{ govukInsetText({
+      text: "We will send a security code to you straight away, using first-class mail."
+    }) }}
+
+    <p class="govuk-body">Impoundment licences are not yet part of this service.</p>
+
+    <h2 class="govuk-heading-m">Before you start</h2>
+
+    <p class="govuk-body">You will need:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li class="govuk-body">an email address</li>
+      <li class="govuk-body">your licence numbers</li>
+    </ul>
+    
+    {{ govukButton({
+      text: "Create account",
+      isStartButton: true,
+      href: "/external/account/create-account"
+    }) }} 
+
+  </div>
+</div>
+
+{% endblock %}
