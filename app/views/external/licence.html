@@ -4,23 +4,38 @@
 {% set licence = data['licences'][data.ID] %}
 {% set pageName="Licence number " + licence.number %}
 
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licences",
+  href: "/external/licences"
+}) }}
+{% endblock %}
+
 {% block content %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-xl">{{ pageName }}</h1>
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
 {% set summaryHtml %}
-<h2 class="govuk-heading-l">Summary</h2>
+<h2 class="govuk-heading-m">Summary</h2>
 
 {{ govukSummaryList({
   rows: [
     {
       key: {
+        text: "Licence name"
+      },
+      value: {
+        html: licence.name if licence.name else "No name chosen<br><a href=\"#\" class=\"govuk-link\">Name this licence</a>"
+      }
+    },
+    {
+      key: {
         text: "Licence holder"
       },
       value: {
-        text: licence.holder
+        html: licence.holder + "<br><a href=\"#\" class=\"govuk-link\">View licence contact details</a>"
       }
     },
     {
@@ -36,7 +51,7 @@
         text: "Licence version issue date"
       },
       value: {
-        text: licence.changeLog[0].versionIssueDate if licence.changeLog else ""
+        text: licence.issueDate
       }
     },
     {
@@ -113,6 +128,17 @@
     }
   ]
 }) }}
+
+{{ govukInsetText({
+  text: "The information included in this service does not replace or affect the legal (paper) copy of the licence issued to you. The information must be used for reference only. You must refer to and comply with the licence issued to you as a paper copy when you make decisions about abstracting or impounding water.",
+  classes: "govuk-!-margin-top-9 govuk-!-width-two-thirds"
+}) }}
+
+{{ govukDetails({
+  summaryText: "Is your licence information correct?",
+  html: "To help us improve our new service, please let us know if you find any errors in the licence information we are showing you. You can contact us by:<br><br>Email: <a href=\"#\">enquiries@environment-agency.gov.uk</a><br><br>Telephone: <a href=\"#\">03708 506 506</a><br><br>Telephone from outside the UK: <a href=\"#\">+44 114 282 5312</a><br><br>You can call us from 8am to 6pm, Monday to Friday."
+}) }}
+
 {% endset -%}
 
 {% set pastDayHtml %}
