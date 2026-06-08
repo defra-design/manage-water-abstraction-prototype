@@ -25,11 +25,16 @@
         {% endif %}
       {% endfor %}
 
-      {% if applicableNotices.length %}
+      {# When viewing from customer page, show all contacts; when viewing from licence page, only show contacts with applicable notices #}
+      {% if (fromPage == "customer") or (applicableNotices.length) %}
         {% set communicationHtml %}
-          {% for notice in applicableNotices %}
-            {{ notice.type }}{% if not loop.last %}<br>{% endif %}
-          {% endfor %}
+          {% if applicableNotices.length %}
+            {% for notice in applicableNotices %}
+              {{ notice.type }}{% if not loop.last %}<br>{% endif %}
+            {% endfor %}
+          {% else %}
+            <em class="govuk-hint">No communication preferences set</em>
+          {% endif %}
         {% endset %}
 
         {% set contactsList = contactsList | push([

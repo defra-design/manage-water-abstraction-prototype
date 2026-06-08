@@ -304,7 +304,11 @@
 		}) }}
 
 		{# Confirm or cancel buttons #}
-		<form method="post" action="/internal/contact/edit-contact?contactID={{ data.contactID }}&ID={{ data.ID }}">
+		{% set confirmAction = "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set confirmAction = confirmAction + "&customerID=" + data.customerID %}
+		{% endif %}
+		<form method="post" action="{{ confirmAction }}">
 
 		<div class="govuk-button-group">
 			{{ govukButton({
@@ -312,9 +316,13 @@
 			classes: "govuk-!-margin-right-3",
 			type: "submit"
 			}) }}
+			{% set cancelHref = "/internal/contact/cancel?contactID=" + data.contactID + "&ID=" + data.ID %}
+			{% if data.customerID %}
+				{% set cancelHref = cancelHref + "&customerID=" + data.customerID %}
+			{% endif %}
 			{{ govukButton({
 			text: "Cancel",
-			href: "/internal/contact/cancel?contactID=" + data.contactID + "&ID=" + data.ID,
+			href: cancelHref,
 			classes: "govuk-button--secondary"
 			}) }}
 		</div>

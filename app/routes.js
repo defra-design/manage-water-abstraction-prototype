@@ -64,6 +64,59 @@ router.get("/internal/contact/add-contact", (req, res) => {
 	res.render("internal/contact/add-contact");
 });
 
+// Create a new contact and redirect to edit-contact page
+router.post("/internal/contact/add-contact", (req, res) => {
+	const fullName = req.body.fullName || "";
+	const customerID = parseInt(req.query.customerID ?? req.session.data.customerID, 10);
+	const customerName = req.session.data.customers[customerID]?.name || "";
+	
+	// Parse firstName and lastName from fullName
+	const nameParts = fullName.trim().split(/\s+/);
+	const firstName = nameParts[0] || "";
+	const lastName = nameParts.slice(1).join(" ") || "";
+	
+	// Ensure contacts array exists
+	if (!Array.isArray(req.session.data.contacts)) {
+		req.session.data.contacts = [];
+	}
+	
+	// Create new contact object with same structure as other contacts
+	const newContact = {
+		wrls: "true",
+		name: fullName,
+		email: "",
+		phone: "",
+		type: "person",
+		firstName: firstName,
+		lastName: lastName,
+		customers: [
+			{
+				role: "Contact",
+				notices: [],
+				customer: customerName,
+			},
+		],
+	};
+	
+	// Add the new contact to the contacts array
+	req.session.data.contacts.push(newContact);
+	
+	// Get the index of the newly created contact
+	const contactID = req.session.data.contacts.length - 1;
+	
+	// Redirect to edit-contact page
+	const query = new URLSearchParams({
+		customerID: String(customerID),
+		contactID: String(contactID),
+	});
+	
+	if (req.session.data.ID) {
+		query.append("ID", String(req.session.data.ID));
+	}
+	
+	return res.redirect(`/internal/contact/edit-contact?${query.toString()}`);
+});
+
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
 	if (req.query.ID) {
@@ -82,6 +135,9 @@ router.get("/internal/contact/edit-contact", (req, res) => {
 	}
 	if (req.query.contactID) {
 		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
 	}
 	res.render("internal/contact/edit-contact");
 });
@@ -557,6 +613,20 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		req.session.data.pendingChanges = {};
 	}
 
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+
+	// If coming from customer context, redirect to customer-contacts
+	if (Number.isInteger(customerID)) {
+		const customerQuery = new URLSearchParams({
+			customerID: String(customerID),
+		}).toString();
+		return res.redirect(`/internal/customer/customer-contacts?${customerQuery}`);
+	}
+
+	// Otherwise, redirect to contact page (licence context)
 	const query = new URLSearchParams({
 		contactID: Number.isInteger(contactID)
 			? String(contactID)
@@ -567,17 +637,30 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 	res.redirect(`/internal/contact?${query}`);
 });
 
-// Cancel editing - clear pending changes and return to contact page
+// Cancel editing - clear pending changes and return to contact page or customer contacts
 router.get("/internal/contact/cancel", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
 	const contactID = Number.parseInt(
 		req.query.contactID ?? req.session.data.contactID,
 		10,
 	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
 
 	// Clear any pending changes
 	req.session.data.pendingChanges = {};
 
+	// If coming from customer context, redirect to customer-contacts
+	if (Number.isInteger(customerID)) {
+		const customerQuery = new URLSearchParams({
+			customerID: String(customerID),
+		}).toString();
+		return res.redirect(`/internal/customer/customer-contacts?${customerQuery}`);
+	}
+
+	// Otherwise, redirect to contact page (licence context)
 	const query = new URLSearchParams({
 		contactID: Number.isInteger(contactID)
 			? String(contactID)

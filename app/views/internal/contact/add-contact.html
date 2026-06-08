@@ -24,15 +24,7 @@
 			{{ pageName }}
 		</h1>
 
-		{% set formAction = "/internal/contact/edit-name?customerID=" + data.customerID %}
-		{% if data.ID %}
-			{% set formAction = formAction + "&ID=" + data.ID %}
-		{% endif %}
-		{% if data.contactID %}
-			{% set formAction = formAction + "&contactID=" + data.contactID %}
-		{% endif %}
-
-		<form method="post" action="{{ formAction }}">
+		<form method="post" action="/internal/contact/add-contact">
 
 		{{ govukInput({
 			id: "fullName",
