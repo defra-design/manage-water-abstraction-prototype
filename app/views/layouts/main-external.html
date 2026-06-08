@@ -6,6 +6,7 @@
   homepageUrl: "/"
   }) }}
 
+  {% if not hideServiceNavigation %}
   {{ govukServiceNavigation({
       serviceName: serviceName,
       serviceUrl: "/external/",
@@ -24,6 +25,7 @@
           }
       ]
   }) }}
+  {% endif %}
 
   {{ govukPhaseBanner({
       tag: {

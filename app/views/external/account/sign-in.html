@@ -1,5 +1,6 @@
 {% extends "layouts/main-external.html" %}
 
+{% set hideServiceNavigation = true %}
 {% set pageName="Sign in" %}
 
 {% block content %}
@@ -7,8 +8,6 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
-
-    <p class="govuk-body">If you already have an account, you can sign in here.</p>
 
     <form method="post">
 
@@ -33,7 +32,8 @@
 
       {{ govukButton({
         text: "Sign in",
-        isStartButton: true
+        isStartButton: true,
+        href: "/external/licences"
       }) }}
 
     </form>
