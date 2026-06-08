@@ -1,14 +1,30 @@
 {% extends "layouts/main-external.html" %}
 
-{% set pageName="Your licences" %}
+{% set pageName="Sign in or create an account" %}
 
 {% block content %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-
-  <h1 class="govuk-heading-xl">{{ pageName }}</h1>
-
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half">
+        <h2 class="govuk-heading-m">Create an account</h2>
+        <p class="govuk-body">Select if you have not used this service before.</p>
+        {{ govukButton({
+          text: "Create account",
+          href: "/external/create-account"
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-half">
+        <h2 class="govuk-heading-m">Sign in</h2>
+        <p class="govuk-body">Select if you already have an account for this service.</p>
+        {{ govukButton({
+          text: "Sign in",
+          href: "/external/sign-in"
+        }) }}
+      </div>
+    </div>
   </div>
 </div>
 
