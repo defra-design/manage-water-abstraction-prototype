@@ -659,7 +659,12 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const returnsSelection = req.session.data.pendingChanges.returnsSelection;
 		const returnsLicences = req.session.data.pendingChanges.returnsLicences;
 		if (returnsSelection || returnsLicences !== undefined) {
+			const selectedCustomerNameForReturns =
+				Number.isInteger(req.session.data.customerID)
+					? req.session.data.customers[req.session.data.customerID]?.name
+					: undefined;
 			const customerName =
+				selectedCustomerNameForReturns ||
 				req.session.data.licences[id]?.holder ||
 				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
 			const contact = req.session.data.contacts[contactID];
@@ -706,22 +711,20 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		10,
 	);
 
-	// If coming from customer context, redirect to customer-contacts
-	if (Number.isInteger(customerID)) {
-		const customerQuery = new URLSearchParams({
-			customerID: String(customerID),
-		}).toString();
-		return res.redirect(`/internal/customer/customer-contacts?${customerQuery}`);
-	}
-
-	// Otherwise, redirect to contact page (licence context)
-	const query = new URLSearchParams({
+	// Redirect to contact page, preserving all available context
+	const queryParams = {
 		contactID: Number.isInteger(contactID)
 			? String(contactID)
 			: String(req.session.data.contactID ?? ""),
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-	}).toString();
-
+	};
+	if (Number.isInteger(id)) {
+		queryParams.ID = String(id);
+	}
+	if (Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+		queryParams.from = "customer";
+	}
+	const query = new URLSearchParams(queryParams).toString();
 	res.redirect(`/internal/contact?${query}`);
 });
 

@@ -2,23 +2,31 @@
 {% extends "layouts/main-internal.html" %}
 
 {% set pageName="Contact" %}
-{% set licence = data['licences'][data.ID] %}
+{% set licence = data['licences'][data.ID] if data.ID else null %}
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
-{% set customerName = licence.holder %}
+{% set customerName = "" %}
+{% if data.customerID is not undefined and data.customers[data.customerID] %}
+	{% set customerName = data.customers[data.customerID].name %}
+{% elif licence %}
+	{% set customerName = licence.holder %}
+{% endif %}
 {% if contact.customers and contact.customers.length %}
-	{% set customerName = contact.customers[0].customer %}
-	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == licence.holder %}
-			{% set customerName = customerEntry.customer %}
-		{% endif %}
-	{% endfor %}
+	{% if customerName %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == customerName %}
+				{% set customerName = customerEntry.customer %}
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		{% set customerName = contact.customers[0].customer %}
+	{% endif %}
 {% endif %}
 
 {% block containerStart %}
 	{% if data.from == "customer" %}
 		{{ govukBackLink({
-		  href: "/internal/customer/customer-contacts?ID=" + data.ID,
+		  href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
 		  text: "Back to customer"
 		}) }}
 	{% else %}
@@ -83,6 +91,9 @@
 
 		<!-- update contact-->
 		{% set updateContactHref = "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set updateContactHref = updateContactHref + "&customerID=" + data.customerID %}
+		{% endif %}
 		{% if data.from %}
 			{% set updateContactHref = updateContactHref + "&from=" + data.from %}
 		{% endif %}
