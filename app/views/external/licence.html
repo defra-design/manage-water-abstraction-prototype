@@ -131,7 +131,7 @@
 
 {{ govukInsetText({
   text: "The information included in this service does not replace or affect the legal (paper) copy of the licence issued to you. The information must be used for reference only. You must refer to and comply with the licence issued to you as a paper copy when you make decisions about abstracting or impounding water.",
-  classes: "govuk-!-margin-top-9 govuk-!-width-two-thirds"
+  classes: "govuk-!-margin-top-9 govuk-!-margin-bottom-7 govuk-!-width-two-thirds"
 }) }}
 
 {{ govukDetails({
@@ -146,107 +146,123 @@
 {% endset -%}
 
 {% set returnsHtml %}
-<h2 class="govuk-heading-l">Returns</h2>
+<h2 class="govuk-heading-m">Returns</h2>
+
 {{ govukTable({
   head: [
     {
-      text: "Case manager"
+      text: "Return reference"
     },
     {
-      text: "Cases opened"
+      text: "Purpose"
     },
     {
-      text: "Cases closed"
+      text: "Due"
+    },
+    {
+      text: "Status"
     }
   ],
   rows: [
     [
       {
-        text: "David Francis"
+        html: '<a href="#" class="govuk-link">10077780</a>'
       },
       {
-        text: "24"
+        text: "Water Supply"
       },
       {
-        text: "18"
+        text: "28 April 2026"
+      },
+      {
+        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
       }
     ],
     [
       {
-        text: "Paul Farmer"
+        html: '<a href="#" class="govuk-link">10077781</a>'
       },
       {
-        text: "16"
+        text: "Water Supply"
       },
       {
-        text: "20"
+        text: "3 February 2026"
+      },
+      {
+        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
       }
     ],
     [
       {
-        text: "Rita Patel"
+        html: '<a href="#" class="govuk-link">10077782</a>'
       },
       {
-        text: "24"
+        text: "Water Supply"
       },
       {
-        text: "27"
+        text: "28 October 2025"
+      },
+      {
+        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
       }
     ]
   ]
 }) }}
+
 {% endset -%}
 
 {% set communicationsHtml %}
-<h2 class="govuk-heading-l">Communications</h2>
+<h2 class="govuk-heading-m">Communications</h2>
+
 {{ govukTable({
   head: [
     {
-      text: "Case manager"
+      text: "Type"
     },
     {
-      text: "Cases opened"
+      text: "Sent"
     },
     {
-      text: "Cases closed"
+      text: "Method"
     }
   ],
   rows: [
     [
       {
-        text: "David Francis"
+        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
       },
       {
-        text: "98"
+        text: "19 May 2026"
       },
       {
-        text: "95"
+        text: "Email"
       }
     ],
     [
       {
-        text: "Paul Farmer"
+        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
       },
       {
-        text: "122"
+        text: "19 May 2026"
       },
       {
-        text: "131"
+        text: "Email"
       }
     ],
     [
       {
-        text: "Rita Patel"
+        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
       },
       {
-        text: "126"
+        text: "31 March 2026"
       },
       {
-        text: "142"
+        text: "Email"
       }
     ]
   ]
 }) }}
+
 {% endset -%}
 
 {{ govukTabs({
