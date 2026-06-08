@@ -53,6 +53,17 @@ router.get("/internal/customer/customer-contacts", (req, res) => {
 	res.render("internal/customer/customer-contacts");
 });
 
+// Capture customer ID and optional licence ID for add contact page
+router.get("/internal/contact/add-contact", (req, res) => {
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	res.render("internal/contact/add-contact");
+});
+
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
 	if (req.query.ID) {

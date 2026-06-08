@@ -1,0 +1,56 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Enter a new contact name" %}
+{% set licence = data['licences'][data.ID] if data.ID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set breadcrumbType="licence" %}
+{% set customerName = data.customers[data.customerID].name %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
+  text: "Back to customer"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ customerName }}</span>
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		{% set formAction = "/internal/contact/edit-name?customerID=" + data.customerID %}
+		{% if data.ID %}
+			{% set formAction = formAction + "&ID=" + data.ID %}
+		{% endif %}
+		{% if data.contactID %}
+			{% set formAction = formAction + "&contactID=" + data.contactID %}
+		{% endif %}
+
+		<form method="post" action="{{ formAction }}">
+
+		{{ govukInput({
+			id: "fullName",
+			name: "fullName",
+		  classes: "govuk-input--width-20",
+			value: ""
+		}) }}
+
+		{{ govukButton({
+		text: "Continue",
+		classes: "govuk-!-margin-right-3",
+		type: "submit"
+		}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+
