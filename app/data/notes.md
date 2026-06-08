@@ -14,3 +14,15 @@ This text is ***really important***.
 
 ---
 
+Licence holderPublic
+Licence version start date
+Licence version issue date
+End date
+Source of supply
+Purposes
+Periods of abstraction
+Points of abstraction
+Monitoring station	
+Abstraction conditions
+Abstraction amounts
+Billing region

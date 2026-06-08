@@ -1,0 +1,44 @@
+{% extends "layouts/main-external.html" %}
+
+{% set pageName="Your licences" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    {% set licenceRows = [] %}
+    {% for licence in data.licences %}
+      {% set licenceRows = licenceRows | push([
+        {
+          html: '<a href="/external/licence?ID=' + loop.index0 + '" class="govuk-link">' + licence.number + '</a>'
+        },
+        {
+          text: licence.name
+        },
+        {
+          text: licence.endDate
+        }
+      ]) %}
+    {% endfor %}
+
+    {{ govukTable({
+      head: [
+        {
+          text: "Licence"
+        },
+        {
+          text: "Licence name"
+        },
+        {
+          text: "End date"
+        }
+      ],
+      rows: licenceRows
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
