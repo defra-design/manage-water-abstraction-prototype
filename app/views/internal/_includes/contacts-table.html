@@ -9,6 +9,12 @@
 {% if licence %}
   {% set fromPage = "licence" %}
 {% endif %}
+{% set contactLinkBase = '/internal/contact?contactID=' %}
+{% if fromPage == "licence" %}
+  {% set contactLinkSuffix = '&ID=' + data.ID + '&from=' + fromPage %}
+{% else %}
+  {% set contactLinkSuffix = '&customerID=' + data.customerID + '&from=' + fromPage %}
+{% endif %}
 
 {% for contact in contacts %}
   {% set contactIndex = loop.index0 %}
@@ -33,12 +39,12 @@
               {{ notice.type }}{% if not loop.last %}<br>{% endif %}
             {% endfor %}
           {% else %}
-            <em class="govuk-hint">No communication preferences set</em>
+            {# show nothing in UI #}
           {% endif %}
         {% endset %}
 
         {% set contactsList = contactsList | push([
-          {html:'<a href="/internal/contact?ID=' + data.ID + '&contactID=' + contactIndex + '&from=' + fromPage + '" class="govuk-link">' + contact.name + '</a>'},
+          {html:'<a href="' + contactLinkBase + contactIndex + contactLinkSuffix + '" class="govuk-link">' + contact.name + '</a>'},
           {text:contactEntry.role},
           {html:communicationHtml | safe}
         ]) %}

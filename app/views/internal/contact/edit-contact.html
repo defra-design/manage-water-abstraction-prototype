@@ -238,11 +238,17 @@
 		{% endif %}
 
 		{% set editWAAHref = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set editWAAHref = editWAAHref + "&customerID=" + data.customerID %}
+		{% endif %}
 		{% if data.from %}
 			{% set editWAAHref = editWAAHref + "&from=" + data.from %}
 		{% endif %}
 
 		{% set editReturnsHref = "/internal/contact/edit-returns?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set editReturnsHref = editReturnsHref + "&customerID=" + data.customerID %}
+		{% endif %}
 		{% if data.from %}
 			{% set editReturnsHref = editReturnsHref + "&from=" + data.from %}
 		{% endif %}

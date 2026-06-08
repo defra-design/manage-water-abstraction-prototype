@@ -125,6 +125,9 @@ router.get("/internal/contact", (req, res) => {
 	if (req.query.contactID) {
 		req.session.data.contactID = parseInt(req.query.contactID);
 	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
 	res.render("internal/contact");
 });
 
@@ -194,6 +197,9 @@ router.get("/internal/contact/select-waa", (req, res) => {
 	if (req.query.contactID) {
 		req.session.data.contactID = parseInt(req.query.contactID);
 	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
 	if (req.query.from) {
 		req.session.data.from = req.query.from;
 	}
@@ -221,6 +227,10 @@ router.post("/internal/contact/select-waa", (req, res) => {
 		req.query.contactID ?? req.session.data.contactID,
 		10,
 	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
 	const selected = req.body.waaSelectionOptions;
 
@@ -237,12 +247,16 @@ router.post("/internal/contact/select-waa", (req, res) => {
 		(v) => !String(v).endsWith("_unchecked"),
 	);
 
-	const query = new URLSearchParams({
+	const queryParams = {
 		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
 		contactID: Number.isInteger(contactID)
 			? String(contactID)
 			: String(req.session.data.contactID ?? ""),
-	}).toString();
+	};
+	if (Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+	}
+	const query = new URLSearchParams(queryParams).toString();
 
 	const queryWithFrom =
 		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
@@ -294,6 +308,9 @@ router.get("/internal/contact/edit-waa", (req, res) => {
 	if (req.query.contactID) {
 		req.session.data.contactID = parseInt(req.query.contactID);
 	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
 	if (req.query.from) {
 		req.session.data.from = req.query.from;
 	}
@@ -325,6 +342,10 @@ router.post("/internal/contact/edit-waa", (req, res) => {
 		req.query.contactID ?? req.session.data.contactID,
 		10,
 	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
 	const waaSelection = String(req.body.waaSelection ?? "").trim();
 
@@ -340,12 +361,16 @@ router.post("/internal/contact/edit-waa", (req, res) => {
 		delete req.session.data.pendingChanges.waaLicences;
 	}
 
-	const query = new URLSearchParams({
+	const queryParams = {
 		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
 		contactID: Number.isInteger(contactID)
 			? String(contactID)
 			: String(req.session.data.contactID ?? ""),
-	}).toString();
+	};
+	if (Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+	}
+	const query = new URLSearchParams(queryParams).toString();
 
 	const queryWithFrom =
 		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
@@ -529,7 +554,12 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const waaSelection = req.session.data.pendingChanges.waaSelection;
 		const waaLicences = req.session.data.pendingChanges.waaLicences;
 		if (waaSelection || waaLicences !== undefined) {
+			const selectedCustomerName =
+				Number.isInteger(req.session.data.customerID)
+					? req.session.data.customers[req.session.data.customerID]?.name
+					: undefined;
 			const customerName =
+				selectedCustomerName ||
 				req.session.data.licences[id]?.holder ||
 				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
 			const contact = req.session.data.contacts[contactID];
