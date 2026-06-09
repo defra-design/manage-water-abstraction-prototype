@@ -95,7 +95,7 @@
             text: "Points of abstraction"
           },
           value: {
-            html: (licence.absPoints | join("<br>")) if licence.absPoints else ""
+            html: ((licence.absPoints | join("<br>")) + "<br><a href=\"/external/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>") if licence.absPoints else "<a href=\"/external/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>"
           }
         },
         {

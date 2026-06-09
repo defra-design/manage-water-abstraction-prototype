@@ -1,0 +1,27 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licences" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName="Abstraction points"%}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/external/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
+    <h1 class="govuk-heading-l">
+      {{ pageName }}
+    </h1>
+
+  </div>
+</div>
+
+{% endblock %}
