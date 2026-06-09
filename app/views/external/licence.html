@@ -2,7 +2,7 @@
 
 {% set activeNavigation = "View licences" %}
 {% set licence = data['licences'][data.ID] %}
-{% set pageName="Licence number " + licence.number %}
+{% set pageName=licence.name %}
 
 {% block containerStart %}
 {{ govukBackLink({
@@ -15,7 +15,11 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
+    <h1 class="govuk-heading-l">
+      {{ pageName }}
+    </h1>
 
     {% set summaryHtml %}
     <h2 class="govuk-heading-m">Summary</h2>
