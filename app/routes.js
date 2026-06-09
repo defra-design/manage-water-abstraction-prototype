@@ -786,6 +786,16 @@ router.post("/external/choose-a-licence-holder", (req, res) => {
 	res.redirect("/external/licences");
 });
 
+// Save licence name to session data
+router.post("/external/name-licence", (req, res) => {
+	const id = parseInt(req.session.data.ID, 10);
+	const licenceName = String(req.body.licenceName || "").trim();
+	if (Number.isInteger(id) && req.session.data.licences && req.session.data.licences[id]) {
+		req.session.data.licences[id].name = licenceName;
+	}
+	res.redirect("/external/licence");
+});
+
 // Capture licence ID from query parameter for external licence detail page
 router.get("/external/licence", (req, res) => {
 	if (req.query.ID) {

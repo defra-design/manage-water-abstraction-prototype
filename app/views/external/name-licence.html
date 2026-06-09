@@ -1,0 +1,42 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licence" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName = "Change this licence name" if licence.name else "Name this licence" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/external/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ licence.number }}</span>
+		<h1 class="govuk-heading-l">
+			{{ pageName }}
+		</h1>
+
+    <form method="post" action="/external/name-licence">
+
+    {{ govukInput({
+      id: "licenceName",
+      name: "licenceName",
+      classes: "govuk-input--width-20",
+      value: licence.name if licence.name else ""
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      classes: "govuk-!-margin-right-3",
+      type: "submit"
+    }) }}
+    
+  </div>
+</div>
+
+{% endblock %}

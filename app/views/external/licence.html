@@ -17,280 +17,276 @@
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-{% set summaryHtml %}
-<h2 class="govuk-heading-m">Summary</h2>
+    {% set summaryHtml %}
+    <h2 class="govuk-heading-m">Summary</h2>
 
-{{ govukSummaryList({
-  rows: [
-    {
-      key: {
-        text: "Licence name"
-      },
-      value: {
-        html: licence.name if licence.name else "No name chosen<br><a href=\"#\" class=\"govuk-link\">Name this licence</a>"
-      }
-    },
-    {
-      key: {
-        text: "Licence holder"
-      },
-      value: {
-        html: licence.holder + "<br><a href=\"#\" class=\"govuk-link\">View licence contact details</a>"
-      }
-    },
-    {
-      key: {
-        text: "Licence version start date"
-      },
-      value: {
-        text: licence.effectiveDate
-      }
-    },
-    {
-      key: {
-        text: "Licence version issue date"
-      },
-      value: {
-        text: licence.effectiveDate
-      }
-    },
-    {
-      key: {
-        text: "End date"
-      },
-      value: {
-        text: licence.endDate
-      }
-    },
-    {
-      key: {
-        text: "Source of supply"
-      },
-      value: {
-        text: licence.source
-      }
-    },
-    {
-      key: {
-        text: "Purposes"
-      },
-      value: {
-        text: licence.purpose | join(", ") if licence.purpose else ""
-      }
-    },
-    {
-      key: {
-        text: "Periods of abstraction"
-      },
-      value: {
-        text: licence.periodStart + " to " + licence.periodEnd
-      }
-    },
-    {
-      key: {
-        text: "Points of abstraction"
-      },
-      value: {
-        html: (licence.absPoints | join("<br>")) if licence.absPoints else ""
-      }
-    },
-    {
-      key: {
-        text: "Monitoring station"
-      },
-      value: {
-        text: licence.monitoringStation
-      }
-    },
-    {
-      key: {
-        text: "Abstraction conditions"
-      },
-      value: {
-        text: licence.conditions | join(", ") if licence.conditions else ""
-      }
-    },
-    {
-      key: {
-        text: "Abstraction amounts"
-      },
-      value: {
-        text: licence.absQuantities
-      }
-    },
-    {
-      key: {
-        text: "Billing region"
-      },
-      value: {
-        text: licence.billingRegion
-      }
-    }
-  ]
-}) }}
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Licence name"
+          },
+          value: {
+            html: (licence.name + "<br><a href=\"/external/name-licence\" class=\"govuk-link\">Change this licence name</a>") if licence.name else "No name chosen<br><a href=\"/external/name-licence\" class=\"govuk-link\">Name this licence</a>"
+          }
+        },
+        {
+          key: {
+            text: "Licence holder"
+          },
+          value: {
+            html: licence.holder + "<br><a href=\"#\" class=\"govuk-link\">View licence contact details</a>"
+          }
+        },
+        {
+          key: {
+            text: "Licence version start date"
+          },
+          value: {
+            text: licence.effectiveDate
+          }
+        },
+        {
+          key: {
+            text: "Licence version issue date"
+          },
+          value: {
+            text: licence.effectiveDate
+          }
+        },
+        {
+          key: {
+            text: "End date"
+          },
+          value: {
+            text: licence.endDate
+          }
+        },
+        {
+          key: {
+            text: "Source of supply"
+          },
+          value: {
+            text: licence.source
+          }
+        },
+        {
+          key: {
+            text: "Purposes"
+          },
+          value: {
+            text: licence.purpose | join(", ") if licence.purpose else ""
+          }
+        },
+        {
+          key: {
+            text: "Periods of abstraction"
+          },
+          value: {
+            text: licence.periodStart + " to " + licence.periodEnd
+          }
+        },
+        {
+          key: {
+            text: "Points of abstraction"
+          },
+          value: {
+            html: (licence.absPoints | join("<br>")) if licence.absPoints else ""
+          }
+        },
+        {
+          key: {
+            text: "Monitoring station"
+          },
+          value: {
+            text: licence.monitoringStation
+          }
+        },
+        {
+          key: {
+            text: "Abstraction conditions"
+          },
+          value: {
+            text: licence.conditions | join(", ") if licence.conditions else ""
+          }
+        },
+        {
+          key: {
+            text: "Abstraction amounts"
+          },
+          value: {
+            text: licence.absQuantities
+          }
+        },
+        {
+          key: {
+            text: "Billing region"
+          },
+          value: {
+            text: licence.billingRegion
+          }
+        }
+      ]
+    }) }}
 
-{{ govukInsetText({
-  text: "The information included in this service does not replace or affect the legal (paper) copy of the licence issued to you. The information must be used for reference only. You must refer to and comply with the licence issued to you as a paper copy when you make decisions about abstracting or impounding water.",
-  classes: "govuk-!-margin-top-9 govuk-!-margin-bottom-7 govuk-!-width-two-thirds"
-}) }}
+    {{ govukInsetText({
+      text: "The information included in this service does not replace or affect the legal (paper) copy of the licence issued to you. The information must be used for reference only. You must refer to and comply with the licence issued to you as a paper copy when you make decisions about abstracting or impounding water.",
+      classes: "govuk-!-margin-top-9 govuk-!-margin-bottom-7 govuk-!-width-two-thirds"
+    }) }}
 
-{{ govukDetails({
-  summaryText: "Is your licence information correct?",
-  html: "To help us improve our new service, please let us know if you find any errors in the licence information we are showing you. You can contact us by:<br><br>Email: <a href=\"#\">enquiries@environment-agency.gov.uk</a><br><br>Telephone: <a href=\"#\">03708 506 506</a><br><br>Telephone from outside the UK: <a href=\"#\">+44 114 282 5312</a><br><br>You can call us from 8am to 6pm, Monday to Friday."
-}) }}
+    {{ govukDetails({
+      summaryText: "Is your licence information correct?",
+      html: "To help us improve our new service, please let us know if you find any errors in the licence information we are showing you. You can contact us by:<br><br>Email: <a href=\"#\">enquiries@environment-agency.gov.uk</a><br><br>Telephone: <a href=\"#\">03708 506 506</a><br><br>Telephone from outside the UK: <a href=\"#\">+44 114 282 5312</a><br><br>You can call us from 8am to 6pm, Monday to Friday."
+    }) }}
 
-{% endset -%}
+    {% endset -%}
 
-{% set pastDayHtml %}
+    {% set returnsHtml %}
+    <h2 class="govuk-heading-m">Returns</h2>
 
-{% endset -%}
+    {{ govukTable({
+      head: [
+        {
+          text: "Return reference"
+        },
+        {
+          text: "Purpose"
+        },
+        {
+          text: "Due"
+        },
+        {
+          text: "Status"
+        }
+      ],
+      rows: [
+        [
+          {
+            html: '<a href="#" class="govuk-link">10077780</a>'
+          },
+          {
+            text: "Water Supply"
+          },
+          {
+            text: "28 April 2026"
+          },
+          {
+            html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
+          }
+        ],
+        [
+          {
+            html: '<a href="#" class="govuk-link">10077781</a>'
+          },
+          {
+            text: "Water Supply"
+          },
+          {
+            text: "3 February 2026"
+          },
+          {
+            html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
+          }
+        ],
+        [
+          {
+            html: '<a href="#" class="govuk-link">10077782</a>'
+          },
+          {
+            text: "Water Supply"
+          },
+          {
+            text: "28 October 2025"
+          },
+          {
+            html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
+          }
+        ]
+      ]
+    }) }}
 
-{% set returnsHtml %}
-<h2 class="govuk-heading-m">Returns</h2>
+    {% endset -%}
 
-{{ govukTable({
-  head: [
-    {
-      text: "Return reference"
-    },
-    {
-      text: "Purpose"
-    },
-    {
-      text: "Due"
-    },
-    {
-      text: "Status"
-    }
-  ],
-  rows: [
-    [
-      {
-        html: '<a href="#" class="govuk-link">10077780</a>'
-      },
-      {
-        text: "Water Supply"
-      },
-      {
-        text: "28 April 2026"
-      },
-      {
-        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
-      }
-    ],
-    [
-      {
-        html: '<a href="#" class="govuk-link">10077781</a>'
-      },
-      {
-        text: "Water Supply"
-      },
-      {
-        text: "3 February 2026"
-      },
-      {
-        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
-      }
-    ],
-    [
-      {
-        html: '<a href="#" class="govuk-link">10077782</a>'
-      },
-      {
-        text: "Water Supply"
-      },
-      {
-        text: "28 October 2025"
-      },
-      {
-        html: '<strong class="govuk-tag govuk-tag--green">Complete</strong>'
-      }
-    ]
-  ]
-}) }}
+    {% set communicationsHtml %}
+    <h2 class="govuk-heading-m">Communications</h2>
 
-{% endset -%}
+    {{ govukTable({
+      head: [
+        {
+          text: "Type"
+        },
+        {
+          text: "Sent"
+        },
+        {
+          text: "Method"
+        }
+      ],
+      rows: [
+        [
+          {
+            html: '<a href="#" class="govuk-link">Returns: invitation</a>'
+          },
+          {
+            text: "19 May 2026"
+          },
+          {
+            text: "Email"
+          }
+        ],
+        [
+          {
+            html: '<a href="#" class="govuk-link">Returns: invitation</a>'
+          },
+          {
+            text: "19 May 2026"
+          },
+          {
+            text: "Email"
+          }
+        ],
+        [
+          {
+            html: '<a href="#" class="govuk-link">Returns: invitation</a>'
+          },
+          {
+            text: "31 March 2026"
+          },
+          {
+            text: "Email"
+          }
+        ]
+      ]
+    }) }}
 
-{% set communicationsHtml %}
-<h2 class="govuk-heading-m">Communications</h2>
+    {% endset -%}
 
-{{ govukTable({
-  head: [
-    {
-      text: "Type"
-    },
-    {
-      text: "Sent"
-    },
-    {
-      text: "Method"
-    }
-  ],
-  rows: [
-    [
-      {
-        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
-      },
-      {
-        text: "19 May 2026"
-      },
-      {
-        text: "Email"
-      }
-    ],
-    [
-      {
-        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
-      },
-      {
-        text: "19 May 2026"
-      },
-      {
-        text: "Email"
-      }
-    ],
-    [
-      {
-        html: '<a href="#" class="govuk-link">Returns: invitation</a>'
-      },
-      {
-        text: "31 March 2026"
-      },
-      {
-        text: "Email"
-      }
-    ]
-  ]
-}) }}
-
-{% endset -%}
-
-{{ govukTabs({
-  items: [
-    {
-      label: "Summary",
-      id: "Summary",
-      panel: {
-        html: summaryHtml
-      }
-    },
-    {
-      label: "Returns",
-      id: "Returns",
-      panel: {
-        html: returnsHtml
-      }
-    },
-    {
-      label: "Communications",
-      id: "Communications",
-      panel: {
-        html: communicationsHtml
-      }
-    }
-  ]
-}) }}
-    
+    {{ govukTabs({
+      items: [
+        {
+          label: "Summary",
+          id: "Summary",
+          panel: {
+            html: summaryHtml
+          }
+        },
+        {
+          label: "Returns",
+          id: "Returns",
+          panel: {
+            html: returnsHtml
+          }
+        },
+        {
+          label: "Communications",
+          id: "Communications",
+          panel: {
+            html: communicationsHtml
+          }
+        }
+      ]
+    }) }}
+        
   </div>
 </div>
 
