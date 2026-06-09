@@ -73,13 +73,14 @@
     {% endfor %}
 
     {% if returnsContacts | length %}
-      {% set returnsRows = [] %}
       {% for contact in returnsContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
-        {% set returnsRows = returnsRows | push({
-          key: { text: "Name" },
-          value: { text: contact.name }
-        }) %}
+        {% set returnsRows = [
+          {
+            key: { text: "Name" },
+            value: { text: contact.name }
+          }
+        ] %}
         {% if contact.email %}
           {% set returnsRows = returnsRows | push({
             key: { text: "Email" },
@@ -96,12 +97,13 @@
           key: { text: "Address" },
           value: { html: contactAddressForRow }
         }) %}
-      {% endfor %}
 
-    {# Returns #}
-      {{ govukSummaryList({
-        rows: returnsRows
-      }) }}
+      {# Returns #}
+        {{ govukSummaryList({
+          classes: "govuk-!-margin-bottom-7",
+          rows: returnsRows
+        }) }}
+      {% endfor %}
 
     {% else %}
       {{ govukSummaryList({
@@ -142,14 +144,14 @@
     {% endfor %}
 
     {% if licenceContacts | length %}
-      {# Debug: licenceContacts found - {{ licenceContacts | length }} #}
-      {% set licenceRows = [] %}
       {% for contact in licenceContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
-        {% set licenceRows = licenceRows | push({
-          key: { text: "Name" },
-          value: { text: contact.name }
-        }) %}
+        {% set licenceRows = [
+          {
+            key: { text: "Name" },
+            value: { text: contact.name }
+          }
+        ] %}
         {% if contact.email %}
           {% set licenceRows = licenceRows | push({
             key: { text: "Email" },
@@ -166,12 +168,13 @@
           key: { text: "Address" },
           value: { html: contactAddressForRow }
         }) %}
-      {% endfor %}
 
-    {# Contacts #}
-      {{ govukSummaryList({
-        rows: licenceRows
-      }) }}
+      {# Contacts #}
+        {{ govukSummaryList({
+          classes: "govuk-!-margin-bottom-7",
+          rows: licenceRows
+        }) }}
+      {% endfor %}
 
     {% else %}
       <p class="govuk-body">No licence contacts</p>
