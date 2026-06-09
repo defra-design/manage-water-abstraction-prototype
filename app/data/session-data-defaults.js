@@ -1110,31 +1110,31 @@ module.exports = {
 			],
 		},
 
-		// {
-		// 	wrls: "true",
-		// 	name: "Geoffrey Billington",
-		// 	email: "gbillington@bwplc.co.uk",
-		// 	phone: "",
-		// 	type: "person",
-		// 	firstName: "Geoffrey",
-		// 	lastName: "Billington",
-		// 	customers: [
-		// 		{
-		// 			role: "Primary user",
-		// 			notices: [
-		// 				{
-		// 					type: "Returns by email",
-		// 					licences: ["03/28/60/0032"],
-		// 				},
-		// 				{
-		// 					type: "Water abstraction alerts by email",
-		// 					licences: ["03/28/60/0032", "03/28/60/0035"],
-		// 				}
-		// 			],
-		// 			customer: "Bottled Water Plc",
-		// 		},
-		// 	],
-		// },
+		{
+			wrls: "true",
+			name: "Geoffrey Billington",
+			email: "gbillington@bwplc.co.uk",
+			phone: "",
+			type: "person",
+			firstName: "Geoffrey",
+			lastName: "Billington",
+			customers: [
+				{
+					role: "Primary user",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: ["03/28/60/0032"],
+						},
+						{
+							type: "Water abstraction alerts by email",
+							licences: ["03/28/60/0032", "03/28/60/0035"],
+						}
+					],
+					customer: "Bottled Water Plc",
+				},
+			],
+		},
 
 		{
 			wrls: "true",

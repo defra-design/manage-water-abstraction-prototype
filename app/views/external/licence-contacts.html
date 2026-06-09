@@ -104,7 +104,26 @@
       }) }}
 
     {% else %}
-      <p class="govuk-body">No contacts for returns</p>
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Name"
+            },
+            value: {
+              text: licence.holder
+            }
+          },
+          {
+            key: {
+              text: "Address"
+            },
+            value: {
+              html: contactAddress
+            }
+          }
+        ]
+      }) }}
     {% endif %}
 
     <h1 class="govuk-heading-m govuk-!-margin-top-7">Licence contact</h1>
