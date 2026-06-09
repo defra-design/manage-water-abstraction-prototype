@@ -72,7 +72,7 @@ module.exports = {
 				{
 					purpose: "Spray irrigation - direct",
 					points: [
-						"At National Grid Reference SK 675 124(RIVER SWALE - HELPERBY)",
+						"At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)",
 						"At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)",
 					],
 					periodStart: "0401",

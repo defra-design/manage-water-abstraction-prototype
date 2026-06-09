@@ -21,6 +21,32 @@
       {{ pageName }}
     </h1>
 
+
+    {% for use in licence.use %}
+      <h2 class="govuk-heading-m">{{ use.purpose }}</h2>
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-7",
+        rows: [
+          {
+            key: {
+              text: "Grid reference"
+            },
+            value: {
+              html: use.points | join("<br>")
+            }
+          },
+          {
+            key: {
+              text: "Means of abstraction"
+            },
+            value: {
+              text: licence.means | join(", ")
+            }
+          }
+        ]
+      }) }}
+    {% endfor %}
+
   </div>
 </div>
 
