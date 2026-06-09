@@ -57,25 +57,41 @@
 
     {% set returnsContacts = [] %}
     {% for contact in data.contacts %}
+      {% set hasReturnsNotice = false %}
       {% for customerEntry in contact.customers %}
         {% if customerEntry.customer == licence.holder %}
           {% for notice in customerEntry.notices %}
             {% if notice.type == "Returns by email" %}
-              {% set returnsContacts = returnsContacts | push(contact) %}
+              {% set hasReturnsNotice = true %}
             {% endif %}
           {% endfor %}
         {% endif %}
       {% endfor %}
+      {% if hasReturnsNotice %}
+        {% set returnsContacts = returnsContacts | push(contact) %}
+      {% endif %}
     {% endfor %}
 
-    {% if returnsContacts %}
+    {% if returnsContacts | length %}
       {% set returnsRows = [] %}
       {% for contact in returnsContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
         {% set returnsRows = returnsRows | push({
-          key: { text: contact.name },
-          value: { text: contact.email or contact.phone or "No contact details" }
+          key: { text: "Name" },
+          value: { text: contact.name }
         }) %}
+        {% if contact.email %}
+          {% set returnsRows = returnsRows | push({
+            key: { text: "Email" },
+            value: { html: "<a href=\"#\">" + contact.email + "</a>" }
+          }) %}
+        {% endif %}
+        {% if contact.phone %}
+          {% set returnsRows = returnsRows | push({
+            key: { text: "Phone" },
+            value: { text: contact.phone }
+          }) %}
+        {% endif %}
         {% set returnsRows = returnsRows | push({
           key: { text: "Address" },
           value: { html: contactAddressForRow }
@@ -95,21 +111,38 @@
 
     {% set licenceContacts = [] %}
     {% for contact in data.contacts %}
+      {% set isLicenceContact = false %}
       {% for customerEntry in contact.customers %}
         {% if customerEntry.customer == licence.holder and customerEntry.role == "Contact" %}
-          {% set licenceContacts = licenceContacts | push(contact) %}
+          {% set isLicenceContact = true %}
         {% endif %}
       {% endfor %}
+      {% if isLicenceContact %}
+        {% set licenceContacts = licenceContacts | push(contact) %}
+      {% endif %}
     {% endfor %}
 
-    {% if licenceContacts %}
+    {% if licenceContacts | length %}
+      {# Debug: licenceContacts found - {{ licenceContacts | length }} #}
       {% set licenceRows = [] %}
       {% for contact in licenceContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
         {% set licenceRows = licenceRows | push({
-          key: { text: contact.name },
-          value: { text: contact.email or contact.phone or "No contact details" }
+          key: { text: "Name" },
+          value: { text: contact.name }
         }) %}
+        {% if contact.email %}
+          {% set licenceRows = licenceRows | push({
+            key: { text: "Email" },
+            value: { html: "<a href=\"mailto:" + contact.email + "\">" + contact.email + "</a>" }
+          }) %}
+        {% endif %}
+        {% if contact.phone %}
+          {% set licenceRows = licenceRows | push({
+            key: { text: "Phone" },
+            value: { text: contact.phone }
+          }) %}
+        {% endif %}
         {% set licenceRows = licenceRows | push({
           key: { text: "Address" },
           value: { html: contactAddressForRow }
