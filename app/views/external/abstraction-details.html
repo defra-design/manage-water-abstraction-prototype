@@ -1,0 +1,60 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licences" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName="Abstraction details"%}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/external/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
+    <h1 class="govuk-heading-l">
+      {{ pageName }}
+    </h1>
+
+    {% for use in licence.use %}
+      <h2 class="govuk-heading-m">{{ use.purpose }}</h2>
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-bottom-7",
+        rows: [
+          {
+            key: {
+              text: "Abstraction point"
+            },
+            value: {
+              html: use.points | join('<br>')
+            }
+          },
+          {
+            key: {
+              text: "Period of abstraction"
+            },
+            value: {
+              html: "From " + use.periodStart | mmddToDate + " to " + use.periodEnd | mmddToDate
+            }
+          },
+          {
+            key: {
+              text: "Abstraction amount"
+            },
+            value: {
+              html: use.amount + " " + (use.units | unitsToWords)
+            }
+          }
+        ]
+      }) }}
+    {% endfor %}
+  
+  </div>
+</div>
+
+{% endblock %}
