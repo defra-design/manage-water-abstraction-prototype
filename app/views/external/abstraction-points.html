@@ -23,7 +23,7 @@
 
 
     {% for use in licence.use %}
-      <h2 class="govuk-heading-m">{{ use.purpose }}</h2>
+      <h2 class="govuk-heading-m">{{ use.points | bracketedText }}</h2>
       {{ govukSummaryList({
         classes: "govuk-!-margin-bottom-7",
         rows: [
