@@ -1,0 +1,103 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licences" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName="Contact details"%}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/external/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
+    <h1 class="govuk-heading-l">
+      {{ pageName }}
+    </h1>
+
+    <h1 class="govuk-heading-m">Licence holder</h1>
+
+    {% set contactAddress = "" %}
+    {% for customer in data.customers %}
+      {% if customer.name == licence.holder %}
+        {% set contactAddress = customer.address1 + "<br>" + customer.city + "<br>" + customer.postcode %}
+      {% endif %}
+    {% endfor %}
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Name"
+          },
+          value: {
+            text: licence.holder
+          }
+        },
+        {
+          key: {
+            text: "Address"
+          },
+          value: {
+            html: contactAddress
+          }
+        }
+      ]
+    }) }}
+            
+    <h1 class="govuk-heading-m">Returns to</h1>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Name"
+          },
+          value: {
+            text: licence.holder
+          }
+        },
+        {
+          key: {
+            text: "Address"
+          },
+          value: {
+            html: contactAddress
+          }
+        }
+      ]
+    }) }}
+
+    <h1 class="govuk-heading-m">Licence contact</h1>
+
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "Licence contact"
+          },
+          value: {
+            text: licence.holder
+          }
+        },
+        {
+          key: {
+            text: "Address"
+          },
+          value: {
+            html: contactAddress
+          }
+        }
+      ]
+    }) }}
+
+  </div>
+</div>
+
+{% endblock %}
