@@ -23,6 +23,7 @@
 
     <h1 class="govuk-heading-m">Licence holder</h1>
 
+    {# Get address for licence holder #}
     {% set contactAddress = "" %}
     {% for customer in data.customers %}
       {% if customer.name == licence.holder %}
@@ -30,6 +31,7 @@
       {% endif %}
     {% endfor %}
 
+    {# Licence holder #}
     {{ govukSummaryList({
       rows: [
         {
@@ -51,51 +53,77 @@
       ]
     }) }}
             
-    <h1 class="govuk-heading-m">Returns to</h1>
+    <h1 class="govuk-heading-m govuk-!-margin-top-7">Returns to</h1>
 
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-            text: "Name"
-          },
-          value: {
-            text: licence.holder
-          }
-        },
-        {
-          key: {
-            text: "Address"
-          },
-          value: {
-            html: contactAddress
-          }
-        }
-      ]
-    }) }}
+    {% set returnsContacts = [] %}
+    {% for contact in data.contacts %}
+      {% for customerEntry in contact.customers %}
+        {% if customerEntry.customer == licence.holder %}
+          {% for notice in customerEntry.notices %}
+            {% if notice.type == "Returns by email" %}
+              {% set returnsContacts = returnsContacts | push(contact) %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
 
-    <h1 class="govuk-heading-m">Licence contact</h1>
+    {% if returnsContacts %}
+      {% set returnsRows = [] %}
+      {% for contact in returnsContacts %}
+        {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
+        {% set returnsRows = returnsRows | push({
+          key: { text: contact.name },
+          value: { text: contact.email or contact.phone or "No contact details" }
+        }) %}
+        {% set returnsRows = returnsRows | push({
+          key: { text: "Address" },
+          value: { html: contactAddressForRow }
+        }) %}
+      {% endfor %}
 
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-            text: "Licence contact"
-          },
-          value: {
-            text: licence.holder
-          }
-        },
-        {
-          key: {
-            text: "Address"
-          },
-          value: {
-            html: contactAddress
-          }
-        }
-      ]
-    }) }}
+    {# Returns #}
+      {{ govukSummaryList({
+        rows: returnsRows
+      }) }}
+
+    {% else %}
+      <p class="govuk-body">No contacts for returns</p>
+    {% endif %}
+
+    <h1 class="govuk-heading-m govuk-!-margin-top-7">Licence contact</h1>
+
+    {% set licenceContacts = [] %}
+    {% for contact in data.contacts %}
+      {% for customerEntry in contact.customers %}
+        {% if customerEntry.customer == licence.holder and customerEntry.role == "Contact" %}
+          {% set licenceContacts = licenceContacts | push(contact) %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+
+    {% if licenceContacts %}
+      {% set licenceRows = [] %}
+      {% for contact in licenceContacts %}
+        {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
+        {% set licenceRows = licenceRows | push({
+          key: { text: contact.name },
+          value: { text: contact.email or contact.phone or "No contact details" }
+        }) %}
+        {% set licenceRows = licenceRows | push({
+          key: { text: "Address" },
+          value: { html: contactAddressForRow }
+        }) %}
+      {% endfor %}
+
+    {# Contacts #}
+      {{ govukSummaryList({
+        rows: licenceRows
+      }) }}
+
+    {% else %}
+      <p class="govuk-body">No licence contacts</p>
+    {% endif %}
 
   </div>
 </div>
