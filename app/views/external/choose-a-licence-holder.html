@@ -1,0 +1,68 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licences" %}
+{% set pageName="Choose a licence holder" %}
+{% set selectedHolder = data.selectedLicenceHolder or "Bottled Water Plc" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/external/licences",
+  text: "Back to licences"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    <form method="post">
+      {{ govukRadios({
+        name: "licenceHolder",
+        value: selectedHolder,
+        fieldset: {
+          legend: {
+            text: pageName,
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "Bottled Water Plc",
+            text: "Bottled Water Plc"
+          },
+          {
+            value: "Big Smith Farms Ltd",
+            text: "Big Smith Farms Ltd"
+          },
+          {
+            value: "Irene Briton",
+            text: "Irene Briton"
+          },
+          {
+            value: "Robin Vithlhem-Smith",
+            text: "Robin Vithlhem-Smith"
+          },
+          {
+            value: "D.B. Beecham-Smith",
+            text: "D.B. Beecham-Smith"
+          },
+          {
+            value: "Public Water Plc",
+            text: "Public Water Plc"
+          }
+        ]
+      }) }}
+      
+      {{ govukButton({
+        text: "Continue",
+        type: "submit"
+      }) }}
+      
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

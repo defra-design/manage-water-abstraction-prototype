@@ -761,3 +761,35 @@ router.get("/internal/contact/cancel", (req, res) => {
 
 	res.redirect(`/internal/contact?${query}`);
 });
+
+// External licences list with default licence holder selection
+router.get("/external/licences", (req, res) => {
+	if (!req.session.data.selectedLicenceHolder) {
+		req.session.data.selectedLicenceHolder = "Bottled Water Plc";
+	}
+	res.render("external/licences");
+});
+
+// External choose licence holder page
+router.get("/external/choose-a-licence-holder", (req, res) => {
+	if (!req.session.data.selectedLicenceHolder) {
+		req.session.data.selectedLicenceHolder = "Bottled Water Plc";
+	}
+	res.render("external/choose-a-licence-holder");
+});
+
+// Save selected licence holder and return to licences page
+router.post("/external/choose-a-licence-holder", (req, res) => {
+	const selectedLicenceHolder = String(req.body.licenceHolder || "").trim();
+	req.session.data.selectedLicenceHolder =
+		selectedLicenceHolder || "Bottled Water Plc";
+	res.redirect("/external/licences");
+});
+
+// Capture licence ID from query parameter for external licence detail page
+router.get("/external/licence", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID, 10);
+	}
+	res.render("external/licence");
+});

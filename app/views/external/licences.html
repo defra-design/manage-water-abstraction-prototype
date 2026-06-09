@@ -2,6 +2,7 @@
 
 {% set activeNavigation = "View licences" %}
 {% set pageName="Your licences" %}
+{% set selectedHolder = data.selectedLicenceHolder or "Bottled Water Plc" %}
 
 {% block content %}
 
@@ -9,19 +10,23 @@
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
+    <p class="govuk-body">You are managing <strong>{{ selectedHolder }}</strong> &nbsp; <a href="/external/choose-a-licence-holder" class="govuk-link">Change</a></p>
+
     {% set licenceRows = [] %}
     {% for licence in data.licences %}
-      {% set licenceRows = licenceRows | push([
-        {
-          html: '<a href="/external/licence?ID=' + loop.index0 + '" class="govuk-link">' + licence.number + '</a>'
-        },
-        {
-          text: licence.name
-        },
-        {
-          text: licence.endDate
-        }
-      ]) %}
+      {% if licence.holder == selectedHolder %}
+        {% set licenceRows = licenceRows | push([
+          {
+            html: '<a href="/external/licence?ID=' + loop.index0 + '" class="govuk-link">' + licence.number + '</a>'
+          },
+          {
+            text: licence.name
+          },
+          {
+            text: licence.endDate
+          }
+        ]) %}
+      {% endif %}
     {% endfor %}
 
     {{ govukTable({
