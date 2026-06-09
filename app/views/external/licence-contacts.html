@@ -75,6 +75,9 @@
     {% if returnsContacts | length %}
       {% for contact in returnsContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
+        {% if contact.post %}
+          {% set contactAddressForRow = contactAddressForRow | replace(', ', '<br>') | replace(',', '<br>') | replace('\n', '<br>') %}
+        {% endif %}
         {% set returnsRows = [
           {
             key: { text: "Name" },
@@ -146,6 +149,9 @@
     {% if licenceContacts | length %}
       {% for contact in licenceContacts %}
         {% set contactAddressForRow = contact.post if contact.post else contactAddress %}
+        {% if contact.post %}
+          {% set contactAddressForRow = contactAddressForRow | replace(', ', '<br>') | replace(',', '<br>') | replace('\n', '<br>') %}
+        {% endif %}
         {% set licenceRows = [
           {
             key: { text: "Name" },
