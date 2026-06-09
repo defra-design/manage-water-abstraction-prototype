@@ -1,6 +1,12 @@
 const govukPrototypeKit = require("govuk-prototype-kit");
 const router = govukPrototypeKit.requests.setupRouter();
 
+const ensureSelectedLicenceHolder = (req) => {
+	if (!req.session.data.selectedLicenceHolder) {
+		req.session.data.selectedLicenceHolder = "Bottled Water Plc";
+	}
+};
+
 // Expose current path to templates for active navigation states.
 router.use("/internal", (req, res, next) => {
 	res.locals.currentPath = req.originalUrl.split("?")[0];
@@ -764,17 +770,13 @@ router.get("/internal/contact/cancel", (req, res) => {
 
 // External licences list with default licence holder selection
 router.get("/external/licences", (req, res) => {
-	if (!req.session.data.selectedLicenceHolder) {
-		req.session.data.selectedLicenceHolder = "Bottled Water Plc";
-	}
+	ensureSelectedLicenceHolder(req);
 	res.render("external/licences");
 });
 
 // External choose licence holder page
 router.get("/external/choose-a-licence-holder", (req, res) => {
-	if (!req.session.data.selectedLicenceHolder) {
-		req.session.data.selectedLicenceHolder = "Bottled Water Plc";
-	}
+	ensureSelectedLicenceHolder(req);
 	res.render("external/choose-a-licence-holder");
 });
 
