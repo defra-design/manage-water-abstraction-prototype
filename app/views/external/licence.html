@@ -111,7 +111,7 @@
             text: "Abstraction conditions"
           },
           value: {
-            text: licence.conditions | join(", ") if licence.conditions else ""
+            html: ((licence.conditions | join(", ")) + "<br><a href=\"/external/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>") if licence.conditions else "<a href=\"/external/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>"
           }
         },
         {

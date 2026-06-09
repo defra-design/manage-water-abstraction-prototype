@@ -1,0 +1,127 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "View licences" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName="Abstraction conditions"%}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/external/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
+    <h1 class="govuk-heading-l">
+      {{ pageName }}
+    </h1>
+    
+    {{ govukWarningText({
+      text: "We may not be able to show a full list of your conditions, because we do not hold all of your licence information on our system yet. You must refer to the paper copy of your licence to view and comply with all of your conditions."
+    }) }}
+
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% for condition in licence.absConditions %}
+      {% if condition.type == "General condition" %}
+        {{ govukSummaryList({
+          card: {
+            title: {
+              text: condition.type
+            }
+          },
+          classes: "govuk-!-margin-bottom-7",
+          rows: [
+            {
+              key: {
+                text: "Abstraction point"
+              },
+              value: {
+                html: licence.use[condition.purposeIndex[0]].points | join('<br>')
+              }
+            },
+            {
+              key: {
+                text: "Purpose"
+              },
+              value: {
+                html: licence.use[condition.purposeIndex[0]].purpose
+              }
+            },
+            {
+              key: {
+                text: "Other information"
+              },
+              value: {
+                html: condition.text
+              }
+            }
+          ]
+        }) }}
+      {% else %}
+        {{ govukSummaryList({
+          card: {
+            title: {
+              text: condition.type
+            }
+          },
+          classes: "govuk-!-margin-bottom-7",
+          rows: [
+            {
+              key: {
+                text: "Abstraction point"
+              },
+              value: {
+                html: licence.use[condition.purposeIndex[0]].points | join('<br>')
+              }
+            },
+            {
+              key: {
+                text: "Purpose"
+              },
+              value: {
+                html: licence.use[condition.purposeIndex[0]].purpose
+              }
+            },
+            {
+              key: {
+                text: "Monitoring station"
+              },
+              value: {
+                html: condition.param1
+              }
+            },
+            {
+              key: {
+                text: "Threshold"
+              },
+              value: {
+                html: condition.param2
+              }
+            },
+            {
+              key: {
+                text: "Other information"
+              },
+              value: {
+                html: condition.text
+              }
+            }
+          ]
+        }) }}
+      {% endif %}
+    {% endfor %}
+  
+  </div>
+</div>
+
+{% endblock %}
