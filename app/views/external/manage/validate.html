@@ -15,7 +15,31 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    {{ govukInput({
+      id: "securityCode",
+      name: "securityCode",
+      label: {
+        text: pageName,
+        isPageHeading: true,
+        classes: "govuk-label--l"
+      },
+      hint: {
+        text: "We sent this by post to the registered address"
+      },
+      classes: "govuk-input--width-10",
+      value: data.securityCode if data.securityCode else ""
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      type: "submit"
+    }) }}
+
+    {{ govukDetails({
+      summaryText: "Not received your code?",
+      html: "We will send a security code to you straight away, using first-class mail.<div class='govuk-!-padding-bottom-3'></div>If it has not arrived after that time, contact us to request a new code.<div class='govuk-!-padding-bottom-3'></div>Email: <a href=\"#\">enquiries@environment-agency.gov.uk</a><div class='govuk-!-padding-bottom-3'></div>Telephone: <a href=\"#\">03708 506 506</a><div class='govuk-!-padding-bottom-3'></div>Telephone from outside the UK: <a href=\"#\">+44 114 282 5312</a><div class='govuk-!-padding-bottom-3'></div>You can call us from 8am to 6pm, Monday to Friday."
+    }) }}
 
   </div>
 </div>
