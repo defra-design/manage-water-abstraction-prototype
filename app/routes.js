@@ -7,6 +7,40 @@ const ensureSelectedLicenceHolder = (req) => {
 	}
 };
 
+const getNoPageLayoutTemplate = (req) => {
+	if (req.path.startsWith("/internal/")) {
+		return "layouts/main-internal.html";
+	}
+
+	if (req.path.startsWith("/external/")) {
+		return "layouts/main-external.html";
+	}
+
+	const referer = req.get("referer") || "";
+	if (referer.includes("/internal/")) {
+		return "layouts/main-internal.html";
+	}
+
+	if (referer.includes("/external/")) {
+		return "layouts/main-external.html";
+	}
+
+	return "layouts/main-external.html";
+};
+
+const renderNoPage = (req, res) => {
+	res.render("no-page", {
+		layoutTemplate: getNoPageLayoutTemplate(req),
+	});
+};
+
+router.get("/no-page", renderNoPage);
+router.get("/no-page.html", renderNoPage);
+router.get("/internal/no-page", renderNoPage);
+router.get("/internal/no-page.html", renderNoPage);
+router.get("/external/no-page", renderNoPage);
+router.get("/external/no-page.html", renderNoPage);
+
 // Expose current path to templates for active navigation states.
 router.use("/internal", (req, res, next) => {
 	res.locals.currentPath = req.originalUrl.split("?")[0];
