@@ -1,0 +1,16 @@
+{% extends "layouts/main-external.html" %}
+
+{% set activeNavigation = "Add licences or give access" %}
+{% set licence = data['licences'][data.ID] %}
+{% set pageName="Give access to your licences" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+  </div>
+</div>
+
+{% endblock %}

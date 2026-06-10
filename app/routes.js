@@ -788,15 +788,39 @@ router.post("/external/choose-a-licence-holder", (req, res) => {
 	res.redirect("/external/licences");
 });
 
-// Save licence name to session data
-router.post("/external/name-licence", (req, res) => {
+// Legacy external URLs redirected to nested licence pages
+router.get("/external/name-licence", (req, res) => {
+	res.redirect("/external/licence/name-licence");
+});
+
+router.get("/external/licence-contacts", (req, res) => {
+	res.redirect("/external/licence/licence-contacts");
+});
+
+router.get("/external/abstraction-details", (req, res) => {
+	res.redirect("/external/licence/abstraction-details");
+});
+
+router.get("/external/abstraction-points", (req, res) => {
+	res.redirect("/external/licence/abstraction-points");
+});
+
+router.get("/external/abstraction-conditions", (req, res) => {
+	res.redirect("/external/licence/abstraction-conditions");
+});
+
+const saveExternalLicenceName = (req, res) => {
 	const id = parseInt(req.session.data.ID, 10);
 	const licenceName = String(req.body.licenceName || "").trim();
 	if (Number.isInteger(id) && req.session.data.licences && req.session.data.licences[id]) {
 		req.session.data.licences[id].name = licenceName;
 	}
 	res.redirect("/external/licence");
-});
+};
+
+// Save licence name to session data
+router.post("/external/name-licence", saveExternalLicenceName);
+router.post("/external/licence/name-licence", saveExternalLicenceName);
 
 // Capture licence ID from query parameter for external licence detail page
 router.get("/external/licence", (req, res) => {

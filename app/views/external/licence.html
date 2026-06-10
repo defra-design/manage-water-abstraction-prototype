@@ -31,7 +31,7 @@
             text: "Licence name"
           },
           value: {
-            html: (licence.name + "<br><a href=\"/external/name-licence\" class=\"govuk-link\">Change this licence name</a>") if licence.name else "No name chosen<br><a href=\"/external/name-licence\" class=\"govuk-link\">Name this licence</a>"
+            html: (licence.name + "<br><a href=\"/external/licence/name-licence\" class=\"govuk-link\">Change this licence name</a>") if licence.name else "No name chosen<br><a href=\"/external/licence/name-licence\" class=\"govuk-link\">Name this licence</a>"
           }
         },
         {
@@ -39,7 +39,7 @@
             text: "Licence holder"
           },
           value: {
-            html: licence.holder + "<br><a href=\"/external/licence-contacts\" class=\"govuk-link\">View licence contact details</a>"
+            html: licence.holder + "<br><a href=\"/external/licence/licence-contacts\" class=\"govuk-link\">View licence contact details</a>"
           }
         },
         {
@@ -87,7 +87,7 @@
             text: "Periods of abstraction"
           },
           value: {
-            html: licence.periodStart + " to " + licence.periodEnd + "<br><a href=\"/external/abstraction-details\" class=\"govuk-link\">View details of your purpose, period and amounts</a>"
+            html: licence.periodStart + " to " + licence.periodEnd + "<br><a href=\"/external/licence/abstraction-details\" class=\"govuk-link\">View details of your purpose, period and amounts</a>"
           }
         },
         {
@@ -95,7 +95,7 @@
             text: "Points of abstraction"
           },
           value: {
-            html: ((licence.absPoints | join("<br>")) + "<br><a href=\"/external/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>") if licence.absPoints else "<a href=\"/external/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>"
+            html: ((licence.absPoints | join("<br>")) + "<br><a href=\"/external/licence/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>") if licence.absPoints else "<a href=\"/external/licence/abstraction-points\" class=\"govuk-link\">View details of your abstraction points</a>"
           }
         },
         {
@@ -111,7 +111,7 @@
             text: "Abstraction conditions"
           },
           value: {
-            html: ((licence.conditions | join(", ")) + "<br><a href=\"/external/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>") if licence.conditions else "<a href=\"/external/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>"
+            html: ((licence.conditions | join(", ")) + "<br><a href=\"/external/licence/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>") if licence.conditions else "<a href=\"/external/licence/abstraction-conditions\" class=\"govuk-link\">View details of your abstraction conditions</a>"
           }
         },
         {
