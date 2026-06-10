@@ -4,11 +4,41 @@
 {% set licence = data['licences'][data.ID] %}
 {% set pageName="Add your licences to the service" %}
 
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back",
+  href: "/external/manage-licences"
+}) }}
+{% endblock %}
+
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-two-thirds">
+
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+    <p class="govuk-body">You can enter one or many of your licence numbers</p>
+
+    {{ govukTextarea({
+      id: "addedLicences",
+      name: "addedLicences",
+      classes: "govuk-textarea govuk-!-width-three-quarters",
+      hint: {
+        text: "Separate the numbers with spaces, commas, or by entering them on different lines."
+      },
+      value: data.addedLicences if data.addedLicences else ""
+    }) }}
+
+    {{ govukButton({
+      text: "Continue",
+      type: "submit"
+    }) }}
+
+    {{ govukDetails({
+      summaryText: "Do you need help?",
+      html: "Please contact us for help.<div class='govuk-!-padding-bottom-3'></div>Email: <a href=\"#\">enquiries@environment-agency.gov.uk</a><div class='govuk-!-padding-bottom-3'></div>Telephone: <a href=\"#\">03708 506 506</a><div class='govuk-!-padding-bottom-3'></div>Telephone from outside the UK: <a href=\"#\">+44 114 282 5312</a><div class='govuk-!-padding-bottom-3'></div>You can call us from 8am to 6pm, Monday to Friday."
+    }) }}
 
   </div>
 </div>

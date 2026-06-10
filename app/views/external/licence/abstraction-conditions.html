@@ -14,7 +14,7 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
 
 		<span class="govuk-caption-l">Abstraction licence {{ licence.number }}</span>
     <h1 class="govuk-heading-l">
@@ -22,14 +22,9 @@
     </h1>
     
     {{ govukWarningText({
-      text: "We may not be able to show a full list of your conditions, because we do not hold all of your licence information on our system yet. You must refer to the paper copy of your licence to view and comply with all of your conditions."
+      text: "We may not be able to show a full list of your conditions, because we do not hold all of your licence information on our system yet. You must refer to the paper copy of your licence to view and comply with all of your conditions.",
+      classes: "govuk-!-width-two-thirds"
     }) }}
-
-  </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
 
     {% for condition in licence.absConditions %}
       {% if condition.type == "General condition" %}

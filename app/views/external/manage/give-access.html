@@ -4,6 +4,13 @@
 {% set licence = data['licences'][data.ID] %}
 {% set pageName="Give access to your licences" %}
 
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back",
+  href: "/external/manage-licences"
+}) }}
+{% endblock %}
+
 {% block content %}
 
 <div class="govuk-grid-row">
