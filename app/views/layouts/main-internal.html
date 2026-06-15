@@ -20,7 +20,7 @@
       {
       text: "Customers",
       href: "/internal/customers",
-      active: currentPath == "/internal/customers" or currentPath == "/internal/customer" or currentPath.startsWith("/internal/licence") or currentPath.startsWith("/internal/contact")
+      active: currentPath and (currentPath == "/internal/customers" or currentPath == "/internal/customer" or currentPath.startsWith("/internal/licence") or currentPath.startsWith("/internal/contact"))
       },
       {
       text: "Bill runs",
