@@ -10,7 +10,7 @@
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-    <p class="govuk-body">You are managing <strong>{{ selectedHolder }}</strong> &nbsp; <a href="/external/choose-a-licence-holder" class="govuk-link">Change</a></p>
+    <p class="govuk-body">You are managing <strong>{{ selectedHolder }}</strong> &nbsp; <a href="/external/choose-a-licence-holder" class="govuk-link">Change<span class="govuk-visually-hidden"> licence holder</span></a></p>
 
     {% set licenceRows = [] %}
     {% for licence in data.licences %}
