@@ -1,0 +1,72 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set licence = data['licences'][data.ID] %}
+{% set pageName = licence.monitoringStation if licence.monitoringStation else "Monitoring station" %}
+
+{% block containerStart %}
+{{ govukBackLink({
+  text: "Back to licence",
+  href: "/internal/licence"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+		<h1 class="govuk-heading-l">
+			{{ pageName }}
+		</h1>
+
+    {# Meta data #}
+		{{ govukSummaryList({
+			classes: 'govuk-summary-list--no-border meta-data govuk-!-width-two-thirds',
+			rows: [
+				{
+					key: {
+						text: "Grid reference",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "SE4250373339",
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "WISKI ID",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "F2302",
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "Station reference",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "F2302",
+						classes: "meta-data__value"
+					}
+				}
+			]
+		}) }}
+
+    <div class="govuk-button-group govuk-!-margin-bottom-0">
+      {{ govukButton({
+        text: "Create a water abstraction alert"
+      }) }}
+      {{ govukButton({
+        text: "Tag a licence",
+        classes: "govuk-button--secondary"
+      }) }}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

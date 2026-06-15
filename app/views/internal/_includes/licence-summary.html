@@ -73,7 +73,7 @@
 				text: "Monitoring station"
 			},
 			value: {
-				text: licence.monitoringStation
+				html: "<a href=\"/internal/licence/monitoring-station\" class=\"govuk-link\">" + licence.monitoringStation + "</a>" if licence.monitoringStation else "<a href=\"/internal/licence/monitoring-station\" class=\"govuk-link\">Monitoring station</a>"
 			}
 		},
 		{
