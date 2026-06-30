@@ -168,7 +168,16 @@ router.get("/internal/contact", (req, res) => {
 	if (req.query.customerID) {
 		req.session.data.customerID = parseInt(req.query.customerID);
 	}
-	res.render("internal/contact");
+
+	// Pass the success flag to the template if set, then clear it
+	const showSuccessBanner = req.session.data.contactUpdateSuccess === true;
+	if (showSuccessBanner) {
+		req.session.data.contactUpdateSuccess = false;
+	}
+
+	res.render("internal/contact", {
+		showSuccessBanner,
+	});
 });
 
 // Capture selected contact and optional licence ID for the edit contact page
@@ -626,6 +635,8 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		10,
 	);
 
+	let changesWereMade = false;
+
 	// Apply any pending changes
 	if (
 		req.session.data.pendingChanges &&
@@ -636,18 +647,22 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		if (req.session.data.pendingChanges.name) {
 			req.session.data.contacts[contactID].name =
 				req.session.data.pendingChanges.name;
+			changesWereMade = true;
 		}
 		if (req.session.data.pendingChanges.email) {
 			req.session.data.contacts[contactID].email =
 				req.session.data.pendingChanges.email;
+			changesWereMade = true;
 		}
 		if (req.session.data.pendingChanges.address) {
 			req.session.data.contacts[contactID].address =
 				req.session.data.pendingChanges.address;
+			changesWereMade = true;
 		}
 		if (req.session.data.pendingChanges.phone) {
 			req.session.data.contacts[contactID].phone =
 				req.session.data.pendingChanges.phone;
+			changesWereMade = true;
 		}
 		const waaSelection = req.session.data.pendingChanges.waaSelection;
 		const waaLicences = req.session.data.pendingChanges.waaLicences;
@@ -673,6 +688,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 						// Remove the notice entirely
 						if (noticeIndex >= 0) {
 							customerEntry.notices.splice(noticeIndex, 1);
+							changesWereMade = true;
 						}
 					} else if (waaSelection === "allLicences") {
 						if (noticeIndex >= 0) {
@@ -683,6 +699,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 								licences: "all",
 							});
 						}
+						changesWereMade = true;
 					} else if (waaLicences !== undefined) {
 						if (noticeIndex >= 0) {
 							customerEntry.notices[noticeIndex].licences = waaLicences;
@@ -692,6 +709,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 								licences: waaLicences,
 							});
 						}
+						changesWereMade = true;
 					}
 				}
 			}
@@ -719,6 +737,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 					if (returnsSelection === "noLicences") {
 						if (noticeIndex >= 0) {
 							customerEntry.notices.splice(noticeIndex, 1);
+							changesWereMade = true;
 						}
 					} else if (returnsSelection === "allLicences") {
 						if (noticeIndex >= 0) {
@@ -729,6 +748,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 								licences: "all",
 							});
 						}
+						changesWereMade = true;
 					} else if (returnsLicences !== undefined) {
 						if (noticeIndex >= 0) {
 							customerEntry.notices[noticeIndex].licences = returnsLicences;
@@ -738,6 +758,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 								licences: returnsLicences,
 							});
 						}
+						changesWereMade = true;
 					}
 				}
 			}
@@ -750,6 +771,11 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		req.query.customerID ?? req.session.data.customerID,
 		10,
 	);
+
+	// Set success flag if changes were made
+	if (changesWereMade) {
+		req.session.data.contactUpdateSuccess = true;
+	}
 
 	// Redirect to contact page, preserving all available context
 	const queryParams = {
