@@ -90,7 +90,15 @@ router.get("/internal/customer/customer-contacts", (req, res) => {
 	if (req.query.customerID) {
 		req.session.data.customerID = parseInt(req.query.customerID);
 	}
-	res.render("internal/customer/customer-contacts");
+
+	const showContactRemovedBanner = req.session.data.contactRemovedSuccess === true;
+	if (showContactRemovedBanner) {
+		req.session.data.contactRemovedSuccess = false;
+	}
+
+	res.render("internal/customer/customer-contacts", {
+		showContactRemovedBanner,
+	});
 });
 
 // Capture customer ID and optional licence ID for add contact page
@@ -244,6 +252,7 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 
 	if (Number.isInteger(customerID) && customerID >= 0) {
 		req.session.data.customerID = customerID;
+		req.session.data.contactRemovedSuccess = true;
 		return res.redirect(
 			`/internal/customer/customer-contacts?customerID=${customerID}`,
 		);

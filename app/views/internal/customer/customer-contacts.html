@@ -19,6 +19,12 @@
     
     <div class="govuk-grid-column-three-quarters">
 
+    {% if showContactRemovedBanner %}
+    {{ govukNotificationBanner({
+      text: "Contact removed"
+    }) }}
+    {% endif %}
+
     <h1 class="govuk-heading-l">
     <span class="govuk-caption-l">Customer {{[data.customers[data.customerID]['name']]}}</span>
      {{pageName}}
