@@ -30,10 +30,6 @@
         {% endif %}
       {% endfor %}
 
-      <p class="govuk-body">Go to customer contacts to <a href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a>.</p>
-
-      {% include "internal/_includes/contacts-filter.html" %}
-
       {% include "internal/_includes/contacts-table.html" %}
       
     </div>

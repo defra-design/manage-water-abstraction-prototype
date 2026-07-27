@@ -56,20 +56,37 @@
   {% endfor %}
 {% endfor %}
 
-{{ govukTable({
-  caption: "List of contacts",
-  classes: "contacts-table",
-  firstCellIsHeader: false,
-  head: [
-    {
-      text: "Name"
-    },
-    {
-      text: "Role"
-    },
-    {
-      text: "Communications"
-    }
-  ],
-  rows: contactsList
-}) }}
+{% if contactsList.length %}
+  {% include "internal/_includes/contacts-filter.html" %}
+
+  {{ govukTable({
+    caption: "List of contacts",
+    classes: "contacts-table",
+    firstCellIsHeader: false,
+    head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Role"
+      },
+      {
+        text: "Communications"
+      }
+    ],
+    rows: contactsList
+  }) }}
+{% else %}
+  {% if fromPage == "customer" %}
+    <p class="govuk-body govuk-!-margin-top-4">No contacts for this customer.</p>
+  {% else %}
+    {% set holderCustomerID = data.customerID %}
+    {% for customer in data.customers %}
+      {% if customer.name == selectedCustomer %}
+        {% set holderCustomerID = loop.index0 %}
+      {% endif %}
+    {% endfor %}
+    <p class="govuk-body">No contacts for this customer.</p>
+    <p class="govuk-body">Go to customer contacts to <a class="govuk-link" href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a> or go back to the licence summary if you need the licence holder's address.</p>
+  {% endif %}
+{% endif %}
