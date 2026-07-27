@@ -31,8 +31,11 @@
         {% endif %}
       {% endfor %}
 
-      {# When viewing from customer page, show all contacts; when viewing from licence page, only show contacts with applicable notices #}
-      {% if (fromPage == "customer") or (applicableNotices.length) %}
+      {# Only show roles that should appear in this table #}
+      {% set showRole = contactEntry.role == "Primary user" or contactEntry.role == "Contact" %}
+
+      {# When viewing from customer page, show allowed roles; when viewing from licence page, only show allowed roles with applicable notices #}
+      {% if showRole and ((fromPage == "customer") or (applicableNotices.length)) %}
         {% set communicationHtml %}
           {% if applicableNotices.length %}
             {% for notice in applicableNotices %}
