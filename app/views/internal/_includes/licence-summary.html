@@ -1,6 +1,13 @@
 {% set licences = data['licences'] %}
 {% set ID = data['ID'] %}
 {% set licence = licences[ID] %}
+{% set customers = data['customers'] %}
+{% set holderAddress = '' %}
+{% for customer in customers %}
+	{% if customer.name == licence.holder %}
+		{% set holderAddress = customer.address1 %}
+	{% endif %}
+{% endfor %}
 
 {{ govukSummaryList({
 	rows: [
@@ -10,6 +17,14 @@
 			},
 			value: {
 				text: licence.holder
+			}
+		},
+		{
+			key: {
+				text: "Address"
+			},
+			value: {
+				text: holderAddress
 			}
 		},
 		{
