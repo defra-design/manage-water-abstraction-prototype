@@ -86,7 +86,11 @@
         {% set holderCustomerID = loop.index0 %}
       {% endif %}
     {% endfor %}
-    <p class="govuk-body">No contacts for this customer.</p>
-    <p class="govuk-body">Go to customer contacts to <a class="govuk-link" href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a> or go back to the licence summary if you need the licence holder's address.</p>
+   
+    <div style="margin-right: 30%;">
+      <p class="govuk-body">No contacts for this customer.</p>
+      <p class="govuk-body">Go to customer contacts to <a class="govuk-link" href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a> or go back to the licence summary if you need the licence holder's address.</p>
+    </div>
+
   {% endif %}
 {% endif %}
