@@ -143,7 +143,7 @@
 		{% endif %}
 	{% endfor %}
 
-	{% set addressValue = (data.contacts[data.contactID].address or contactAddress) | default("") | trim %}
+	{% set addressValue = contact.post | default("") | trim %}
 
 	{{ govukSummaryList({
 		rows: [
@@ -167,7 +167,7 @@
 			},
 				{
 					key: {
-						text: "Postal address"
+						text: "Address"
 					},
 					value: {
 						text: addressValue
