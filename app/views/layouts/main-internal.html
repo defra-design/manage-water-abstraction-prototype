@@ -20,17 +20,18 @@
       {
       text: "Customers",
       href: "/internal/customers",
-      active: currentPath and (currentPath == "/internal/customers" or currentPath == "/internal/customer" or currentPath.startsWith("/internal/licence") or currentPath.startsWith("/internal/contact"))
+      active: currentPath == "/internal/customers"
+        or (currentPath and currentPath.indexOf("/internal/customer") == 0)
+        or (currentPath and currentPath.indexOf("/internal/contact") == 0)
+        or (currentPath and currentPath.indexOf("/internal/licence") == 0)
       },
       {
       text: "Bill runs",
-      href: "/internal/no-page.html",
-      active: false
+      href: "/internal/no-page.html"
       },
       {
       text: "Manage",
-      href: "/internal/no-page.html",
-      active: false
+      href: "/internal/no-page.html"
       }
     ]
   }) }}
