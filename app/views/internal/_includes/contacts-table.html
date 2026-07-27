@@ -32,7 +32,7 @@
       {% endfor %}
 
       {# Only show roles that should appear in this table #}
-      {% set showRole = contactEntry.role == "Primary user" or contactEntry.role == "Contact" %}
+      {% set showRole = contactEntry.role == "Primary contact" or contactEntry.role == "Contact" %}
 
       {# When viewing from customer page, show allowed roles; when viewing from licence page, only show allowed roles with applicable notices #}
       {% if showRole and ((fromPage == "customer") or (applicableNotices.length)) %}

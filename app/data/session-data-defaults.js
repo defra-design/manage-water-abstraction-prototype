@@ -1005,10 +1005,18 @@ module.exports = {
 			lastName: "Smith",
 			customers: [
 				{
-					role: "Contact",
+					role: "Primary contact",
 					notices: [
 						{
 							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
 							licences: "all",
 						}
 					],
@@ -1028,7 +1036,7 @@ module.exports = {
 			lastName: "Southall",
 			customers: [
 				{
-					role: "Contact",
+					role: "Primary contact",
 					notices: [
 						{
 							type: "Returns by email",
@@ -1036,6 +1044,10 @@ module.exports = {
 						},
 						{
 							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
 							licences: "all",
 						}
 					],
@@ -1120,15 +1132,19 @@ module.exports = {
 			lastName: "Billington",
 			customers: [
 				{
-					role: "Primary user",
+					role: "Primary contact",
 					notices: [
 						{
 							type: "Returns by email",
-							licences: ["03/28/60/0032"],
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
 						},
 						{
 							type: "Water abstraction alerts by email",
-							licences: ["03/28/60/0032", "03/28/60/0035"],
+							licences: "all",
 						}
 					],
 					customer: "Bottled Water Plc",
@@ -1146,10 +1162,14 @@ module.exports = {
 			lastName: "Briton",
 			customers: [
 				{
-					role: "Primary user",
+					role: "Primary contact",
 					notices: [
 						{
 							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
 							licences: "all",
 						},
 						{
@@ -1194,11 +1214,19 @@ module.exports = {
 			lastName: "",
 			customers: [
 				{
-					role: "Primary user",
+					role: "Primary contact",
 					notices: [
 						{
+							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
 							type: "Water abstraction alerts by email",
-							licences: ["100/22/33/0123"],
+							licences: "all",
 						}
 					],
 					customer: "Public Water Plc",
@@ -1216,11 +1244,19 @@ module.exports = {
 			lastName: "",
 			customers: [
 				{
-					role: "Primary user",
+					role: "Primary contact",
 					notices: [
 						{
 							type: "Returns by email",
-							licences: ["200/20/23/0111"],
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
+							licences: "all",
 						}
 					],
 					customer: "Public Water Plc",
