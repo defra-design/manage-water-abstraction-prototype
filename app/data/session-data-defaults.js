@@ -835,7 +835,6 @@ module.exports = {
 			email: "",
 			post: "1, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "Jim",
 			lastName: "Smith",
 			customers: [
@@ -867,7 +866,6 @@ module.exports = {
 			post: "Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 444555",
 			post: "Fernyhalgh Lane, Preston, PR2 5ST",
-			type: "person",
 			firstName: "Joanna",
 			lastName: "Southall",
 			customers: [
@@ -898,7 +896,6 @@ module.exports = {
 			email: "admin@bigsmithfarms.co.uk",
 			post: "2, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "department",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -921,7 +918,6 @@ module.exports = {
 			email: "fthomas@bsfarms.co.uk",
 			post: "3, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 765432",
-			type: "person",
 			firstName: "Frank",
 			lastName: "Thomas",
 			customers: [
@@ -944,7 +940,6 @@ module.exports = {
 			email: "jbetrand@bsfarms.co.uk",
 			post: "4, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "Janice",
 			lastName: "Betrand",
 			customers: [
@@ -967,7 +962,6 @@ module.exports = {
 			email: "gbillington@bwplc.co.uk",
 			post: "5, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "",
-			type: "person",
 			firstName: "Geoffrey",
 			lastName: "Billington",
 			customers: [
@@ -998,7 +992,6 @@ module.exports = {
 			email: "",
 			post: "6, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 345543",
-			type: "company",
 			firstName: "Irene",
 			lastName: "Briton",
 			customers: [
@@ -1029,7 +1022,6 @@ module.exports = {
 			email: "",
 			post: "7, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "Fiona",
 			lastName: "Thomas",
 			customers: [
@@ -1052,7 +1044,6 @@ module.exports = {
 			email: "lbixby@pwplc.co.uk",
 			post: "8, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1083,7 +1074,6 @@ module.exports = {
 			email: "lbrabham@pwplc.co.uk",
 			post: "9, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1114,7 +1104,6 @@ module.exports = {
 			email: "sjenkins@pwplc.co.uk",
 			post: "10, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1137,7 +1126,6 @@ module.exports = {
 			email: "mthorne@pwplc.co.uk",
 			post: "11, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 303030",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1160,7 +1148,6 @@ module.exports = {
 			email: "erodriguez@pwplc.co.uk",
 			post: "12, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1187,7 +1174,6 @@ module.exports = {
 			email: "dcho@pwplc.co.uk",
 			post: "13, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1210,7 +1196,6 @@ module.exports = {
 			email: "fgallagher@pwplc.co.uk",
 			post: "14, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 222666",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1233,7 +1218,6 @@ module.exports = {
 			email: "apatel@pwplc.co.uk",
 			post: "15, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1260,7 +1244,6 @@ module.exports = {
 			email: "soneill@pwplc.co.uk",
 			post: "16, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1286,7 +1269,6 @@ module.exports = {
 			name: "Julian Voss",
 			email: "jvoss@pwplc.co.uk",
 			post: "17, Fernyhalgh Lane, Preston, PR2 5ST",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			phone: "012356 123321",
@@ -1314,7 +1296,6 @@ module.exports = {
 			email: "nsuleiman@pwplc.co.uk",
 			post: "18, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1337,7 +1318,6 @@ module.exports = {
 			email: "vhugo@pwplc.co.uk",
 			post: "19, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1364,7 +1344,6 @@ module.exports = {
 			email: "lashford@pwplc.co.uk",
 			post: "20, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 282726",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [
@@ -1391,7 +1370,6 @@ module.exports = {
 			email: "tmiller@pwplc.co.uk",
 			post: "21, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 123456",
-			type: "person",
 			firstName: "",
 			lastName: "",
 			customers: [

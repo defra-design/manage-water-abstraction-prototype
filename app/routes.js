@@ -134,7 +134,6 @@ router.post("/internal/contact/add-contact", (req, res) => {
 		name: fullName,
 		email: "",
 		phone: "",
-		type: "person",
 		firstName: firstName,
 		lastName: lastName,
 		customers: [
