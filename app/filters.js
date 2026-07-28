@@ -58,19 +58,6 @@ addFilter("changeTypeColour", (e) => {
 	}
 });
 
-addFilter("contactRegStatus", (contactOrValue) => {
-	const wrls =
-		typeof contactOrValue === "object" && contactOrValue !== null
-			? contactOrValue.wrls
-			: contactOrValue;
-
-	if (wrls === "true") {
-		return "govuk-tag--green";
-	} else {
-		return "govuk-tag--grey";
-	}
-});
-
 addFilter("returnsStatus", (status) => {
 	if (status === "Due" || status === "Overdue") {
 		return "govuk-tag--red";

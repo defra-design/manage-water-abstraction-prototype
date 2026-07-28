@@ -314,6 +314,9 @@
 		{% if data.customerID %}
 			{% set confirmAction = confirmAction + "&customerID=" + data.customerID %}
 		{% endif %}
+		{% if data.from %}
+			{% set confirmAction = confirmAction + "&from=" + data.from %}
+		{% endif %}
 		<form method="post" action="{{ confirmAction }}">
 
 		<div class="govuk-button-group">

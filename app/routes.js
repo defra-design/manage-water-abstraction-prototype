@@ -130,7 +130,6 @@ router.post("/internal/contact/add-contact", (req, res) => {
 	
 	// Create new contact object with same structure as other contacts
 	const newContact = {
-		wrls: "true",
 		name: fullName,
 		email: "",
 		phone: "",
@@ -642,6 +641,11 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		req.query.contactID ?? req.session.data.contactID,
 		10,
 	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
 
 	let changesWereMade = false;
 
@@ -676,8 +680,8 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const waaLicences = req.session.data.pendingChanges.waaLicences;
 		if (waaSelection || waaLicences !== undefined) {
 			const selectedCustomerName =
-				Number.isInteger(req.session.data.customerID)
-					? req.session.data.customers[req.session.data.customerID]?.name
+				from === "customer" && Number.isInteger(customerID)
+					? req.session.data.customers[customerID]?.name
 					: undefined;
 			const customerName =
 				selectedCustomerName ||
@@ -726,8 +730,8 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const returnsLicences = req.session.data.pendingChanges.returnsLicences;
 		if (returnsSelection || returnsLicences !== undefined) {
 			const selectedCustomerNameForReturns =
-				Number.isInteger(req.session.data.customerID)
-					? req.session.data.customers[req.session.data.customerID]?.name
+				from === "customer" && Number.isInteger(customerID)
+					? req.session.data.customers[customerID]?.name
 					: undefined;
 			const customerName =
 				selectedCustomerNameForReturns ||
@@ -775,11 +779,6 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		req.session.data.pendingChanges = {};
 	}
 
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-
 	// Set success flag if changes were made
 	if (changesWereMade) {
 		req.session.data.contactUpdateSuccess = true;
@@ -794,9 +793,11 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 	if (Number.isInteger(id)) {
 		queryParams.ID = String(id);
 	}
-	if (Number.isInteger(customerID)) {
+	if (from === "customer" && Number.isInteger(customerID)) {
 		queryParams.customerID = String(customerID);
 		queryParams.from = "customer";
+	} else if (from.length > 0) {
+		queryParams.from = from;
 	}
 	const query = new URLSearchParams(queryParams).toString();
 	res.redirect(`/internal/contact?${query}`);

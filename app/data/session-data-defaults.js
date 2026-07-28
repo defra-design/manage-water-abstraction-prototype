@@ -830,7 +830,6 @@ module.exports = {
 	contacts: [
 
 		{
-			wrls: "true",
 			name: "Jim Smith",
 			email: "",
 			post: "1, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -860,7 +859,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Joanna Southall",
 			email: "joanne.southall@bigsmithfarms.co.uk",
 			post: "Fernyhalgh Lane, Preston, PR2 5ST",
@@ -891,7 +889,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Admin",
 			email: "admin@bigsmithfarms.co.uk",
 			post: "2, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -913,7 +910,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Frank Thomas",
 			email: "fthomas@bsfarms.co.uk",
 			post: "3, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -935,7 +931,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Janice Betrand",
 			email: "jbetrand@bsfarms.co.uk",
 			post: "4, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -957,7 +952,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Geoffrey Billington",
 			email: "gbillington@bwplc.co.uk",
 			post: "5, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -987,7 +981,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Irene Briton",
 			email: "",
 			post: "6, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1017,7 +1010,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Fiona Thomas",
 			email: "",
 			post: "7, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1039,7 +1031,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Lee Bixby",
 			email: "lbixby@pwplc.co.uk",
 			post: "8, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1069,7 +1060,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Leon Brabham",
 			email: "lbrabham@pwplc.co.uk",
 			post: "9, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1099,7 +1089,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Sarah Jenkins",
 			email: "sjenkins@pwplc.co.uk",
 			post: "10, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1121,7 +1110,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Marcus Thorne",
 			email: "mthorne@pwplc.co.uk",
 			post: "11, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1143,7 +1131,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Elena Rodriguez",
 			email: "erodriguez@pwplc.co.uk",
 			post: "12, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1169,7 +1156,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "David Cho",
 			email: "dcho@pwplc.co.uk",
 			post: "13, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1191,7 +1177,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Fiona Gallagher",
 			email: "fgallagher@pwplc.co.uk",
 			post: "14, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1213,7 +1198,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Amit Patel",
 			email: "apatel@pwplc.co.uk",
 			post: "15, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1239,7 +1223,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Siobhan O'Neill",
 			email: "soneill@pwplc.co.uk",
 			post: "16, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1265,7 +1248,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Julian Voss",
 			email: "jvoss@pwplc.co.uk",
 			post: "17, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1291,7 +1273,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Nadia Suleiman",
 			email: "nsuleiman@pwplc.co.uk",
 			post: "18, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1313,7 +1294,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Victor Hugo",
 			email: "vhugo@pwplc.co.uk",
 			post: "19, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1339,7 +1319,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Leigh Ashford",
 			email: "lashford@pwplc.co.uk",
 			post: "20, Fernyhalgh Lane, Preston, PR2 5ST",
@@ -1365,7 +1344,6 @@ module.exports = {
 		},
 
 		{
-			wrls: "true",
 			name: "Tanya Miller",
 			email: "tmiller@pwplc.co.uk",
 			post: "21, Fernyhalgh Lane, Preston, PR2 5ST",
