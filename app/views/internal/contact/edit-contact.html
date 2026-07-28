@@ -16,6 +16,13 @@
 	{% endfor %}
 {% endif %}
 
+{% set contactRole = "Contact" %}
+{% for customerEntry in contact.customers %}
+	{% if customerEntry.customer == customerName and customerEntry.role %}
+		{% set contactRole = customerEntry.role %}
+	{% endif %}
+{% endfor %}
+
 {% block containerStart %}
 {% set backLinkHref = "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID %}
 {% if data.from %}
@@ -59,26 +66,51 @@
 
 		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
 
+		{% set selectRoleHref = "/internal/contact/select-role?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set selectRoleHref = selectRoleHref + "&customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.from %}
+			{% set selectRoleHref = selectRoleHref + "&from=" + data.from %}
+		{% endif %}
+
 		{# Summary list for name, email, phone and address #}
 		{{ govukSummaryList({
 			rows: [
-			{
-				key: {
-					text: "Name"
+				{
+					key: {
+						text: "Name"
+					},
+					value: {
+						text: nameValue
+					},
+					actions: {
+						items: [
+							{
+								href: "/internal/contact/edit-name?contactID=" + data.contactID + "&ID=" + data.ID,
+								text: "Change" if nameValue else "Add",
+								visuallyHiddenText: "name"
+							}
+						]
+					}
 				},
-				value: {
-					text: nameValue
+				{
+					key: {
+						text: "Role"
+					},
+					value: {
+						text: contactRole
+					},
+					actions: {
+						items: [
+							{
+								href: selectRoleHref,
+								text: "Change",
+								visuallyHiddenText: "role"
+							}
+						]
+					}
 				},
-				actions: {
-					items: [
-						{
-							href: "/internal/contact/edit-name?contactID=" + data.contactID + "&ID=" + data.ID,
-							text: "Change" if nameValue else "Add",
-							visuallyHiddenText: "name"
-						}
-					]
-				}
-			},
 				{
 					key: {
 						text: "Email address"
@@ -96,40 +128,40 @@
 						]
 					}
 				},
-					{
-						key: {
-							text: "Postal address"
-						},
-						value: {
-							text: addressValue
-						},
-						actions: {
-							items: [
-								{
-									href: "/internal/contact/edit-address?contactID=" + data.contactID + "&ID=" + data.ID,
-									text: "Change" if addressValue else "Add",
-									visuallyHiddenText: "postal address"
-								}
-							]
-						}
+				{
+					key: {
+						text: "Address"
 					},
-					{
-						key: {
-							text: "Phone number"
-						},
-						value: {
-							text: phoneValue
-						},
-						actions: {
-							items: [
-								{
-									href: "/internal/contact/edit-phone?contactID=" + data.contactID + "&ID=" + data.ID,
-									text: "Change" if phoneValue else "Add",
-									visuallyHiddenText: "phone number"
-								}
-							]
-						}
+					value: {
+						text: addressValue
+					},
+					actions: {
+						items: [
+							{
+								href: "/internal/contact/edit-address?contactID=" + data.contactID + "&ID=" + data.ID,
+								text: "Change" if addressValue else "Add",
+								visuallyHiddenText: "postal address"
+							}
+						]
 					}
+				},
+				{
+					key: {
+						text: "Phone number"
+					},
+					value: {
+						text: phoneValue
+					},
+					actions: {
+						items: [
+							{
+								href: "/internal/contact/edit-phone?contactID=" + data.contactID + "&ID=" + data.ID,
+								text: "Change" if phoneValue else "Add",
+								visuallyHiddenText: "phone number"
+							}
+						]
+					}
+				}
 			]
 		}) }}
 

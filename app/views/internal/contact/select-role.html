@@ -1,0 +1,64 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Select a role" %}
+{% set licence = data['licences'][data.ID] if data.ID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set breadcrumbType="licence" %}
+{% set customerName = data.customers[data.customerID].name if data.customerID is not undefined and data.customers[data.customerID] else (licence.holder if licence else "") %}
+{% set selectedRole = "Contact" %}
+{% if contact and contact.customers %}
+	{% for customerEntry in contact.customers %}
+		{% if customerEntry.customer == customerName and customerEntry.role %}
+			{% set selectedRole = customerEntry.role %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
+  text: "Back to customer"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<span class="govuk-caption-l">{{ customerName }}</span>
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		<form method="post" action="">
+
+		{{ govukRadios({
+			name: "contactRole",
+			value: selectedRole,
+			items: [
+				{
+					value: "Primary contact",
+					text: "Primary contact"
+				},
+				{
+					value: "Contact",
+					text: "Contact"
+				}
+			]
+		}) }}
+
+		{{ govukButton({
+		text: "Continue",
+		classes: "govuk-!-margin-right-3",
+		type: "submit"
+		}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+
