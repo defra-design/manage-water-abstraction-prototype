@@ -334,6 +334,26 @@ router.get("/internal/contact/select-returns", (req, res) => {
 	res.render("internal/contact/select-returns");
 });
 
+// Render confirm role page and capture context from query params
+router.get("/internal/contact/confirm-role.html", (req, res) => {
+	if (req.query.ID) {
+		req.session.data.ID = parseInt(req.query.ID);
+	}
+	if (req.query.contactID) {
+		req.session.data.contactID = parseInt(req.query.contactID);
+	}
+	if (req.query.customerID) {
+		req.session.data.customerID = parseInt(req.query.customerID);
+	}
+	if (req.query.from) {
+		req.session.data.from = req.query.from;
+	}
+	if (req.query.contactRole) {
+		req.session.data.contactRole = String(req.query.contactRole);
+	}
+	res.render("internal/contact/confirm-role");
+});
+
 // Save WAA licence selection and return to edit-contact
 router.post("/internal/contact/select-waa", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);

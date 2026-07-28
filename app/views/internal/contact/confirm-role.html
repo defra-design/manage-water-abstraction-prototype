@@ -1,7 +1,6 @@
 
 {% extends "layouts/main-internal.html" %}
 
-{% set pageName="Select a role" %}
 {% set licence = data['licences'][data.ID] if data.ID else null %}
 {% set contact = data['contacts'][data.contactID] if data.contactID else null %}
 {% set breadcrumbType="licence" %}
@@ -14,6 +13,11 @@
 		{% endif %}
 	{% endfor %}
 {% endif %}
+{% set oldRoleLabel = "primary contact" if selectedRole == "Primary contact" else "contact" %}
+{% set requestedRole = data.contactRole if data.contactRole else selectedRole %}
+{% set newRoleLabel = "primary contact" if requestedRole == "Primary contact" else "contact" %}
+{% set contactName = contact.name if contact else "this contact" %}
+{% set pageName = "You're about to change " + contactName + " from a " + oldRoleLabel + " to a " + newRoleLabel %}
 
 {% block containerStart %}
 {{ govukBackLink({
@@ -25,43 +29,24 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-	<div class="govuk-grid-column-full">
+	<div class="govuk-grid-column-two-thirds">
 
 		<span class="govuk-caption-l">{{ customerName }}</span>
 		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
 			{{ pageName }}
 		</h1>
 
-		{% set confirmRoleAction = "/internal/contact/confirm-role.html?contactID=" + data.contactID + "&ID=" + data.ID %}
-		{% if data.customerID %}
-			{% set confirmRoleAction = confirmRoleAction + "&customerID=" + data.customerID %}
-		{% endif %}
-		{% if data.from %}
-			{% set confirmRoleAction = confirmRoleAction + "&from=" + data.from %}
-		{% endif %}
-
-		<form method="get" action="{{ confirmRoleAction }}">
-
-		{{ govukRadios({
-			name: "contactRole",
-			value: selectedRole,
-			items: [
-				{
-					value: "Primary contact",
-					text: "Primary contact"
-				},
-				{
-					value: "Contact",
-					text: "Contact"
-				}
-			]
-		}) }}
+		<form method="post" action="">
 
 		{{ govukButton({
-		text: "Continue",
+		text: "Confirm",
 		classes: "govuk-!-margin-right-3",
 		type: "submit"
 		}) }}
+
+		<p class="govuk-body">
+			<a href="Cancel" class="govuk-link">Cancel</a>
+		</p>
 
 		</form>
 
