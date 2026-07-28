@@ -33,7 +33,7 @@
     {{ govukButton({
       text: "Set up a new contact",
       classes: "govuk-!-margin-bottom-4",
-      href: "/internal/contact/add-contact?customerID=" + data.customerID
+      href: "/internal/contact/select-role?customerID=" + data.customerID + "&from=customer&newContact=1"
     }) }}
 
     {% include "internal/_includes/contacts-table.html" %}

@@ -3,7 +3,8 @@
 
 {% set pageName="Select a role" %}
 {% set licence = data['licences'][data.ID] if data.ID else null %}
-{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set isNewFlow = isNewContactFlow or data.newContactFlow %}
+{% set contact = data['contacts'][data.contactID] if data.contactID and not isNewFlow else null %}
 {% set breadcrumbType="licence" %}
 {% set customerName = data.customers[data.customerID].name if data.customerID is not undefined and data.customers[data.customerID] else (licence.holder if licence else "") %}
 {% set selectedRole = "Contact" %}
@@ -33,14 +34,30 @@
 		</h1>
 
 		{% set confirmRoleAction = "/internal/contact/confirm-role.html?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% set newContactRoleAction = "/internal/contact/add-contact" %}
 		{% if data.customerID %}
 			{% set confirmRoleAction = confirmRoleAction + "&customerID=" + data.customerID %}
+			{% set newContactRoleAction = newContactRoleAction + "?customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.ID %}
+			{% if "?" in newContactRoleAction %}
+				{% set newContactRoleAction = newContactRoleAction + "&ID=" + data.ID %}
+			{% else %}
+				{% set newContactRoleAction = newContactRoleAction + "?ID=" + data.ID %}
+			{% endif %}
 		{% endif %}
 		{% if data.from %}
 			{% set confirmRoleAction = confirmRoleAction + "&from=" + data.from %}
+			{% if "?" in newContactRoleAction %}
+				{% set newContactRoleAction = newContactRoleAction + "&from=" + data.from %}
+			{% else %}
+				{% set newContactRoleAction = newContactRoleAction + "?from=" + data.from %}
+			{% endif %}
 		{% endif %}
 
-		<form method="get" action="{{ confirmRoleAction }}">
+		{% set roleAction = newContactRoleAction if isNewFlow else (confirmRoleAction if data.contactID else newContactRoleAction) %}
+
+		<form method="get" action="{{ roleAction }}">
 
 		{{ govukRadios({
 			name: "contactRole",

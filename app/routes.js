@@ -269,8 +269,37 @@ router.get("/internal/customer/customer-contacts", (req, res) => {
 });
 
 // Capture customer ID and optional licence ID for add contact page
+router.get("/internal/contact/select-role", (req, res) => {
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
+
+	const isExplicitNewContactFlow = String(req.query.newContact ?? "") === "1";
+	const hasQueryContactID =
+		typeof req.query.contactID !== "undefined" &&
+		String(req.query.contactID).trim().length > 0;
+	const isNewContactFlow =
+		isExplicitNewContactFlow || !hasQueryContactID;
+	req.session.data.newContactFlow = isNewContactFlow;
+
+	if (isNewContactFlow) {
+		delete req.session.data.contactID;
+	}
+
+	res.render("internal/contact/select-role", {
+		isNewContactFlow,
+	});
+});
+
+// Capture customer ID and optional licence ID for add contact page
 router.get("/internal/contact/add-contact", (req, res) => {
-	captureRouteContext(req, { ID: true, customerID: true });
+	captureRouteContext(req, { ID: true, customerID: true, from: true });
+	if (req.query.contactRole) {
+		req.session.data.contactRole = normaliseContactRole(req.query.contactRole);
+	}
 	res.render("internal/contact/add-contact");
 });
 
@@ -279,6 +308,10 @@ router.post("/internal/contact/add-contact", (req, res) => {
 	const fullName = req.body.fullName || "";
 	const customerID = parseInt(req.query.customerID ?? req.session.data.customerID, 10);
 	const customerName = req.session.data.customers[customerID]?.name || "";
+	const selectedRole = normaliseContactRole(
+		req.query.contactRole ?? req.session.data.contactRole ?? "Contact",
+	) || "Contact";
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
 	
 	// Parse firstName and lastName from fullName
 	const nameParts = fullName.trim().split(/\s+/);
@@ -299,7 +332,7 @@ router.post("/internal/contact/add-contact", (req, res) => {
 		lastName: lastName,
 		customers: [
 			{
-				role: "Contact",
+				role: selectedRole,
 				notices: [],
 				customer: customerName,
 			},
@@ -321,6 +354,12 @@ router.post("/internal/contact/add-contact", (req, res) => {
 	if (req.session.data.ID) {
 		query.append("ID", String(req.session.data.ID));
 	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+
+	delete req.session.data.contactRole;
+	delete req.session.data.newContactFlow;
 	
 	return res.redirect(`/internal/contact/edit-contact?${query.toString()}`);
 });
