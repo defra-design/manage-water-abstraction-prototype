@@ -58,17 +58,6 @@
 
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact details</h2>
 
-		{% set contactAddress = "" %}
-		{% for customerEntry in contact.customers %}
-			{% if customerEntry.customer == customerName %}
-				{% for customer in data.customers %}
-					{% if customer.name == customerEntry.customer %}
-						{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
-					{% endif %}
-				{% endfor %}
-			{% endif %}
-		{% endfor %}
-
 		{# Set name, email, phone and address values #}
 		{% set nameValue = (data.pendingChanges.name if data.pendingChanges and data.pendingChanges.name else data.contacts[data.contactID].name) | default("") | trim %}
 
@@ -76,7 +65,7 @@
 
 		{% set phoneValue = (data.pendingChanges.phone if data.pendingChanges and data.pendingChanges.phone else data.contacts[data.contactID].phone) | default("") | trim %}
 
-		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
+		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else contact.post) | default("") | trim %}
 
 		{% set selectRoleHref = "/internal/contact/select-role?contactID=" + data.contactID + "&ID=" + data.ID %}
 		{% if data.customerID %}

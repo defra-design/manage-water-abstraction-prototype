@@ -18,6 +18,175 @@ const normaliseContactRole = (role) => {
 	return value;
 };
 
+const captureRouteContext = (
+	req,
+	{ ID = false, contactID = false, customerID = false, from = false } = {},
+) => {
+	if (ID && req.query.ID) {
+		req.session.data.ID = Number.parseInt(req.query.ID, 10);
+	}
+	if (contactID && req.query.contactID) {
+		req.session.data.contactID = Number.parseInt(req.query.contactID, 10);
+	}
+	if (customerID && req.query.customerID) {
+		req.session.data.customerID = Number.parseInt(req.query.customerID, 10);
+	}
+	if (from && req.query.from) {
+		req.session.data.from = req.query.from;
+	}
+};
+
+const getContactRouteContext = (req) => ({
+	id: Number.parseInt(req.query.ID ?? req.session.data.ID, 10),
+	contactID: Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	),
+	customerID: Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	),
+	from: String(req.query.from ?? req.session.data.from ?? "").trim(),
+});
+
+const ensurePendingChanges = (req) => {
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+};
+
+const buildEditContactQuery = (
+	req,
+	{ id, contactID, customerID, from },
+	{ includeCustomerID = true, includeFrom = true, alwaysIncludeID = false } = {},
+) => {
+	const queryParams = {
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	};
+
+	if (Number.isInteger(id)) {
+		queryParams.ID = String(id);
+	} else if (alwaysIncludeID) {
+		queryParams.ID = String(req.session.data.ID ?? "");
+	}
+
+	if (includeCustomerID && Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+	}
+
+	if (includeFrom && from.length > 0) {
+		queryParams.from = from;
+	}
+
+	return new URLSearchParams(queryParams).toString();
+};
+
+const normaliseSelectedValues = (selected) => {
+	const rawSelected = Array.isArray(selected)
+		? selected
+		: selected
+			? [selected]
+			: [];
+
+	return rawSelected.filter((v) => !String(v).endsWith("_unchecked"));
+};
+
+const getCustomerNameForContactContext = (
+	req,
+	{ id, contactID, customerID, from },
+) => {
+	const selectedCustomerName =
+		from === "customer" && Number.isInteger(customerID)
+			? req.session.data.customers[customerID]?.name
+			: undefined;
+
+	return (
+		selectedCustomerName ||
+		req.session.data.licences[id]?.holder ||
+		req.session.data.contacts[contactID]?.customers?.[0]?.customer
+	);
+};
+
+const updateNoticeSelection = (
+	customerEntry,
+	{ noticeType, selection, selectedLicences },
+) => {
+	if (!customerEntry) {
+		return false;
+	}
+
+	if (!Array.isArray(customerEntry.notices)) {
+		customerEntry.notices = [];
+	}
+
+	const noticeIndex = customerEntry.notices.findIndex(
+		(notice) => notice.type === noticeType,
+	);
+
+	if (selection === "noLicences") {
+		if (noticeIndex >= 0) {
+			customerEntry.notices.splice(noticeIndex, 1);
+			return true;
+		}
+		return false;
+	}
+
+	if (selection === "allLicences") {
+		if (noticeIndex >= 0) {
+			customerEntry.notices[noticeIndex].licences = "all";
+		} else {
+			customerEntry.notices.push({
+				type: noticeType,
+				licences: "all",
+			});
+		}
+		return true;
+	}
+
+	if (selectedLicences !== undefined) {
+		if (noticeIndex >= 0) {
+			customerEntry.notices[noticeIndex].licences = selectedLicences;
+		} else {
+			customerEntry.notices.push({
+				type: noticeType,
+				licences: selectedLicences,
+			});
+		}
+		return true;
+	}
+
+	return false;
+};
+
+const registerPendingContactFieldRoute = ({
+	routePath,
+	bodyField,
+	pendingField,
+	normalise = (value) => String(value ?? "").trim(),
+}) => {
+	router.post(routePath, (req, res) => {
+		const { id, contactID } = getContactRouteContext(req);
+		const value = normalise(req.body[bodyField]);
+
+		// Store as pending edit, not permanent
+		ensurePendingChanges(req);
+		req.session.data.pendingChanges[pendingField] = value;
+
+		const query = new URLSearchParams({
+			ID: Number.isInteger(id)
+				? String(id)
+				: String(req.session.data.ID ?? ""),
+			contactID: Number.isInteger(contactID)
+				? String(contactID)
+				: String(req.session.data.contactID ?? ""),
+		}).toString();
+
+		res.redirect(`/internal/contact/edit-contact?${query}`);
+	});
+};
+
 const getNoPageLayoutTemplate = (req) => {
 	if (req.path.startsWith("/internal/")) {
 		return "layouts/main-internal.html";
@@ -60,28 +229,19 @@ router.use("/internal", (req, res, next) => {
 
 // Capture licence ID from query parameter
 router.get("/internal/licence", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
+	captureRouteContext(req, { ID: true, customerID: true });
 	res.render("internal/licence");
 });
 
 // Capture licence ID from query parameter for the purposes page
 router.get("/internal/licence/purposes", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
+	captureRouteContext(req, { ID: true });
 	res.render("internal/licence/purposes");
 });
 
 // Render history version detail page
 router.get("/internal/licence/history-version", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
+	captureRouteContext(req, { ID: true });
 	if (req.query.versionIndex) {
 		req.session.data.currentVersionIndex = parseInt(req.query.versionIndex);
 	}
@@ -90,17 +250,13 @@ router.get("/internal/licence/history-version", (req, res) => {
 
 // Capture customer ID from query parameter
 router.get("/internal/customer", (req, res) => {
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
+	captureRouteContext(req, { customerID: true });
 	res.render("internal/customer");
 });
 
 // Capture customer ID from query parameter for the contacts page
 router.get("/internal/customer/customer-contacts", (req, res) => {
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
+	captureRouteContext(req, { customerID: true });
 
 	const showContactRemovedBanner = req.session.data.contactRemovedSuccess === true;
 	if (showContactRemovedBanner) {
@@ -114,12 +270,7 @@ router.get("/internal/customer/customer-contacts", (req, res) => {
 
 // Capture customer ID and optional licence ID for add contact page
 router.get("/internal/contact/add-contact", (req, res) => {
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
+	captureRouteContext(req, { ID: true, customerID: true });
 	res.render("internal/contact/add-contact");
 });
 
@@ -176,15 +327,7 @@ router.post("/internal/contact/add-contact", (req, res) => {
 
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true, customerID: true });
 
 	// Pass the success flag to the template if set, then clear it
 	const showSuccessBanner = req.session.data.contactUpdateSuccess === true;
@@ -199,32 +342,18 @@ router.get("/internal/contact", (req, res) => {
 
 // Capture selected contact and optional licence ID for the edit contact page
 router.get("/internal/contact/edit-contact", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true, customerID: true });
 	res.render("internal/contact/edit-contact");
 });
 
 // Capture selected contact and optional context for delete contact page
 router.get("/internal/contact/delete-contact", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	res.render("internal/contact/delete-contact");
 });
 
@@ -272,104 +401,60 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 
 // Capture selected contact and optional licence ID for editing contact name
 router.get("/internal/contact/edit-name", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true });
 	res.render("internal/contact/edit-name");
 });
 
 // Capture selected contact and optional licence ID for editing contact email
 router.get("/internal/contact/edit-email", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true });
 	res.render("internal/contact/edit-email");
 });
 
 // Capture selected contact and optional licence ID for editing contact address
 router.get("/internal/contact/edit-address", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true });
 	res.render("internal/contact/edit-address");
 });
 
 // Capture selected contact and optional licence ID for editing contact phone
 router.get("/internal/contact/edit-phone", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
+	captureRouteContext(req, { ID: true, contactID: true });
 	res.render("internal/contact/edit-phone");
 });
 
 // Render the select-waa page
 router.get("/internal/contact/select-waa", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	res.render("internal/contact/select-waa");
 });
 
 // Render the select-returns page
 router.get("/internal/contact/select-returns", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	res.render("internal/contact/select-returns");
 });
 
 // Render confirm role page and capture context from query params
 router.get("/internal/contact/confirm-role.html", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const requestedRole = normaliseContactRole(req.query.contactRole);
 
 	if (requestedRole) {
@@ -397,22 +482,12 @@ router.get("/internal/contact/confirm-role.html", (req, res) => {
 	}
 
 	if (requestedRole && requestedRole === currentRole) {
-		const queryParams = {
-			contactID: Number.isInteger(contactID)
-				? String(contactID)
-				: String(req.session.data.contactID ?? ""),
-		};
-		if (Number.isInteger(id)) {
-			queryParams.ID = String(id);
-		}
-		if (Number.isInteger(customerID)) {
-			queryParams.customerID = String(customerID);
-		}
-		if (from.length > 0) {
-			queryParams.from = from;
-		}
-
-		const query = new URLSearchParams(queryParams).toString();
+		const query = buildEditContactQuery(req, {
+			id,
+			contactID,
+			customerID,
+			from,
+		});
 		return res.redirect(`/internal/contact/edit-contact?${query}`);
 	}
 
@@ -421,177 +496,86 @@ router.get("/internal/contact/confirm-role.html", (req, res) => {
 
 // Confirm selected role and return to edit-contact showing pending change
 router.post("/internal/contact/confirm-role.html", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const requestedRole = normaliseContactRole(
 		req.query.contactRole ?? req.session.data.contactRole ?? "",
 	);
 
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
+	ensurePendingChanges(req);
 	if (requestedRole) {
 		req.session.data.pendingChanges.contactRole = requestedRole;
 	}
 
-	const queryParams = {
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	};
-	if (Number.isInteger(id)) {
-		queryParams.ID = String(id);
-	}
-	if (Number.isInteger(customerID)) {
-		queryParams.customerID = String(customerID);
-	}
-	if (from.length > 0) {
-		queryParams.from = from;
-	}
-
-	const query = new URLSearchParams(queryParams).toString();
+	const query = buildEditContactQuery(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Cancel role change and return to edit-contact with no pending role change
 router.get("/internal/contact/cancel-role", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 
 	if (req.session.data.pendingChanges) {
 		delete req.session.data.pendingChanges.contactRole;
 	}
 	delete req.session.data.contactRole;
 
-	const queryParams = {
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	};
-	if (Number.isInteger(id)) {
-		queryParams.ID = String(id);
-	}
-	if (Number.isInteger(customerID)) {
-		queryParams.customerID = String(customerID);
-	}
-	if (from.length > 0) {
-		queryParams.from = from;
-	}
-
-	const query = new URLSearchParams(queryParams).toString();
+	const query = buildEditContactQuery(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Save WAA licence selection and return to edit-contact
 router.post("/internal/contact/select-waa", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const selected = req.body.waaSelectionOptions;
 
-	// Normalise to array and strip _unchecked sentinel values added by the prototype kit
-	const rawSelected = Array.isArray(selected)
-		? selected
-		: selected
-			? [selected]
-			: [];
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.waaLicences = rawSelected.filter(
-		(v) => !String(v).endsWith("_unchecked"),
+	ensurePendingChanges(req);
+	req.session.data.pendingChanges.waaLicences = normaliseSelectedValues(selected);
+
+	const query = buildEditContactQuery(
+		req,
+		{ id, contactID, customerID, from },
+		{ alwaysIncludeID: true },
 	);
 
-	const queryParams = {
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	};
-	if (Number.isInteger(customerID)) {
-		queryParams.customerID = String(customerID);
-	}
-	const query = new URLSearchParams(queryParams).toString();
-
-	const queryWithFrom =
-		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
-
-	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Save Returns licence selection and return to edit-contact
 router.post("/internal/contact/select-returns", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const selected = req.body.returnsSelectionOptions;
 
-	// Normalise to array and strip _unchecked sentinel values added by the prototype kit
-	const rawSelected = Array.isArray(selected)
-		? selected
-		: selected
-			? [selected]
-			: [];
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.returnsLicences = rawSelected.filter(
-		(v) => !String(v).endsWith("_unchecked"),
+	ensurePendingChanges(req);
+	req.session.data.pendingChanges.returnsLicences =
+		normaliseSelectedValues(selected);
+
+	const query = buildEditContactQuery(
+		req,
+		{ id, contactID, customerID, from },
+		{ alwaysIncludeID: true },
 	);
 
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	const queryWithFrom =
-		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
-
-	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Clear stale WAA selection and render the edit-waa page
 router.get("/internal/contact/edit-waa", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.customerID) {
-		req.session.data.customerID = parseInt(req.query.customerID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	// Clear stale selection so the template always derives from contact data
 	delete req.session.data.waaSelection;
 	res.render("internal/contact/edit-waa");
@@ -599,15 +583,12 @@ router.get("/internal/contact/edit-waa", (req, res) => {
 
 // Clear stale Returns selection and render the edit-returns page
 router.get("/internal/contact/edit-returns", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID);
-	}
-	if (req.query.contactID) {
-		req.session.data.contactID = parseInt(req.query.contactID);
-	}
-	if (req.query.from) {
-		req.session.data.from = req.query.from;
-	}
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	// Clear stale selection so the template always derives from contact data
 	delete req.session.data.returnsSelection;
 	res.render("internal/contact/edit-returns");
@@ -615,201 +596,86 @@ router.get("/internal/contact/edit-returns", (req, res) => {
 
 // Save WAA selection and route to the next step
 router.post("/internal/contact/edit-waa", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const waaSelection = String(req.body.waaSelection ?? "").trim();
 
 	req.session.data.waaSelection = waaSelection;
 
 	// Save as pending change so edit-contact shows the updated value before confirming
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
+	ensurePendingChanges(req);
 	req.session.data.pendingChanges.waaSelection = waaSelection;
 	// Clear any stale licence list if moving away from someLicences
 	if (waaSelection !== "someLicences") {
 		delete req.session.data.pendingChanges.waaLicences;
 	}
 
-	const queryParams = {
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	};
-	if (Number.isInteger(customerID)) {
-		queryParams.customerID = String(customerID);
-	}
-	const query = new URLSearchParams(queryParams).toString();
-
-	const queryWithFrom =
-		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
+	const query = buildEditContactQuery(
+		req,
+		{ id, contactID, customerID, from },
+		{ alwaysIncludeID: true },
+	);
 
 	if (waaSelection === "someLicences") {
-		return res.redirect(`/internal/contact/select-waa?${queryWithFrom}`);
+		return res.redirect(`/internal/contact/select-waa?${query}`);
 	}
 
-	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Save Returns selection and route to the next step
 router.post("/internal/contact/edit-returns", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const returnsSelection = String(req.body.returnsSelection ?? "").trim();
 
 	req.session.data.returnsSelection = returnsSelection;
 
 	// Save as pending change so edit-contact shows the updated value before confirming
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
+	ensurePendingChanges(req);
 	req.session.data.pendingChanges.returnsSelection = returnsSelection;
 	// Clear any stale licence list if moving away from someLicences
 	if (returnsSelection !== "someLicences") {
 		delete req.session.data.pendingChanges.returnsLicences;
 	}
 
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	const queryWithFrom =
-		from.length > 0 ? `${query}&from=${encodeURIComponent(from)}` : query;
+	const query = buildEditContactQuery(
+		req,
+		{ id, contactID, customerID, from },
+		{ alwaysIncludeID: true },
+	);
 
 	if (returnsSelection === "someLicences") {
-		return res.redirect(`/internal/contact/select-returns?${queryWithFrom}`);
+		return res.redirect(`/internal/contact/select-returns?${query}`);
 	}
 
-	return res.redirect(`/internal/contact/edit-contact?${queryWithFrom}`);
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
-// Save pending name change to session and return to update contact page
-router.post("/internal/contact/edit-name", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const fullName = String(req.body.fullName ?? "").trim();
-
-	// Store as pending edit, not permanent
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.name = fullName;
-
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	res.redirect(`/internal/contact/edit-contact?${query}`);
+registerPendingContactFieldRoute({
+	routePath: "/internal/contact/edit-name",
+	bodyField: "fullName",
+	pendingField: "name",
 });
 
-// Save pending email change to session and return to update contact page
-router.post("/internal/contact/edit-email", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const email = String(req.body.email ?? "").trim();
-
-	// Store as pending edit, not permanent
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.email = email;
-
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	res.redirect(`/internal/contact/edit-contact?${query}`);
+registerPendingContactFieldRoute({
+	routePath: "/internal/contact/edit-email",
+	bodyField: "email",
+	pendingField: "email",
 });
 
-// Save pending address change to session and return to update contact page
-router.post("/internal/contact/edit-address", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const address = String(req.body.address ?? "").trim();
-
-	// Store as pending edit, not permanent
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.address = address;
-
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	res.redirect(`/internal/contact/edit-contact?${query}`);
+registerPendingContactFieldRoute({
+	routePath: "/internal/contact/edit-address",
+	bodyField: "address",
+	pendingField: "address",
 });
 
-// Save pending phone change to session and return to update contact page
-router.post("/internal/contact/edit-phone", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const phone = String(req.body.phone ?? "").trim();
-
-	// Store as pending edit, not permanent
-	if (!req.session.data.pendingChanges) {
-		req.session.data.pendingChanges = {};
-	}
-	req.session.data.pendingChanges.phone = phone;
-
-	const query = new URLSearchParams({
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-		contactID: Number.isInteger(contactID)
-			? String(contactID)
-			: String(req.session.data.contactID ?? ""),
-	}).toString();
-
-	res.redirect(`/internal/contact/edit-contact?${query}`);
+registerPendingContactFieldRoute({
+	routePath: "/internal/contact/edit-phone",
+	bodyField: "phone",
+	pendingField: "phone",
 });
 
 router.post("/internal/contact/edit-contact", (req, res) => {
-	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
-	const contactID = Number.parseInt(
-		req.query.contactID ?? req.session.data.contactID,
-		10,
-	);
-	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
-	const customerID = Number.parseInt(
-		req.query.customerID ?? req.session.data.customerID,
-		10,
-	);
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
 
 	let changesWereMade = false;
 
@@ -831,7 +697,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 			changesWereMade = true;
 		}
 		if (req.session.data.pendingChanges.address) {
-			req.session.data.contacts[contactID].address =
+			req.session.data.contacts[contactID].post =
 				req.session.data.pendingChanges.address;
 			changesWereMade = true;
 		}
@@ -844,14 +710,12 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 			const pendingRole = normaliseContactRole(
 				req.session.data.pendingChanges.contactRole,
 			);
-			const selectedCustomerNameForRole =
-				from === "customer" && Number.isInteger(customerID)
-					? req.session.data.customers[customerID]?.name
-					: undefined;
-			const customerNameForRole =
-				selectedCustomerNameForRole ||
-				req.session.data.licences[id]?.holder ||
-				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			const customerNameForRole = getCustomerNameForContactContext(req, {
+				id,
+				contactID,
+				customerID,
+				from,
+			});
 			const contact = req.session.data.contacts[contactID];
 			if (customerNameForRole && contact?.customers) {
 				const customerEntry = contact.customers.find(
@@ -866,100 +730,45 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const waaSelection = req.session.data.pendingChanges.waaSelection;
 		const waaLicences = req.session.data.pendingChanges.waaLicences;
 		if (waaSelection || waaLicences !== undefined) {
-			const selectedCustomerName =
-				from === "customer" && Number.isInteger(customerID)
-					? req.session.data.customers[customerID]?.name
-					: undefined;
-			const customerName =
-				selectedCustomerName ||
-				req.session.data.licences[id]?.holder ||
-				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			const customerName = getCustomerNameForContactContext(req, {
+				id,
+				contactID,
+				customerID,
+				from,
+			});
 			const contact = req.session.data.contacts[contactID];
 			if (customerName && contact?.customers) {
 				const customerEntry = contact.customers.find(
 					(c) => c.customer === customerName,
 				);
-				if (customerEntry) {
-					const noticeIndex = customerEntry.notices.findIndex(
-						(n) => n.type === "Water abstraction alerts by email",
-					);
-					if (waaSelection === "noLicences") {
-						// Remove the notice entirely
-						if (noticeIndex >= 0) {
-							customerEntry.notices.splice(noticeIndex, 1);
-							changesWereMade = true;
-						}
-					} else if (waaSelection === "allLicences") {
-						if (noticeIndex >= 0) {
-							customerEntry.notices[noticeIndex].licences = "all";
-						} else {
-							customerEntry.notices.push({
-								type: "Water abstraction alerts by email",
-								licences: "all",
-							});
-						}
-						changesWereMade = true;
-					} else if (waaLicences !== undefined) {
-						if (noticeIndex >= 0) {
-							customerEntry.notices[noticeIndex].licences = waaLicences;
-						} else {
-							customerEntry.notices.push({
-								type: "Water abstraction alerts by email",
-								licences: waaLicences,
-							});
-						}
-						changesWereMade = true;
-					}
-				}
+				changesWereMade =
+					updateNoticeSelection(customerEntry, {
+						noticeType: "Water abstraction alerts by email",
+						selection: waaSelection,
+						selectedLicences: waaLicences,
+					}) || changesWereMade;
 			}
 		}
 		const returnsSelection = req.session.data.pendingChanges.returnsSelection;
 		const returnsLicences = req.session.data.pendingChanges.returnsLicences;
 		if (returnsSelection || returnsLicences !== undefined) {
-			const selectedCustomerNameForReturns =
-				from === "customer" && Number.isInteger(customerID)
-					? req.session.data.customers[customerID]?.name
-					: undefined;
-			const customerName =
-				selectedCustomerNameForReturns ||
-				req.session.data.licences[id]?.holder ||
-				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			const customerName = getCustomerNameForContactContext(req, {
+				id,
+				contactID,
+				customerID,
+				from,
+			});
 			const contact = req.session.data.contacts[contactID];
 			if (customerName && contact?.customers) {
 				const customerEntry = contact.customers.find(
 					(c) => c.customer === customerName,
 				);
-				if (customerEntry) {
-					const noticeIndex = customerEntry.notices.findIndex(
-						(n) => n.type === "Returns by email",
-					);
-					if (returnsSelection === "noLicences") {
-						if (noticeIndex >= 0) {
-							customerEntry.notices.splice(noticeIndex, 1);
-							changesWereMade = true;
-						}
-					} else if (returnsSelection === "allLicences") {
-						if (noticeIndex >= 0) {
-							customerEntry.notices[noticeIndex].licences = "all";
-						} else {
-							customerEntry.notices.push({
-								type: "Returns by email",
-								licences: "all",
-							});
-						}
-						changesWereMade = true;
-					} else if (returnsLicences !== undefined) {
-						if (noticeIndex >= 0) {
-							customerEntry.notices[noticeIndex].licences = returnsLicences;
-						} else {
-							customerEntry.notices.push({
-								type: "Returns by email",
-								licences: returnsLicences,
-							});
-						}
-						changesWereMade = true;
-					}
-				}
+				changesWereMade =
+					updateNoticeSelection(customerEntry, {
+						noticeType: "Returns by email",
+						selection: returnsSelection,
+						selectedLicences: returnsLicences,
+					}) || changesWereMade;
 			}
 		}
 		// Clear pending changes after applying
@@ -1080,8 +889,6 @@ router.post("/external/licence/name-licence", saveExternalLicenceName);
 
 // Capture licence ID from query parameter for external licence detail page
 router.get("/external/licence", (req, res) => {
-	if (req.query.ID) {
-		req.session.data.ID = parseInt(req.query.ID, 10);
-	}
+	captureRouteContext(req, { ID: true });
 	res.render("external/licence");
 });

@@ -1,6 +1,6 @@
 {% extends "layouts/main-internal.html" %}
 
-{% set pageName="Enter a postal address" %}
+{% set pageName="Enter an address" %}
 {% set licence = data['licences'][data.ID] %}
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
@@ -31,18 +31,7 @@
 			{{ pageName }}
 		</h1>
 
-		{% set contactAddress = "" %}
-		{% for customerEntry in contact.customers %}
-			{% if customerEntry.customer == customerName %}
-				{% for customer in data.customers %}
-					{% if customer.name == customerEntry.customer %}
-						{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
-					{% endif %}
-				{% endfor %}
-			{% endif %}
-		{% endfor %}
-
-		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else (data.contacts[data.contactID].address or contactAddress)) | default("") | trim %}
+		{% set addressValue = (data.pendingChanges.address if data.pendingChanges and data.pendingChanges.address else contact.post) | default("") | trim %}
 
 		<form method="post" action="/internal/contact/edit-address?contactID={{ data.contactID }}&ID={{ data.ID }}">
 
