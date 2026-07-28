@@ -7,7 +7,7 @@
 {% set contact = data['contacts'][data.contactID] if data.contactID and not isNewFlow else null %}
 {% set breadcrumbType="licence" %}
 {% set customerName = data.customers[data.customerID].name if data.customerID is not undefined and data.customers[data.customerID] else (licence.holder if licence else "") %}
-{% set selectedRole = "Contact" %}
+{% set selectedRole = "" if isNewFlow else "Contact" %}
 {% if contact and contact.customers %}
 	{% for customerEntry in contact.customers %}
 		{% if customerEntry.customer == customerName and customerEntry.role %}
@@ -65,7 +65,10 @@
 			items: [
 				{
 					value: "Primary contact",
-					text: "Primary contact"
+					text: "Primary contact",
+					hint: {
+						text: "They can add, update and remove contacts"
+					}
 				},
 				{
 					value: "Contact",
