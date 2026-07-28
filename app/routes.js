@@ -7,6 +7,17 @@ const ensureSelectedLicenceHolder = (req) => {
 	}
 };
 
+const normaliseContactRole = (role) => {
+	const value = String(role ?? "").trim();
+	if (value === "Primary user" || value === "Primary-contact") {
+		return "Primary contact";
+	}
+	if (value === "Contact") {
+		return "Contact";
+	}
+	return value;
+};
+
 const getNoPageLayoutTemplate = (req) => {
 	if (req.path.startsWith("/internal/")) {
 		return "layouts/main-internal.html";
@@ -348,10 +359,143 @@ router.get("/internal/contact/confirm-role.html", (req, res) => {
 	if (req.query.from) {
 		req.session.data.from = req.query.from;
 	}
-	if (req.query.contactRole) {
-		req.session.data.contactRole = String(req.query.contactRole);
+
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const requestedRole = normaliseContactRole(req.query.contactRole);
+
+	if (requestedRole) {
+		req.session.data.contactRole = requestedRole;
 	}
+
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName =
+		Number.isInteger(customerID) && Array.isArray(req.session.data.customers)
+			? req.session.data.customers[customerID]?.name
+			: req.session.data.licences?.[id]?.holder ||
+				contact?.customers?.[0]?.customer;
+
+	let currentRole = "Contact";
+	if (contact?.customers && customerName) {
+		const matchingEntry = contact.customers.find(
+			(customerEntry) => customerEntry.customer === customerName,
+		);
+		if (matchingEntry?.role) {
+			currentRole = normaliseContactRole(matchingEntry.role);
+		}
+	}
+
+	if (requestedRole && requestedRole === currentRole) {
+		const queryParams = {
+			contactID: Number.isInteger(contactID)
+				? String(contactID)
+				: String(req.session.data.contactID ?? ""),
+		};
+		if (Number.isInteger(id)) {
+			queryParams.ID = String(id);
+		}
+		if (Number.isInteger(customerID)) {
+			queryParams.customerID = String(customerID);
+		}
+		if (from.length > 0) {
+			queryParams.from = from;
+		}
+
+		const query = new URLSearchParams(queryParams).toString();
+		return res.redirect(`/internal/contact/edit-contact?${query}`);
+	}
+
 	res.render("internal/contact/confirm-role");
+});
+
+// Confirm selected role and return to edit-contact showing pending change
+router.post("/internal/contact/confirm-role.html", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const requestedRole = normaliseContactRole(
+		req.query.contactRole ?? req.session.data.contactRole ?? "",
+	);
+
+	if (!req.session.data.pendingChanges) {
+		req.session.data.pendingChanges = {};
+	}
+	if (requestedRole) {
+		req.session.data.pendingChanges.contactRole = requestedRole;
+	}
+
+	const queryParams = {
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	};
+	if (Number.isInteger(id)) {
+		queryParams.ID = String(id);
+	}
+	if (Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+	}
+	if (from.length > 0) {
+		queryParams.from = from;
+	}
+
+	const query = new URLSearchParams(queryParams).toString();
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
+});
+
+// Cancel role change and return to edit-contact with no pending role change
+router.get("/internal/contact/cancel-role", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	const customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+
+	if (req.session.data.pendingChanges) {
+		delete req.session.data.pendingChanges.contactRole;
+	}
+	delete req.session.data.contactRole;
+
+	const queryParams = {
+		contactID: Number.isInteger(contactID)
+			? String(contactID)
+			: String(req.session.data.contactID ?? ""),
+	};
+	if (Number.isInteger(id)) {
+		queryParams.ID = String(id);
+	}
+	if (Number.isInteger(customerID)) {
+		queryParams.customerID = String(customerID);
+	}
+	if (from.length > 0) {
+		queryParams.from = from;
+	}
+
+	const query = new URLSearchParams(queryParams).toString();
+	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
 // Save WAA licence selection and return to edit-contact
@@ -695,6 +839,29 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 			req.session.data.contacts[contactID].phone =
 				req.session.data.pendingChanges.phone;
 			changesWereMade = true;
+		}
+		if (req.session.data.pendingChanges.contactRole) {
+			const pendingRole = normaliseContactRole(
+				req.session.data.pendingChanges.contactRole,
+			);
+			const selectedCustomerNameForRole =
+				from === "customer" && Number.isInteger(customerID)
+					? req.session.data.customers[customerID]?.name
+					: undefined;
+			const customerNameForRole =
+				selectedCustomerNameForRole ||
+				req.session.data.licences[id]?.holder ||
+				req.session.data.contacts[contactID]?.customers?.[0]?.customer;
+			const contact = req.session.data.contacts[contactID];
+			if (customerNameForRole && contact?.customers) {
+				const customerEntry = contact.customers.find(
+					(c) => c.customer === customerNameForRole,
+				);
+				if (customerEntry && customerEntry.role !== pendingRole) {
+					customerEntry.role = pendingRole;
+					changesWereMade = true;
+				}
+			}
 		}
 		const waaSelection = req.session.data.pendingChanges.waaSelection;
 		const waaLicences = req.session.data.pendingChanges.waaLicences;

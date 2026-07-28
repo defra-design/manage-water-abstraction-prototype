@@ -5,23 +5,35 @@
 {% set licence = data['licences'][data.ID] %}
 {% set contact = data['contacts'][data.contactID] %}
 {% set breadcrumbType="licence" %}
-{% set customerName = licence.holder %}
+{% set customerName = "" %}
+
+{% if data.customerID is not undefined and data.customers[data.customerID] %}
+	{% set customerName = data.customers[data.customerID].name %}
+{% elif licence %}
+	{% set customerName = licence.holder %}
+{% endif %}
 
 {% if contact.customers and contact.customers.length %}
-	{% set customerName = contact.customers[0].customer %}
-	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == licence.holder %}
-			{% set customerName = customerEntry.customer %}
-		{% endif %}
-	{% endfor %}
+	{% if customerName %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == customerName %}
+				{% set customerName = customerEntry.customer %}
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		{% set customerName = contact.customers[0].customer %}
+	{% endif %}
 {% endif %}
 
 {% set contactRole = "Contact" %}
 {% for customerEntry in contact.customers %}
 	{% if customerEntry.customer == customerName and customerEntry.role %}
-		{% set contactRole = customerEntry.role %}
+		{% set contactRole = "Primary contact" if customerEntry.role == "Primary user" or customerEntry.role == "Primary-contact" else customerEntry.role %}
 	{% endif %}
 {% endfor %}
+{% if data.pendingChanges and data.pendingChanges.contactRole %}
+	{% set contactRole = "Primary contact" if data.pendingChanges.contactRole == "Primary user" or data.pendingChanges.contactRole == "Primary-contact" else data.pendingChanges.contactRole %}
+{% endif %}
 
 {% block containerStart %}
 {% set backLinkHref = "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID %}

@@ -36,7 +36,26 @@
 			{{ pageName }}
 		</h1>
 
-		<form method="post" action="">
+		{% set confirmRoleAction = "/internal/contact/confirm-role.html?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set confirmRoleAction = confirmRoleAction + "&customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.from %}
+			{% set confirmRoleAction = confirmRoleAction + "&from=" + data.from %}
+		{% endif %}
+		{% if data.contactRole %}
+			{% set confirmRoleAction = confirmRoleAction + "&contactRole=" + data.contactRole %}
+		{% endif %}
+
+		{% set cancelRoleHref = "/internal/contact/cancel-role?contactID=" + data.contactID + "&ID=" + data.ID %}
+		{% if data.customerID %}
+			{% set cancelRoleHref = cancelRoleHref + "&customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.from %}
+			{% set cancelRoleHref = cancelRoleHref + "&from=" + data.from %}
+		{% endif %}
+
+		<form method="post" action="{{ confirmRoleAction }}">
 
 		{{ govukButton({
 		text: "Confirm",
@@ -45,7 +64,7 @@
 		}) }}
 
 		<p class="govuk-body">
-			<a href="Cancel" class="govuk-link">Cancel</a>
+			<a href="{{ cancelRoleHref }}" class="govuk-link">Cancel</a>
 		</p>
 
 		</form>

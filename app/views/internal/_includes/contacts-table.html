@@ -1,5 +1,7 @@
 {% set contacts = data['contacts'] %}
 {% set contactsList = [] %}
+{% set primaryContactsList = [] %}
+{% set otherContactsList = [] %}
 {% if licence %}
   {% set selectedCustomer = licence.holder %}
 {% else %}
@@ -22,6 +24,7 @@
 
     {# Check if the contact entry matches the selected customer #}
     {% if contactEntry.customer == selectedCustomer %}
+      {% set roleDisplay = "Primary contact" if contactEntry.role == "Primary user" or contactEntry.role == "Primary-contact" else contactEntry.role %}
       {% set applicableNotices = [] %}
       {% for notice in contactEntry.notices %}
 
@@ -32,7 +35,7 @@
       {% endfor %}
 
       {# Only show roles that should appear in this table #}
-      {% set showRole = contactEntry.role == "Primary contact" or contactEntry.role == "Contact" %}
+      {% set showRole = roleDisplay == "Primary contact" or roleDisplay == "Contact" %}
 
       {# When viewing from customer page, show allowed roles; when viewing from licence page, only show allowed roles with applicable notices #}
       {% if showRole and ((fromPage == "customer") or (applicableNotices.length)) %}
@@ -46,14 +49,26 @@
           {% endif %}
         {% endset %}
 
-        {% set contactsList = contactsList | push([
+        {% set contactRow = [
           {html:'<a href="' + contactLinkBase + contactIndex + contactLinkSuffix + '" class="govuk-link">' + contact.name + '</a>'},
-          {text:contactEntry.role},
+          {text:roleDisplay},
           {html:communicationHtml | safe}
-        ]) %}
+        ] %}
+        {% if roleDisplay == "Primary contact" %}
+          {% set primaryContactsList = primaryContactsList | push(contactRow) %}
+        {% else %}
+          {% set otherContactsList = otherContactsList | push(contactRow) %}
+        {% endif %}
       {% endif %}
     {% endif %}
   {% endfor %}
+{% endfor %}
+
+{% for contactRow in primaryContactsList %}
+  {% set contactsList = contactsList | push(contactRow) %}
+{% endfor %}
+{% for contactRow in otherContactsList %}
+  {% set contactsList = contactsList | push(contactRow) %}
 {% endfor %}
 
 {% if contactsList.length %}
