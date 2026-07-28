@@ -23,6 +23,13 @@
 	{% endif %}
 {% endif %}
 
+{% set contactRole = "Contact" %}
+{% for customerEntry in contact.customers %}
+	{% if customerEntry.customer == customerName and customerEntry.role %}
+		{% set contactRole = customerEntry.role %}
+	{% endif %}
+{% endfor %}
+
 {% block containerStart %}
 	{% if data.from == "customer" %}
 		{{ govukBackLink({
@@ -55,21 +62,29 @@
 			{{ contact.name }} 
 		</h1>
 
-		{{ govukTag({
-			text: "Registered" if contact.wrls == "true" else "Not registered",
-			classes: (contact | contactRegStatus) + " govuk-!-font-size-24"
-		}) }}
-
 		{{ govukSummaryList({
 			classes: 'govuk-summary-list--no-border meta-data',
 			rows: [
 				{
 					key: {
-						text: "Date created",
-						classes: "meta-data__label "
+						text: "Role",
+						classes: "meta-data__label"
 					},
 					value: {
-						text: "12 January 2020",
+						html: govukTag({
+							text: contactRole,
+							classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-2"
+						}),
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "Last signed in",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "12 January 2025",
 						classes: "meta-data__value"
 					}
 				},
@@ -85,11 +100,21 @@
 				},
 				{
 					key: {
-						text: "Last updated",
+						text: "Date created",
 						classes: "meta-data__label"
 					},
 					value: {
-						text: "1 June 2026",
+						text: "6 March 2023",
+						classes: "meta-data__value"
+					}
+				},
+				{
+					key: {
+						text: "Updated by",
+						classes: "meta-data__label"
+					},
+					value: {
+						text: "psmith@environment-agency.gov.uk",
 						classes: "meta-data__value"
 					}
 				}
