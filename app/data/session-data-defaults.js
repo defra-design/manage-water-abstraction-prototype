@@ -1100,8 +1100,8 @@ module.exports = {
 
 		{
 			name: "Sarah Jenkins",
-			email: "sjenkins@pwplc.co.uk",
-			post: "10, Fernyhalgh Lane, Preston, PR2 5ST",
+			email: "sjenkins@smithpotters.com",
+			post: "Smith and Potters, London Road, Bristol, BS1 5ST",
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
