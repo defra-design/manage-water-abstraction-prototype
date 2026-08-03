@@ -453,7 +453,17 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 			}
 		}
 
-		req.session.data.contacts.splice(contactID, 1);
+		const contact = req.session.data.contacts[contactID];
+		const customerName = req.session.data.customers[customerID]?.name;
+
+		if (contact.customers && contact.customers.length > 1 && customerName) {
+			// Only remove the association with this licence holder
+			contact.customers = contact.customers.filter(
+				(entry) => entry.customer !== customerName,
+			);
+		} else {
+			req.session.data.contacts.splice(contactID, 1);
+		}
 	}
 
 	delete req.session.data.contactID;
@@ -794,6 +804,25 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 				if (customerEntry && customerEntry.role !== pendingRole) {
 					customerEntry.role = pendingRole;
 					changesWereMade = true;
+
+					if (pendingRole === "Primary contact") {
+						if (!Array.isArray(customerEntry.notices)) {
+							customerEntry.notices = [];
+						}
+						const allNoticeTypes = [
+							"Water abstraction alerts by email",
+							"Returns by email",
+							"Bills by post",
+						];
+						for (const noticeType of allNoticeTypes) {
+							const existing = customerEntry.notices.find((n) => n.type === noticeType);
+							if (existing) {
+								existing.licences = "all";
+							} else {
+								customerEntry.notices.push({ type: noticeType, licences: "all" });
+							}
+						}
+					}
 				}
 			}
 		}

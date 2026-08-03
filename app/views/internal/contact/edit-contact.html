@@ -270,6 +270,12 @@
 			{% endset %}
 		{% endif %}
 
+		{% if contactRole == "Primary contact" %}
+			{% set WAAHtml = "Yes, for all licences" %}
+			{% set returnsHtml = "Yes, for all licences" %}
+			{% set billsHtml = "Yes, for all licences" %}
+		{% endif %}
+
 		{% set editWAAHref = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
 		{% if data.customerID %}
 			{% set editWAAHref = editWAAHref + "&customerID=" + data.customerID %}

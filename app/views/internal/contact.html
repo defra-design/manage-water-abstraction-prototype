@@ -31,9 +31,15 @@
 {% endfor %}
 
 {% block containerStart %}
+	{% set backCustomerID = data.customerID %}
+	{% for customer in data.customers %}
+		{% if customer.name == customerName %}
+			{% set backCustomerID = loop.index0 %}
+		{% endif %}
+	{% endfor %}
 	{% if data.from == "customer" %}
 		{{ govukBackLink({
-		  href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
+		  href: "/internal/customer/customer-contacts?customerID=" + backCustomerID,
 		  text: "Back to customer"
 		}) }}
 	{% else %}
