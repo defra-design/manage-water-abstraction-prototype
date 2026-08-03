@@ -1117,6 +1117,24 @@ module.exports = {
 					],
 					customer: "Public Water Plc",
 				},
+				{
+					role: "Primary contact",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
+							licences: "all",
+						}
+					],
+					customer: "Irene Briton",
+				},
 			],
 		},
 
