@@ -39,9 +39,25 @@
 
       {# When viewing from customer page, show allowed roles; when viewing from licence page, only show allowed roles with applicable notices #}
       {% if showRole and ((fromPage == "customer") or (applicableNotices.length)) %}
+        {# Sort notices in the required display order #}
+        {% set noticeOrder = ["Water abstraction alerts by email", "Returns by email", "Bills by post"] %}
+        {% set sortedNotices = [] %}
+        {% for orderItem in noticeOrder %}
+          {% for notice in applicableNotices %}
+            {% if notice.type == orderItem %}
+              {% set sortedNotices = sortedNotices | push(notice) %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {# Append any notices not in the defined order #}
+        {% for notice in applicableNotices %}
+          {% if notice.type not in noticeOrder %}
+            {% set sortedNotices = sortedNotices | push(notice) %}
+          {% endif %}
+        {% endfor %}
         {% set communicationHtml %}
-          {% if applicableNotices.length %}
-            {% for notice in applicableNotices %}
+          {% if sortedNotices.length %}
+            {% for notice in sortedNotices %}
               {{ notice.type }}{% if not loop.last %}<br>{% endif %}
             {% endfor %}
           {% else %}
