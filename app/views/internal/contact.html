@@ -57,7 +57,9 @@
 		}) }}
 		{% endif %}
 
-		<span class="govuk-caption-l">{{ customerName }}</span>
+		{% if contact.customers.length <= 1 %}
+			<span class="govuk-caption-l">{{ customerName }}</span>
+		{% endif %}
 		<h1 class="govuk-heading-l">
 			{{ contact.name }} 
 		</h1>
