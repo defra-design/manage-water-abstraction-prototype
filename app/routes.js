@@ -397,7 +397,7 @@ router.post("/internal/contact/select-licence-holder", (req, res) => {
 
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
-	captureRouteContext(req, { ID: true, contactID: true, customerID: true });
+	captureRouteContext(req, { ID: true, contactID: true, customerID: true, from: true });
 
 	// Pass the success flag to the template if set, then clear it
 	const showSuccessBanner = req.session.data.contactUpdateSuccess === true;
@@ -766,6 +766,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		Array.isArray(req.session.data.contacts) &&
 		req.session.data.contacts[contactID]
 	) {
+		const customerName = getCustomerNameForContactContext(req, { id, contactID, customerID, from });
 		if (req.session.data.pendingChanges.name) {
 			req.session.data.contacts[contactID].name =
 				req.session.data.pendingChanges.name;
@@ -790,16 +791,10 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 			const pendingRole = normaliseContactRole(
 				req.session.data.pendingChanges.contactRole,
 			);
-			const customerNameForRole = getCustomerNameForContactContext(req, {
-				id,
-				contactID,
-				customerID,
-				from,
-			});
 			const contact = req.session.data.contacts[contactID];
-			if (customerNameForRole && contact?.customers) {
+			if (customerName && contact?.customers) {
 				const customerEntry = contact.customers.find(
-					(c) => c.customer === customerNameForRole,
+					(c) => c.customer === customerName,
 				);
 				if (customerEntry && customerEntry.role !== pendingRole) {
 					customerEntry.role = pendingRole;
@@ -829,12 +824,6 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const waaSelection = req.session.data.pendingChanges.waaSelection;
 		const waaLicences = req.session.data.pendingChanges.waaLicences;
 		if (waaSelection || waaLicences !== undefined) {
-			const customerName = getCustomerNameForContactContext(req, {
-				id,
-				contactID,
-				customerID,
-				from,
-			});
 			const contact = req.session.data.contacts[contactID];
 			if (customerName && contact?.customers) {
 				const customerEntry = contact.customers.find(
@@ -851,12 +840,6 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		const returnsSelection = req.session.data.pendingChanges.returnsSelection;
 		const returnsLicences = req.session.data.pendingChanges.returnsLicences;
 		if (returnsSelection || returnsLicences !== undefined) {
-			const customerName = getCustomerNameForContactContext(req, {
-				id,
-				contactID,
-				customerID,
-				from,
-			});
 			const contact = req.session.data.contacts[contactID];
 			if (customerName && contact?.customers) {
 				const customerEntry = contact.customers.find(

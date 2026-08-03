@@ -2,7 +2,7 @@
 {% extends "layouts/main-internal.html" %}
 
 {% set licence = data['licences'][data.ID] if data.ID else null %}
-{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID is not undefined else null %}
 {% set breadcrumbType="licence" %}
 {% set customerName = data.customers[data.customerID].name if data.customerID is not undefined and data.customers[data.customerID] else (licence.holder if licence else "") %}
 {% set selectedRole = "Contact" %}
@@ -13,6 +13,7 @@
 		{% endif %}
 	{% endfor %}
 {% endif %}
+{% set selectedRole = "Primary contact" if selectedRole == "Primary user" or selectedRole == "Primary-contact" else selectedRole %}
 {% set oldRoleLabel = "primary contact" if selectedRole == "Primary contact" else "contact" %}
 {% set requestedRole = data.contactRole if data.contactRole else selectedRole %}
 {% set newRoleLabel = "primary contact" if requestedRole == "Primary contact" else "contact" %}

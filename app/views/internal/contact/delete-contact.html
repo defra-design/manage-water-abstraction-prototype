@@ -2,7 +2,7 @@
 {% extends "layouts/main-internal.html" %}
 
 {% set licence = data['licences'][data.ID] if data.ID else null %}
-{% set contact = data['contacts'][data.contactID] if data.contactID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID is not undefined else null %}
 {% set breadcrumbType="licence" %}
 {% set customerName = "" %}
 {% if data.customerID is not undefined and data.customers[data.customerID] %}
@@ -27,10 +27,10 @@
 
 {% block containerStart %}
 {% set backLinkHref = "/internal/contact?contactID=" + data.contactID %}
-{% if data.ID %}
+{% if data.ID is not undefined %}
 	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
 {% endif %}
-{% if data.customerID %}
+{% if data.customerID is not undefined %}
 	{% set backLinkHref = backLinkHref + "&customerID=" + data.customerID %}
 {% endif %}
 {% if data.from %}
@@ -53,7 +53,7 @@
 		</h1>
 
 		{% set deleteAction = "/internal/contact/delete-contact?contactID=" + data.contactID %}
-		{% if data.customerID %}
+		{% if data.customerID is not undefined %}
 			{% set deleteAction = deleteAction + "&customerID=" + data.customerID %}
 		{% endif %}
 		<form method="post" action="{{ deleteAction }}">
