@@ -58,6 +58,14 @@ addFilter("changeTypeColour", (e) => {
 	}
 });
 
+addFilter("formatDate", (dateStr) => {
+	if (!dateStr) return "Never";
+	const months = ["January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"];
+	const [year, month, day] = dateStr.split("-").map(Number);
+	return `${day} ${months[month - 1]} ${year}`;
+});
+
 addFilter("returnsStatus", (status) => {
 	if (status === "Due" || status === "Overdue") {
 		return "govuk-tag--red";

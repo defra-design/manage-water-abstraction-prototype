@@ -836,6 +836,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "Jim",
 			lastName: "Smith",
+			lastSignIn: "2026-05-14",
 			customers: [
 				{
 					role: "Primary contact",
@@ -866,6 +867,7 @@ module.exports = {
 			post: "Fernyhalgh Lane, Preston, PR2 5ST",
 			firstName: "Joanna",
 			lastName: "Southall",
+			lastSignIn: "2025-11-22",
 			customers: [
 				{
 					role: "Primary contact",
@@ -895,6 +897,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-09-07",
 			customers: [
 				{
 					role: "Contact",
@@ -916,6 +919,7 @@ module.exports = {
 			phone: "01225 765432",
 			firstName: "Frank",
 			lastName: "Thomas",
+			lastSignIn: "2026-02-18",
 			customers: [
 				{
 					role: "Contact",
@@ -937,6 +941,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "Janice",
 			lastName: "Betrand",
+			lastSignIn: "2025-06-30",
 			customers: [
 				{
 					role: "Contact",
@@ -958,6 +963,7 @@ module.exports = {
 			phone: "",
 			firstName: "Geoffrey",
 			lastName: "Billington",
+			lastSignIn: "",
 			customers: [
 				{
 					role: "Primary contact",
@@ -987,6 +993,7 @@ module.exports = {
 			phone: "01225 345543",
 			firstName: "Irene",
 			lastName: "Briton",
+			lastSignIn: "2026-07-01",
 			customers: [
 				{
 					role: "Primary contact",
@@ -1016,6 +1023,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "Fiona",
 			lastName: "Thomas",
+			lastSignIn: "2025-03-19",
 			customers: [
 				{
 					role: "Contact",
@@ -1037,6 +1045,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-12-04",
 			customers: [
 				{
 					role: "Primary contact",
@@ -1066,6 +1075,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2026-04-22",
 			customers: [
 				{
 					role: "Primary contact",
@@ -1095,6 +1105,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2025-08-11",
 			customers: [
 				{
 					role: "Contact",
@@ -1116,6 +1127,7 @@ module.exports = {
 			phone: "01225 303030",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-11-28",
 			customers: [
 				{
 					role: "Contact",
@@ -1137,6 +1149,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2026-01-09",
 			customers: [
 				{
 					role: "Contact",
@@ -1162,6 +1175,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2025-05-16",
 			customers: [
 				{
 					role: "Contact",
@@ -1183,6 +1197,7 @@ module.exports = {
 			phone: "01225 222666",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-08-27",
 			customers: [
 				{
 					role: "Contact",
@@ -1204,6 +1219,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2025-12-03",
 			customers: [
 				{
 					role: "Contact",
@@ -1229,6 +1245,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2026-03-17",
 			customers: [
 				{
 					role: "Contact",
@@ -1253,6 +1270,7 @@ module.exports = {
 			post: "17, Fernyhalgh Lane, Preston, PR2 5ST",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2025-09-24",
 			phone: "012356 123321",
 			customers: [
 				{
@@ -1279,6 +1297,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-10-31",
 			customers: [
 				{
 					role: "Contact",
@@ -1300,6 +1319,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2026-06-08",
 			customers: [
 				{
 					role: "Contact",
@@ -1325,6 +1345,7 @@ module.exports = {
 			phone: "01225 282726",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2025-02-14",
 			customers: [
 				{
 					role: "Contact",
@@ -1350,6 +1371,7 @@ module.exports = {
 			phone: "01225 123456",
 			firstName: "",
 			lastName: "",
+			lastSignIn: "2024-09-20",
 			customers: [
 				{
 					role: "Contact",
