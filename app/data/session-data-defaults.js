@@ -1135,6 +1135,16 @@ module.exports = {
 					],
 					customer: "Irene Briton",
 				},
+				{
+					role: "Contact",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: "all",
+						}
+					],
+					customer: "Robin Vithlhem-Smith",
+				},
 			],
 		},
 
