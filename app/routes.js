@@ -364,6 +364,37 @@ router.post("/internal/contact/add-contact", (req, res) => {
 	return res.redirect(`/internal/contact/edit-contact?${query.toString()}`);
 });
 
+// Render select-licence-holder page
+router.get("/internal/contact/select-licence-holder", (req, res) => {
+	captureRouteContext(req, { ID: true, contactID: true, customerID: true, from: true });
+	const { id, contactID, customerID, from } = getContactRouteContext(req);
+	const customerName = getCustomerNameForContactContext(req, { id, contactID, customerID, from });
+	res.render("internal/contact/select-licence-holder", { customerName });
+});
+
+// Handle licence holder selection and redirect back to contact page
+router.post("/internal/contact/select-licence-holder", (req, res) => {
+	const { contactID, from } = getContactRouteContext(req);
+	const selectedCustomerName = req.body.licenceHolder;
+
+	const newCustomerID = req.session.data.customers.findIndex(
+		(c) => c.name === selectedCustomerName,
+	);
+
+	if (newCustomerID >= 0) {
+		req.session.data.customerID = newCustomerID;
+	}
+
+	const resolvedCustomerID = newCustomerID >= 0 ? newCustomerID : req.session.data.customerID;
+	const query = new URLSearchParams({
+		contactID: String(contactID),
+		customerID: String(resolvedCustomerID),
+		from: from || "customer",
+	}).toString();
+
+	return res.redirect(`/internal/contact?${query}`);
+});
+
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
 	captureRouteContext(req, { ID: true, contactID: true, customerID: true });

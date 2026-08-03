@@ -1,0 +1,66 @@
+
+{% extends "layouts/main-internal.html" %}
+
+{% set pageName="Select a licence holder" %}
+{% set contact = data['contacts'][data.contactID] if data.contactID is not undefined else null %}
+
+{% set backHref = "/internal/contact?contactID=" + data.contactID %}
+{% if data.customerID is not undefined %}{% set backHref = backHref + "&customerID=" + data.customerID %}{% endif %}
+{% if data.from %}{% set backHref = backHref + "&from=" + data.from %}{% endif %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: backHref,
+	text: "Back to contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			{{ pageName }}
+		</h1>
+
+		{% set radioItems = [] %}
+		{% for entry in contact.customers %}
+			{% set licenceCount = 0 %}
+			{% for lic in data.licences %}
+				{% if lic.holder == entry.customer %}
+					{% set licenceCount = licenceCount + 1 %}
+				{% endif %}
+			{% endfor %}
+			{% set radioItems = radioItems | push({
+				value: entry.customer,
+				text: entry.customer,
+				hint: { text: licenceCount + (" licence" if licenceCount == 1 else " licences") },
+				checked: entry.customer == customerName
+			}) %}
+		{% endfor %}
+
+		{% set formAction = "/internal/contact/select-licence-holder?contactID=" + data.contactID %}
+		{% if data.customerID is not undefined %}{% set formAction = formAction + "&customerID=" + data.customerID %}{% endif %}
+		{% if data.from %}{% set formAction = formAction + "&from=" + data.from %}{% endif %}
+
+		<form method="post" action="{{ formAction }}">
+			<input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+			{{ govukRadios({
+				name: "licenceHolder",
+				items: radioItems
+			}) }}
+
+			{{ govukButton({
+				text: "Continue",
+				type: "submit"
+			}) }}
+
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+

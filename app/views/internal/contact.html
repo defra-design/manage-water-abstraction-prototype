@@ -140,8 +140,11 @@
 			<p class="govuk-body govuk-!-margin-bottom-1">
 				This contact is linked to {{ linkedLicences.length }} licence{{ "s" if linkedLicences.length != 1 }} for {{ contact.customers.length }} licence holders.
 			</p>
+			{% set changeHolderHref = "/internal/contact/select-licence-holder?contactID=" + data.contactID %}
+			{% if data.customerID is not undefined %}{% set changeHolderHref = changeHolderHref + "&customerID=" + data.customerID %}{% endif %}
+			{% if data.from %}{% set changeHolderHref = changeHolderHref + "&from=" + data.from %}{% endif %}
 			<p class="govuk-body govuk-!-margin-bottom-7">
-				Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="#" class="govuk-link">Change</a>
+				Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="{{ changeHolderHref }}" class="govuk-link">Change</a>
 			</p>
 		{% endif %}
 
