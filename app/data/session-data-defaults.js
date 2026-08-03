@@ -537,7 +537,76 @@ module.exports = {
 				},
 			],
 		},
-		// licence 7 - [No name] 11/22/32/02 (live)
+		// licence 7 - River House 03/28/50/0729 (revoked)
+		// licence summary
+		{
+			name: "River House New",
+			number: "03/28/50/0729",
+			holder: "Robin Vithlhem-Smith",
+			startDate: "1 March 2023",
+			effectiveDate: "1 March 2023",
+			endDate: "1 December 2028",
+			source:
+				"Underground strata comprising of Mercia Mudstone at Anarea, Atown.",
+			purpose: ["Spray irrigation"],
+			periodStart: "1 April",
+			periodEnd: "31 October",
+			absPoints: ["At National Grid Reference ST 456789"],
+			monitoringStation: "Bourton Dickler",
+			conditions: ["General condition", "Hands off flow condition (HOF)"],
+			absQuantities:
+				"900 cubic metres per hour~1,250 cubic metres per day~1,250,000 cubic metres per year",
+			billingRegion: "Midlands",
+			status: "live",
+
+			// Purposes, periods and amounts, Points, Conditions
+			use: [
+				{
+					purpose: "Spray irrigation - direct",
+					points: [
+						"At National Grid Reference SK 675 124 (RIVER SWALE - HELPERBY)",
+						"At National Grid Reference SK 675 343 (RIVER SWALE - HELPERBY)",
+					],
+					periodStart: "0401",
+					periodEnd: "1031",
+					amount: "125",
+					timeLimit: "No",
+				},
+			],
+			means: ["Unspecified pump"],
+			sourceType: "Surface water",
+			absConditions: [
+				{
+					type: "General condition",
+					purposeIndex: ["0"],
+					pointsIndex: ["0"],
+					param1: "",
+					text: "The Licence Holder shall use staff gauges to measure the water level in Helperby reservoir at National Grid References  SE 437 680 and SE 437 692.",
+				},
+				{
+					type: "Hands off flow condition (HOF)",
+					purposeIndex: ["0"],
+					pointsIndex: ["0"],
+					param1: "Bourton Dickler",
+					param2: "180 millilitres per day",
+					text: "No abstraction shall take place from the River Dikler when the water flow in the Dickler as measured at Bourton Dickler (1029TH) is at or below 180 millilitres per day.",
+				},
+			],
+
+			// History
+			changeLog: [
+				{
+					type: "Licence version",
+					reasonCreated: "new Licence",
+					changeType: "licence issued",
+					startDate: "1996-10-01",
+					endDate: "2006-10-01",
+					versionIssueDate: "1995-10-01",
+					applicationNumber: "NPS/BD026555"
+				},
+			],
+		},
+		// licence 8 - [No name] 11/22/32/02 (live)
 		// licence summary
 		{
 			name: "",
@@ -606,7 +675,7 @@ module.exports = {
 			],
 		},
 
-		// licence 8 - Cherry Tree Farm 03/28/61/033 (live)
+		// licence 9 - Cherry Tree Farm 03/28/61/033 (live)
 		// licence summary
 		{
 			name: "Cherry Tree Farm",
@@ -695,7 +764,7 @@ module.exports = {
 			],
 		},
 
-		// licence 9 - [No name] 100/22/33/0123 (live)
+		// licence 10 - [No name] 100/22/33/0123 (live)
 		// licence summary
 		{
 			name: "",
@@ -764,7 +833,7 @@ module.exports = {
 			],
 		},
 
-		// licence 10 - River Swale Intake 200/20/23/0111 (live)
+		// licence 11 - River Swale Intake 200/20/23/0111 (live)
 		// licence summary
 		{
 			name: "River Swale Intake",
@@ -855,6 +924,20 @@ module.exports = {
 						}
 					],
 					customer: "Big Smith Farms Ltd",
+				},
+				{
+					role: "Contact",
+					notices: [
+						{
+							type: "Water abstraction alerts by email",
+							licences: ["100/22/33/0123"],
+						},
+						{
+							type: "Returns by email",
+							licences: ["100/22/33/0123"],
+						}
+					],
+					customer: "Public Water Plc",
 				},
 			],
 		},
