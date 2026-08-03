@@ -330,10 +330,17 @@ router.post("/internal/contact/add-contact", (req, res) => {
 		phone: "",
 		firstName: firstName,
 		lastName: lastName,
+		dateCreated: new Date().toISOString().slice(0, 10),
 		customers: [
 			{
 				role: selectedRole,
-				notices: [],
+				notices: selectedRole === "Primary contact"
+					? [
+						{ type: "Water abstraction alerts by email", licences: "all" },
+						{ type: "Returns by email", licences: "all" },
+						{ type: "Bills by post", licences: "all" },
+					]
+					: [],
 				customer: customerName,
 			},
 		],

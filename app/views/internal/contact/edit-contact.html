@@ -302,7 +302,7 @@
 						html: WAAHtml | safe
 					},
 					actions: {
-						items: [
+						items: [] if contactRole == "Primary contact" else [
 							{
 								href: editWAAHref,
 								text: "Change",
@@ -319,7 +319,7 @@
 						html: returnsHtml | safe
 					},
 					actions: {
-						items: [
+						items: [] if contactRole == "Primary contact" else [
 							{
 								href: editReturnsHref,
 								text: "Change",
@@ -336,7 +336,7 @@
 						html: billsHtml | safe
 					},
 					actions: {
-						items: [
+						items: [] if contactRole == "Primary contact" else [
 							{
 								href: "/internal/no-page.html",
 								text: "Change",
