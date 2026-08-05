@@ -27,6 +27,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
 
 		const licences = sessionData.licences || [];
 		const customers = sessionData.customers || [];
+		const contacts = sessionData.contacts || [];
 
 		const getSelectedSearchFilter = () => {
 			const selectedFilter = document.querySelector(
@@ -48,11 +49,28 @@ window.GOVUKPrototypeKit.documentReady(() => {
 			});
 		};
 
+		const searchTermMatchesContact = (searchTerm) => {
+			return contacts.some((contact) =>
+				(contact.name && contact.name.toLowerCase().includes(searchTerm)) ||
+				(contact.email && contact.email.toLowerCase().includes(searchTerm))
+			);
+		};
+
+		const getContactResults = (searchTerm) => {
+			return contacts
+				.map((contact, index) => ({ contact, index }))
+				.filter(({ contact }) =>
+					(contact.name && contact.name.toLowerCase().includes(searchTerm)) ||
+					(contact.email && contact.email.toLowerCase().includes(searchTerm))
+				);
+		};
+
 		const getSearchFilter = (searchTerm) => {
 			if (isFilterExplicitlySelected()) {
 				return getSelectedSearchFilter();
 			}
 
+			if (searchTermMatchesContact(searchTerm)) return "users";
 			return searchTermMatchesHolder(searchTerm) ? "holders" : "licences";
 		};
 
@@ -100,6 +118,39 @@ window.GOVUKPrototypeKit.documentReady(() => {
 						(licence.name && licence.name.toLowerCase().includes(searchTerm))
 					);
 				});
+		};
+
+		const createContactTableRow = ({ contact, index }) => {
+			const tr = document.createElement("tr");
+			tr.className = "govuk-table__row";
+
+			const nameCell = document.createElement("td");
+			nameCell.className = "govuk-table__cell";
+			const firstCustomerName = contact.customers?.[0]?.customer;
+			const customerID = firstCustomerName
+				? customers.findIndex((c) => c.name === firstCustomerName)
+				: -1;
+			const contactHref = customerID >= 0
+				? `/internal/contact?contactID=${index}&customerID=${customerID}&from=customer`
+				: `/internal/contact?contactID=${index}`;
+			const nameLink = document.createElement("a");
+			nameLink.href = contactHref;
+			nameLink.className = "govuk-link";
+			nameLink.textContent = contact.name || "-";
+			nameCell.appendChild(nameLink);
+			tr.appendChild(nameCell);
+
+			const emailCell = document.createElement("td");
+			emailCell.className = "govuk-table__cell";
+			emailCell.textContent = contact.email || "-";
+			tr.appendChild(emailCell);
+
+			const holdersCell = document.createElement("td");
+			holdersCell.className = "govuk-table__cell";
+			holdersCell.textContent = contact.customers?.map((c) => c.customer).join(", ") || "-";
+			tr.appendChild(holdersCell);
+
+			return tr;
 		};
 
 		const createTableRow = (result, isHoldersSearch) => {
@@ -170,7 +221,9 @@ window.GOVUKPrototypeKit.documentReady(() => {
 			const headers =
 				filterType === "holders"
 					? ["Holder", "Number of licences", "Billing region"]
-					: ["Licence", "Licence holder", "End date"];
+					: filterType === "users"
+						? ["Contact", "Email", "Licence holder(s)"]
+						: ["Licence", "Licence holder", "End date"];
 
 			headers.forEach((text, index) => {
 				headerCells[index].textContent = text;
@@ -186,7 +239,10 @@ window.GOVUKPrototypeKit.documentReady(() => {
 			if (tbody) {
 				tbody.innerHTML = "";
 				results.forEach((result) => {
-					tbody.appendChild(createTableRow(result, isHoldersSearch));
+					const row = filterType === "users"
+						? createContactTableRow(result)
+						: createTableRow(result, isHoldersSearch);
+					tbody.appendChild(row);
 				});
 			}
 
@@ -223,7 +279,9 @@ window.GOVUKPrototypeKit.documentReady(() => {
 			const results =
 				filterType === "holders"
 					? getHolderResults(searchTerm)
-					: getLicenceResults(searchTerm);
+					: filterType === "users"
+						? getContactResults(searchTerm)
+						: getLicenceResults(searchTerm);
 
 			if (results.length === 0) {
 				searchResultsContainer.style.display = "none";

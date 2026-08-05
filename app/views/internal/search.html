@@ -29,7 +29,7 @@
 
   {# Embed session data for client-side search #}
   <script type="application/json" id="session-data">
-    {"licences": {{ data.licences | dump | safe }}, "customers": {{ data.customers | dump | safe }}}
+    {"licences": {{ data.licences | dump | safe }}, "customers": {{ data.customers | dump | safe }}, "contacts": {{ data.contacts | dump | safe }}}
   </script>
 
   {% include "internal/_includes/search-filter.html" %}
