@@ -56,7 +56,12 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-three-quarters">
 
-		{% if showSuccessBanner %}
+		{% if showNewContactBanner %}
+		{{ govukNotificationBanner({
+			text: "New contact added",
+			type: "success"
+		}) }}
+		{% elif showSuccessBanner %}
 		{{ govukNotificationBanner({
 			text: "Contact details updated",
 			type: "success"

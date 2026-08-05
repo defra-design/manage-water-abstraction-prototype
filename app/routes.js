@@ -351,6 +351,9 @@ router.post("/internal/contact/add-contact", (req, res) => {
 	
 	// Get the index of the newly created contact
 	const contactID = req.session.data.contacts.length - 1;
+
+	// Flag so Cancel can remove this contact if the user does not confirm
+	req.session.data.pendingNewContactID = contactID;
 	
 	// Redirect to edit-contact page
 	const query = new URLSearchParams({
@@ -412,15 +415,22 @@ router.get("/internal/contact", (req, res) => {
 		req.session.data.contactUpdateSuccess = false;
 	}
 
+	const showNewContactBanner = req.session.data.newContactSuccess === true;
+	if (showNewContactBanner) {
+		req.session.data.newContactSuccess = false;
+	}
+
 	res.render("internal/contact", {
 		showSuccessBanner,
+		showNewContactBanner,
 	});
 });
 
 // Capture selected contact and optional licence ID for the edit contact page
 router.get("/internal/contact/edit-contact", (req, res) => {
 	captureRouteContext(req, { ID: true, contactID: true, customerID: true });
-	res.render("internal/contact/edit-contact");
+	const isNewContact = Number.isInteger(req.session.data.pendingNewContactID);
+	res.render("internal/contact/edit-contact", { isNewContact });
 });
 
 // Capture selected contact and optional context for delete contact page
@@ -862,6 +872,10 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		}
 		// Clear pending changes after applying
 		req.session.data.pendingChanges = {};
+		if (Number.isInteger(req.session.data.pendingNewContactID)) {
+			req.session.data.newContactSuccess = true;
+		}
+		delete req.session.data.pendingNewContactID;
 	}
 
 	// Set success flag if changes were made
@@ -902,6 +916,17 @@ router.get("/internal/contact/cancel", (req, res) => {
 
 	// Clear any pending changes
 	req.session.data.pendingChanges = {};
+
+	// Remove the contact if it was never confirmed
+	const pendingNewContactID = req.session.data.pendingNewContactID;
+	if (
+		Number.isInteger(pendingNewContactID) &&
+		Array.isArray(req.session.data.contacts)
+	) {
+		req.session.data.contacts.splice(pendingNewContactID, 1);
+		delete req.session.data.contactID;
+	}
+	delete req.session.data.pendingNewContactID;
 
 	// If coming from customer context, redirect to customer-contacts
 	if (Number.isInteger(customerID)) {
