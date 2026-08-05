@@ -5,6 +5,14 @@
 	@include govuk-width-container(1100px);
 }
 
+.govuk-service-navigation__container {
+	flex-wrap: wrap;
+
+	.govuk-service-navigation__service-name {
+		flex: 0 0 100%;
+	}
+}
+
 .govuk-tag {
 	white-space: nowrap;
 }
