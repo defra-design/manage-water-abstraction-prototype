@@ -1070,6 +1070,28 @@ module.exports = {
 		},
 
 		{
+			name: "Geoff Billington",
+			email: "geoffbillington@outlook.com",
+			post: "5, Fernyhalgh Lane, Preston, PR2 5ST",
+			phone: "",
+			firstName: "Geoff",
+			lastName: "Billington",
+			lastSignIn: "2026-08-01",
+			customers: [
+				{
+					role: "Contact",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: "all",
+						}
+					],
+					customer: "Bottled Water Plc",
+				},
+			],
+		},
+
+		{
 			name: "Irene Briton",
 			email: "",
 			post: "6, Fernyhalgh Lane, Preston, PR2 5ST",
