@@ -1,0 +1,58 @@
+{% extends "layouts/main-prototype.html" %}
+
+{% set pageName="Home" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+
+  <h1 class="govuk-heading-l">Usability testing tasks</h1>
+
+{{ govukAccordion({
+  id: "",
+  items: [
+    {
+      heading: {
+        text: "Task 1"
+      },
+      content: {
+        html: "<p class='govuk-body'>Task 1 instructions and <a href='#'' class='govuk-link'>link</a>.</p>"
+      }
+    },
+    {
+      heading: {
+        text: "Task 2"
+      },
+      content: {
+        html: "<p class='govuk-body'>Task 2 instructions and <a href='#'' class='govuk-link'>link</a>.</p>"
+      }
+    },
+    {
+      heading: {
+        text: "Task 3"
+      },
+      content: {
+        html: "<p class='govuk-body'>Task 3 instructions and <a href='#'' class='govuk-link'>link</a>.</p>"
+      }
+    },
+    {
+      heading: {
+        text: "Task 4"
+      },
+      content: {
+        html: "<p class='govuk-body'>Task 4 instructions and <a href='#'' class='govuk-link'>link</a>.</p>"
+      }
+    }
+  ]
+}) }}
+
+
+
+
+
+  </div>
+</div>
+
+{% endblock %}
