@@ -21,7 +21,7 @@ module.exports = {
 			postcode: "L17 6RB",
 		},
 		{
-			name: "Robin Vithlhem-Smith",
+			name: "Robin Victor-Smith",
 			address1: "73 Old road",
 			city: "London",
 			postcode: "E16 8VB",
@@ -473,7 +473,7 @@ module.exports = {
 		{
 			name: "River House",
 			number: "03/28/60/0726",
-			holder: "Robin Vithlhem-Smith",
+			holder: "Robin Victor-Smith",
 			startDate: "1 April 2015",
 			effectiveDate: "1 April 2015",
 			endDate: "1 March 2023",
@@ -542,7 +542,7 @@ module.exports = {
 		{
 			name: "River House New",
 			number: "03/28/50/0729",
-			holder: "Robin Vithlhem-Smith",
+			holder: "Robin Victor-Smith",
 			startDate: "1 March 2023",
 			effectiveDate: "1 March 2023",
 			endDate: "1 December 2028",
@@ -1138,7 +1138,7 @@ module.exports = {
 							licences: "all",
 						}
 					],
-					customer: "Robin Vithlhem-Smith",
+					customer: "Robin Victor-Smith",
 				},
 			],
 		},
@@ -1248,7 +1248,7 @@ module.exports = {
 							licences: "all",
 						}
 					],
-					customer: "Robin Vithlhem-Smith",
+					customer: "Robin Victor-Smith",
 				},
 			],
 		},
@@ -1552,7 +1552,7 @@ module.exports = {
 		},
 		{
 			number: "BA4444436R",
-			customer: "Robin Vithlhem-Smith",
+			customer: "Robin Victor-Smith",
 			dateCreated: "1 November 2017",
 			billingContact: "",
 		},
