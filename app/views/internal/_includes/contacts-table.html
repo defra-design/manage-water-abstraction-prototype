@@ -87,7 +87,17 @@
   {% set contactsList = contactsList | push(contactRow) %}
 {% endfor %}
 
+{% set holderCustomerID = data.customerID %}
+{% for customer in data.customers %}
+  {% if customer.name == selectedCustomer %}
+    {% set holderCustomerID = loop.index0 %}
+  {% endif %}
+{% endfor %}
+
 {% if contactsList.length %}
+  {% if fromPage == "licence" %}
+    <p class="govuk-body">Go to customer contacts to <a class="govuk-link" href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a>.</p>
+  {% endif %}
   {% include "internal/_includes/contacts-filter.html" %}
 
   {{ govukTable({
@@ -111,17 +121,9 @@
   {% if fromPage == "customer" %}
     <p class="govuk-body govuk-!-margin-top-4">No contacts for this customer.</p>
   {% else %}
-    {% set holderCustomerID = data.customerID %}
-    {% for customer in data.customers %}
-      {% if customer.name == selectedCustomer %}
-        {% set holderCustomerID = loop.index0 %}
-      {% endif %}
-    {% endfor %}
-   
     <div style="margin-right: 30%;">
       <p class="govuk-body">No contacts for this customer.</p>
       <p class="govuk-body">Go to customer contacts to <a class="govuk-link" href="/internal/customer/customer-contacts?customerID={{ holderCustomerID }}">set up a new contact</a> or go back to the licence summary if you need the licence holder's address.</p>
     </div>
-
   {% endif %}
 {% endif %}
