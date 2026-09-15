@@ -5,7 +5,7 @@
 {% set holderAddress = '' %}
 {% for customer in customers %}
 	{% if customer.name == licence.holder %}
-		{% set holderAddress = customer.address1 %}
+		{% set holderAddress = customer.address1 + "<br>" + customer.address2 + "<br>" + customer.city + "<br>" + customer.postcode %}
 	{% endif %}
 {% endfor %}
 
@@ -24,7 +24,7 @@
 				text: "Address"
 			},
 			value: {
-				text: holderAddress
+				html: holderAddress
 			}
 		},
 		{
