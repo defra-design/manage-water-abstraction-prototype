@@ -69,9 +69,9 @@
 		}) }}
 		{% endif %}
 
-		{% if contact.customers.length <= 1 %}
+		{# {% if contact.customers.length <= 1 %}
 			<span class="govuk-caption-l">{{ customerName }}</span>
-		{% endif %}
+		{% endif %} #}
 		<h1 class="govuk-heading-l">
 			{{ contact.name }} 
 		</h1>
@@ -79,19 +79,6 @@
 		{{ govukSummaryList({
 			classes: 'govuk-summary-list--no-border meta-data',
 			rows: [
-				{
-					key: {
-						text: "Role",
-						classes: "meta-data__label"
-					},
-					value: {
-						html: govukTag({
-							text: contactRole,
-							classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-2"
-						}),
-						classes: "meta-data__value"
-					}
-				},
 				{
 					key: {
 						text: "Last signed in",
@@ -185,7 +172,7 @@
 		]
 	}) }}
 
-	<!-- update contact-->
+	<!-- update details-->
 	{% set updateContactHref = "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
 	{% if data.customerID %}
 		{% set updateContactHref = updateContactHref + "&customerID=" + data.customerID %}
@@ -194,7 +181,7 @@
 		{% set updateContactHref = updateContactHref + "&from=" + data.from %}
 	{% endif %}
 	{{ govukButton({
-	text: "Update contact",
+	text: "Update details",
 	href: updateContactHref,
 	classes: "govuk-!-margin-right-3"
 	}) }}
@@ -220,6 +207,8 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
+	<h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact settings for {{ customerName }}</h2>
+
 	{# Only show if the contact is linked to more than 1 licence holder #}
 	{% if contact.customers.length > 1 %}
 		{% set contactCustomerNames = [] %}
@@ -244,8 +233,6 @@
 			Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="{{ changeHolderHref }}" class="govuk-link">Change</a>
 		</p>
 	{% endif %}
-
-	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 		
 	{% set WAAStatus = "No" %}
 	{% set WAALicenceNumbers = [] %}
@@ -330,6 +317,26 @@
 			}) }}
 		{% endset %}
 	{% endif %}
+
+	{{ govukSummaryList({
+		rows: [
+			{
+				key: {
+					text: "Role",
+					classes: "meta-data__label"
+				},
+				value: {
+					html: govukTag({
+						text: contactRole,
+						classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-2"
+					}),
+					classes: "meta-data__value"
+				}
+			}
+		]
+	}) }}
+
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
 	{{ govukSummaryList({
 		rows: [
