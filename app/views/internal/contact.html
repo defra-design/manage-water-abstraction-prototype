@@ -67,7 +67,7 @@
 		}) }}
 		{% elif showSuccessBanner %}
 		{{ govukNotificationBanner({
-			text: "Contact details updated",
+			text: successBannerText if successBannerText else "Contact details updated",
 			type: "success"
 		}) }}
 		{% endif %}
@@ -352,7 +352,7 @@
 				value: {
 					html: govukTag({
 						text: contactRole,
-						classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-2"
+						classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-0"
 					}),
 					classes: "meta-data__value"
 				},

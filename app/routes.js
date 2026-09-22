@@ -55,6 +55,11 @@ const ensurePendingChanges = (req) => {
 	}
 };
 
+const setContactUpdateSuccess = (req, message) => {
+	req.session.data.contactUpdateSuccess = true;
+	req.session.data.contactUpdateSuccessMessage = message;
+};
+
 const buildEditContactQuery = (
 	req,
 	{ id, contactID, customerID, from },
@@ -452,8 +457,12 @@ router.get("/internal/contact", (req, res) => {
 
 	// Pass the success flag to the template if set, then clear it
 	const showSuccessBanner = req.session.data.contactUpdateSuccess === true;
+	const successBannerText =
+		req.session.data.contactUpdateSuccessMessage ||
+		"Contact details updated";
 	if (showSuccessBanner) {
 		req.session.data.contactUpdateSuccess = false;
+		delete req.session.data.contactUpdateSuccessMessage;
 	}
 
 	const showNewContactBanner = req.session.data.newContactSuccess === true;
@@ -463,6 +472,7 @@ router.get("/internal/contact", (req, res) => {
 
 	res.render("internal/contact", {
 		showSuccessBanner,
+		successBannerText,
 		showNewContactBanner,
 	});
 });
@@ -724,7 +734,8 @@ router.post("/internal/contact/confirm-role.html", (req, res) => {
 		delete req.session.data.pendingChanges.contactRole;
 	}
 	delete req.session.data.contactRole;
-	req.session.data.contactUpdateSuccess = true;
+	const successMessage = `Contact settings updated for ${customerName || "licence holder"}`;
+	setContactUpdateSuccess(req, successMessage);
 
 	const query = new URLSearchParams();
 	if (Number.isInteger(contactID)) {
@@ -797,7 +808,10 @@ router.post("/internal/contact/select-waa", (req, res) => {
 	if (from.length > 0) {
 		query.append("from", from);
 	}
-	req.session.data.contactUpdateSuccess = true;
+	setContactUpdateSuccess(
+		req,
+		`Contact settings updated for ${customerName || "licence holder"}`,
+	);
 
 	return res.redirect(`/internal/contact?${query.toString()}`);
 });
@@ -838,7 +852,10 @@ router.post("/internal/contact/select-returns", (req, res) => {
 	if (from.length > 0) {
 		query.append("from", from);
 	}
-	req.session.data.contactUpdateSuccess = true;
+	setContactUpdateSuccess(
+		req,
+		`Contact settings updated for ${customerName || "licence holder"}`,
+	);
 
 	return res.redirect(`/internal/contact?${query.toString()}`);
 });
@@ -905,7 +922,10 @@ router.post("/internal/contact/edit-waa", (req, res) => {
 	if (from.length > 0) {
 		query.append("from", from);
 	}
-	req.session.data.contactUpdateSuccess = true;
+	setContactUpdateSuccess(
+		req,
+		`Contact settings updated for ${customerName || "licence holder"}`,
+	);
 
 	if (waaSelection === "someLicences") {
 		return res.redirect(`/internal/contact/select-waa?${query.toString()}`);
@@ -950,7 +970,10 @@ router.post("/internal/contact/edit-returns", (req, res) => {
 	if (from.length > 0) {
 		query.append("from", from);
 	}
-	req.session.data.contactUpdateSuccess = true;
+	setContactUpdateSuccess(
+		req,
+		`Contact settings updated for ${customerName || "licence holder"}`,
+	);
 
 	if (returnsSelection === "someLicences") {
 		return res.redirect(`/internal/contact/select-returns?${query.toString()}`);
@@ -1102,7 +1125,7 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 
 	// Set success flag if changes were made
 	if (changesWereMade) {
-		req.session.data.contactUpdateSuccess = true;
+		setContactUpdateSuccess(req, "Contact details updated for all licences");
 	}
 
 	// Redirect to contact page, preserving all available context
