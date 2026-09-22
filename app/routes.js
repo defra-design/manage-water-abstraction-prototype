@@ -671,25 +671,76 @@ router.get("/internal/contact/confirm-role.html", (req, res) => {
 	res.render("internal/contact/confirm-role");
 });
 
-// Confirm selected role and return to edit-contact showing pending change
+// Confirm selected role and return to the contact page with the updated role visible
 router.post("/internal/contact/confirm-role.html", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const requestedRole = normaliseContactRole(
 		req.query.contactRole ?? req.session.data.contactRole ?? "",
 	);
 
-	ensurePendingChanges(req);
-	if (requestedRole) {
-		req.session.data.pendingChanges.contactRole = requestedRole;
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName =
+		Number.isInteger(customerID) && Array.isArray(req.session.data.customers)
+			? req.session.data.customers[customerID]?.name
+			: req.session.data.licences?.[id]?.holder ||
+				contact?.customers?.[0]?.customer;
+
+	if (requestedRole && customerName && contact?.customers) {
+		const customerEntry = contact.customers.find(
+			(entry) => entry.customer === customerName,
+		);
+		if (customerEntry) {
+			customerEntry.role = requestedRole;
+
+			if (requestedRole === "Primary contact") {
+				if (!Array.isArray(customerEntry.notices)) {
+					customerEntry.notices = [];
+				}
+				for (const noticeType of [
+					"Water abstraction alerts by email",
+					"Returns by email",
+					"Bills by post",
+				]) {
+					const existing = customerEntry.notices.find(
+						(notice) => notice.type === noticeType,
+					);
+					if (existing) {
+						existing.licences = "all";
+					} else {
+						customerEntry.notices.push({
+							type: noticeType,
+							licences: "all",
+						});
+					}
+				}
+			}
+		}
 	}
 
-	const query = buildEditContactQuery(req, {
-		id,
-		contactID,
-		customerID,
-		from,
-	});
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	if (req.session.data.pendingChanges) {
+		delete req.session.data.pendingChanges.contactRole;
+	}
+	delete req.session.data.contactRole;
+	req.session.data.contactUpdateSuccess = true;
+
+	const query = new URLSearchParams();
+	if (Number.isInteger(contactID)) {
+		query.append("contactID", String(contactID));
+	}
+	if (Number.isInteger(customerID)) {
+		query.append("customerID", String(customerID));
+	}
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
 // Cancel role change and return to edit-contact with no pending role change
@@ -710,40 +761,86 @@ router.get("/internal/contact/cancel-role", (req, res) => {
 	return res.redirect(`/internal/contact/edit-contact?${query}`);
 });
 
-// Save WAA licence selection and return to edit-contact
+// Save WAA licence selection and return to the contact page
 router.post("/internal/contact/select-waa", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const selected = req.body.waaSelectionOptions;
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName = getCustomerNameForContactContext(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 
-	ensurePendingChanges(req);
-	req.session.data.pendingChanges.waaLicences =
-		normaliseSelectedValues(selected);
+	if (customerName && contact?.customers) {
+		const customerEntry = contact.customers.find(
+			(entry) => entry.customer === customerName,
+		);
+		updateNoticeSelection(customerEntry, {
+			noticeType: "Water abstraction alerts by email",
+			selection: "someLicences",
+			selectedLicences: normaliseSelectedValues(selected),
+		});
+	}
 
-	const query = buildEditContactQuery(
-		req,
-		{ id, contactID, customerID, from },
-		{ alwaysIncludeID: true },
-	);
+	const query = new URLSearchParams({
+		contactID: Number.isInteger(contactID) ? String(contactID) : "",
+		customerID: Number.isInteger(customerID) ? String(customerID) : "",
+	});
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+	req.session.data.contactUpdateSuccess = true;
 
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
-// Save Returns licence selection and return to edit-contact
+// Save Returns licence selection and return to the contact page
 router.post("/internal/contact/select-returns", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const selected = req.body.returnsSelectionOptions;
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName = getCustomerNameForContactContext(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 
-	ensurePendingChanges(req);
-	req.session.data.pendingChanges.returnsLicences =
-		normaliseSelectedValues(selected);
+	if (customerName && contact?.customers) {
+		const customerEntry = contact.customers.find(
+			(entry) => entry.customer === customerName,
+		);
+		updateNoticeSelection(customerEntry, {
+			noticeType: "Returns by email",
+			selection: "someLicences",
+			selectedLicences: normaliseSelectedValues(selected),
+		});
+	}
 
-	const query = buildEditContactQuery(
-		req,
-		{ id, contactID, customerID, from },
-		{ alwaysIncludeID: true },
-	);
+	const query = new URLSearchParams({
+		contactID: Number.isInteger(contactID) ? String(contactID) : "",
+		customerID: Number.isInteger(customerID) ? String(customerID) : "",
+	});
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+	req.session.data.contactUpdateSuccess = true;
 
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
 // Clear stale WAA selection and render the edit-waa page
@@ -772,60 +869,94 @@ router.get("/internal/contact/edit-returns", (req, res) => {
 	res.render("internal/contact/edit-returns");
 });
 
-// Save WAA selection and route to the next step
+// Save WAA selection and return to the contact page
 router.post("/internal/contact/edit-waa", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const waaSelection = String(req.body.waaSelection ?? "").trim();
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName = getCustomerNameForContactContext(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 
-	req.session.data.waaSelection = waaSelection;
-
-	// Save as pending change so edit-contact shows the updated value before confirming
-	ensurePendingChanges(req);
-	req.session.data.pendingChanges.waaSelection = waaSelection;
-	// Clear any stale licence list if moving away from someLicences
-	if (waaSelection !== "someLicences") {
-		delete req.session.data.pendingChanges.waaLicences;
+	if (customerName && contact?.customers) {
+		const customerEntry = contact.customers.find(
+			(entry) => entry.customer === customerName,
+		);
+		updateNoticeSelection(customerEntry, {
+			noticeType: "Water abstraction alerts by email",
+			selection: waaSelection,
+			selectedLicences: undefined,
+		});
 	}
 
-	const query = buildEditContactQuery(
-		req,
-		{ id, contactID, customerID, from },
-		{ alwaysIncludeID: true },
-	);
+	const query = new URLSearchParams({
+		contactID: Number.isInteger(contactID) ? String(contactID) : "",
+		customerID: Number.isInteger(customerID) ? String(customerID) : "",
+	});
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+	req.session.data.contactUpdateSuccess = true;
 
 	if (waaSelection === "someLicences") {
-		return res.redirect(`/internal/contact/select-waa?${query}`);
+		return res.redirect(`/internal/contact/select-waa?${query.toString()}`);
 	}
 
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
-// Save Returns selection and route to the next step
+// Save Returns selection and return to the contact page
 router.post("/internal/contact/edit-returns", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 	const returnsSelection = String(req.body.returnsSelection ?? "").trim();
+	const contact =
+		Number.isInteger(contactID) && Array.isArray(req.session.data.contacts)
+			? req.session.data.contacts[contactID]
+			: null;
+	const customerName = getCustomerNameForContactContext(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 
-	req.session.data.returnsSelection = returnsSelection;
-
-	// Save as pending change so edit-contact shows the updated value before confirming
-	ensurePendingChanges(req);
-	req.session.data.pendingChanges.returnsSelection = returnsSelection;
-	// Clear any stale licence list if moving away from someLicences
-	if (returnsSelection !== "someLicences") {
-		delete req.session.data.pendingChanges.returnsLicences;
+	if (customerName && contact?.customers) {
+		const customerEntry = contact.customers.find(
+			(entry) => entry.customer === customerName,
+		);
+		updateNoticeSelection(customerEntry, {
+			noticeType: "Returns by email",
+			selection: returnsSelection,
+			selectedLicences: undefined,
+		});
 	}
 
-	const query = buildEditContactQuery(
-		req,
-		{ id, contactID, customerID, from },
-		{ alwaysIncludeID: true },
-	);
+	const query = new URLSearchParams({
+		contactID: Number.isInteger(contactID) ? String(contactID) : "",
+		customerID: Number.isInteger(customerID) ? String(customerID) : "",
+	});
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+	req.session.data.contactUpdateSuccess = true;
 
 	if (returnsSelection === "someLicences") {
-		return res.redirect(`/internal/contact/select-returns?${query}`);
+		return res.redirect(`/internal/contact/select-returns?${query.toString()}`);
 	}
 
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
 registerPendingContactFieldRoute({

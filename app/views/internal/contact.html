@@ -371,6 +371,22 @@
 
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 
+	{% set editWAAHref = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
+	{% if data.customerID %}
+		{% set editWAAHref = editWAAHref + "&customerID=" + data.customerID %}
+	{% endif %}
+	{% if data.from %}
+		{% set editWAAHref = editWAAHref + "&from=" + data.from %}
+	{% endif %}
+
+	{% set editReturnsHref = "/internal/contact/edit-returns?contactID=" + data.contactID + "&ID=" + data.ID %}
+	{% if data.customerID %}
+		{% set editReturnsHref = editReturnsHref + "&customerID=" + data.customerID %}
+	{% endif %}
+	{% if data.from %}
+		{% set editReturnsHref = editReturnsHref + "&from=" + data.from %}
+	{% endif %}
+
 	{{ govukSummaryList({
 		rows: [
 			{
@@ -379,6 +395,15 @@
 				},
 				value: {
 					html: WAAHtml | safe
+				},
+				actions: {
+					items: [] if contactRole == "Primary contact" else [
+						{
+							href: editWAAHref,
+							text: "Change",
+							visuallyHiddenText: "water abstraction alerts"
+						}
+					]
 				}
 			},
 			{
@@ -387,6 +412,15 @@
 				},
 				value: {
 					html: returnsHtml | safe
+				},
+				actions: {
+					items: [] if contactRole == "Primary contact" else [
+						{
+							href: editReturnsHref,
+							text: "Change",
+							visuallyHiddenText: "returns invites and reminders"
+						}
+					]
 				}
 			},
 			{
@@ -395,6 +429,15 @@
 				},
 				value: {
 					html: billsHtml | safe
+				},
+				actions: {
+					items: [] if contactRole == "Primary contact" else [
+						{
+							href: "/internal/no-page.html",
+							text: "Change",
+							visuallyHiddenText: "bills"
+						}
+					]
 				}
 			}
 		]
