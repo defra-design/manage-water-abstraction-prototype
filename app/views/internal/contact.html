@@ -53,6 +53,7 @@
 
 {% block content %}
 
+{# CONTACT META DATA #}
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-three-quarters">
 
@@ -134,64 +135,10 @@
 			]
 		}) }}
 
-		{# Only show if the contact is linked to more than 1 licence holder #}
-		{% if contact.customers.length > 1 %}
-			{% set contactCustomerNames = [] %}
-			{% for entry in contact.customers %}
-				{% set contactCustomerNames = contactCustomerNames | push(entry.customer) %}
-			{% endfor %}
-			{% set linkedLicences = [] %}
-			{% for lic in data.licences %}
-				{% for custName in contactCustomerNames %}
-					{% if lic.holder == custName %}
-						{% set linkedLicences = linkedLicences | push(lic) %}
-					{% endif %}
-				{% endfor %}
-			{% endfor %}
-			<p class="govuk-body govuk-!-margin-bottom-1">
-				This contact is linked to {{ linkedLicences.length }} licence{{ "s" if linkedLicences.length != 1 }} for {{ contact.customers.length }} licence holders.
-			</p>
-			{% set changeHolderHref = "/internal/contact/select-licence-holder?contactID=" + data.contactID %}
-			{% if data.customerID is not undefined %}{% set changeHolderHref = changeHolderHref + "&customerID=" + data.customerID %}{% endif %}
-			{% if data.from %}{% set changeHolderHref = changeHolderHref + "&from=" + data.from %}{% endif %}
-			<p class="govuk-body govuk-!-margin-bottom-7">
-				Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="{{ changeHolderHref }}" class="govuk-link">Change</a>
-			</p>
-		{% endif %}
-
-
-
-		<!-- update contact-->
-		{% set updateContactHref = "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
-		{% if data.customerID %}
-			{% set updateContactHref = updateContactHref + "&customerID=" + data.customerID %}
-		{% endif %}
-		{% if data.from %}
-			{% set updateContactHref = updateContactHref + "&from=" + data.from %}
-		{% endif %}
-		{{ govukButton({
-		text: "Update contact",
-		href: updateContactHref,
-		classes: "govuk-!-margin-right-3"
-		}) }}
-
-		<!-- remove contact-->
-		{% set removeContactHref = "/internal/contact/delete-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
-		{% if data.customerID %}
-			{% set removeContactHref = removeContactHref + "&customerID=" + data.customerID %}
-		{% endif %}
-		{% if data.from %}
-			{% set removeContactHref = removeContactHref + "&from=" + data.from %}
-		{% endif %}
-		{{ govukButton({
-		text: "Remove contact",
-		href: removeContactHref,
-		classes: "govuk-button--secondary"
-		}) }}
-
 	</div>
 </div>
 
+{# CONTACT DETAILS #}
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
@@ -237,6 +184,66 @@
 				}
 		]
 	}) }}
+
+	<!-- update contact-->
+	{% set updateContactHref = "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+	{% if data.customerID %}
+		{% set updateContactHref = updateContactHref + "&customerID=" + data.customerID %}
+	{% endif %}
+	{% if data.from %}
+		{% set updateContactHref = updateContactHref + "&from=" + data.from %}
+	{% endif %}
+	{{ govukButton({
+	text: "Update contact",
+	href: updateContactHref,
+	classes: "govuk-!-margin-right-3"
+	}) }}
+
+	<!-- remove contact-->
+	{% set removeContactHref = "/internal/contact/delete-contact?contactID=" + data.contactID + "&ID=" + data.ID %}
+	{% if data.customerID %}
+		{% set removeContactHref = removeContactHref + "&customerID=" + data.customerID %}
+	{% endif %}
+	{% if data.from %}
+		{% set removeContactHref = removeContactHref + "&from=" + data.from %}
+	{% endif %}
+	{{ govukButton({
+	text: "Remove contact",
+	href: removeContactHref,
+	classes: "govuk-button--secondary"
+	}) }}
+
+	</div>
+</div>
+
+{# CONTACT LICENCE HOLDER SETTINGS #}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+	{# Only show if the contact is linked to more than 1 licence holder #}
+	{% if contact.customers.length > 1 %}
+		{% set contactCustomerNames = [] %}
+		{% for entry in contact.customers %}
+			{% set contactCustomerNames = contactCustomerNames | push(entry.customer) %}
+		{% endfor %}
+		{% set linkedLicences = [] %}
+		{% for lic in data.licences %}
+			{% for custName in contactCustomerNames %}
+				{% if lic.holder == custName %}
+					{% set linkedLicences = linkedLicences | push(lic) %}
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+		<p class="govuk-body govuk-!-margin-bottom-1">
+			This contact is linked to {{ linkedLicences.length }} licence{{ "s" if linkedLicences.length != 1 }} for {{ contact.customers.length }} licence holders.
+		</p>
+		{% set changeHolderHref = "/internal/contact/select-licence-holder?contactID=" + data.contactID %}
+		{% if data.customerID is not undefined %}{% set changeHolderHref = changeHolderHref + "&customerID=" + data.customerID %}{% endif %}
+		{% if data.from %}{% set changeHolderHref = changeHolderHref + "&from=" + data.from %}{% endif %}
+		<p class="govuk-body govuk-!-margin-bottom-7">
+			Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="{{ changeHolderHref }}" class="govuk-link">Change</a>
+		</p>
+	{% endif %}
 
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
 		
@@ -352,10 +359,6 @@
 			}
 		]
 	}) }}
-
-	<h2 class="govuk-heading-m govuk-!-margin-bottom-4 govuk-!-margin-top-7">Sent communications</h2>
-
-	<p class="govuk-body">No communications have been sent to this contact.</p>
 
 	</div>
 </div>
