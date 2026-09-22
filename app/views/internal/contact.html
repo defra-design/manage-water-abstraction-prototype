@@ -197,17 +197,6 @@
 
 	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact details</h2>
 
-	{% set contactAddress = "" %}
-	{% for customerEntry in contact.customers %}
-		{% if customerEntry.customer == customerName %}
-			{% for customer in data.customers %}
-				{% if customer.name == customerEntry.customer %}
-					{% set contactAddress = customer.address1 + ", " + customer.city + ", " + customer.postcode %}
-				{% endif %}
-			{% endfor %}
-		{% endif %}
-	{% endfor %}
-
 	{% set addressValue = contact.post | default("") | trim %}
 
 	{{ govukSummaryList({
@@ -217,7 +206,7 @@
 				text: "Name"
 			},
 			value: {
-				text: data.contacts[data.contactID].name
+				text: contact.name
 			}
 
 		},
@@ -226,7 +215,7 @@
 					text: "Email address"
 				},
 				value: {
-					text: data.contacts[data.contactID].email
+					text: contact.email
 				}
 				
 			},
@@ -243,7 +232,7 @@
 						text: "Phone number"
 					},
 					value: {
-						text: data.contacts[data.contactID].phone
+						text: contact.phone
 					}
 				}
 		]
