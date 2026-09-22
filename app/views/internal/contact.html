@@ -334,6 +334,14 @@
 		{% endset %}
 	{% endif %}
 
+	{% set selectRoleHref = "/internal/contact/select-role?contactID=" + data.contactID + "&ID=" + data.ID %}
+	{% if data.customerID %}
+		{% set selectRoleHref = selectRoleHref + "&customerID=" + data.customerID %}
+	{% endif %}
+	{% if data.from %}
+		{% set selectRoleHref = selectRoleHref + "&from=" + data.from %}
+	{% endif %}
+
 	{{ govukSummaryList({
 		rows: [
 			{
@@ -347,6 +355,15 @@
 						classes: "govuk-tag--blue govuk-!-margin-bottom-2" if contactRole == "Primary contact" else "govuk-tag--grey govuk-!-margin-bottom-2"
 					}),
 					classes: "meta-data__value"
+				},
+				actions: {
+					items: [
+						{
+							href: selectRoleHref,
+							text: "Change",
+							visuallyHiddenText: "role"
+						}
+					]
 				}
 			}
 		]
