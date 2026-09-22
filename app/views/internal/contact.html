@@ -21,6 +21,9 @@
 	{% else %}
 		{% set customerName = contact.customers[0].customer %}
 	{% endif %}
+	{% if not customerName %}
+		{% set customerName = contact.customers[0].customer %}
+	{% endif %}
 {% endif %}
 
 {% set contactRole = "Contact" %}
@@ -207,33 +210,44 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
-	<h2 class="govuk-heading-l govuk-!-margin-bottom-0 govuk-!-margin-top-3">Contact settings for {{ customerName }}</h2>
+	<h2 class="govuk-heading-l govuk-!-margin-top-5 govuk-!-margin-botom-0">Contact settings for {{ customerName }}</h2>
 
 	{# Only show if the contact is linked to more than 1 licence holder #}
 	{% if contact.customers.length > 1 %}
-		{% set contactCustomerNames = [] %}
+		{% set switchFormAction = "/internal/contact?contactID=" + data.contactID %}
+		{% if data.ID %}{% set switchFormAction = switchFormAction + "&ID=" + data.ID %}{% endif %}
+		{% if data.from %}{% set switchFormAction = switchFormAction + "&from=" + data.from %}{% endif %}
+		{% set defaultSelectedCustomerName = customerName or contact.customers[0].customer %}
+		{% set switchRadioItems = [] %}
 		{% for entry in contact.customers %}
-			{% set contactCustomerNames = contactCustomerNames | push(entry.customer) %}
+			{% set switchRadioItems = switchRadioItems | push({
+				value: entry.customer,
+				text: entry.customer,
+				checked: entry.customer == defaultSelectedCustomerName
+			}) %}
 		{% endfor %}
-		{% set linkedLicences = [] %}
-		{% for lic in data.licences %}
-			{% for custName in contactCustomerNames %}
-				{% if lic.holder == custName %}
-					{% set linkedLicences = linkedLicences | push(lic) %}
-				{% endif %}
-			{% endfor %}
-		{% endfor %}
-		<p class="govuk-body govuk-!-margin-bottom-1">
-			This contact is linked to {{ linkedLicences.length }} licence{{ "s" if linkedLicences.length != 1 }} for {{ contact.customers.length }} licence holders.
-		</p>
-		{% set changeHolderHref = "/internal/contact/select-licence-holder?contactID=" + data.contactID %}
-		{% if data.customerID is not undefined %}{% set changeHolderHref = changeHolderHref + "&customerID=" + data.customerID %}{% endif %}
-		{% if data.from %}{% set changeHolderHref = changeHolderHref + "&from=" + data.from %}{% endif %}
-		<p class="govuk-body govuk-!-margin-bottom-7">
-			Viewing licences for <b>{{ customerName }}</b>.&nbsp;&nbsp; <a href="{{ changeHolderHref }}" class="govuk-link">Change</a>
-		</p>
-	{% endif %}
 		
+		{% set switchingradios %}
+			<form method="post" action="{{ switchFormAction }}">
+				<input type="hidden" name="_csrf" value="{{ csrfToken }}">
+				{{ govukRadios({
+					name: "selectedCustomerName",
+					items: switchRadioItems
+				}) }}
+				{{ govukButton({
+					text: "Switch licence holder",
+					classes: "govuk-button--secondary"
+				}) }}
+			</form>
+		{% endset %}
+
+		{{ govukDetails({
+			summaryText: "Switch licence holder",
+			html: switchingradios
+		}) }}
+
+	{% endif %}
+
 	{% set WAAStatus = "No" %}
 	{% set WAALicenceNumbers = [] %}
 	{% for customerEntry in contact.customers %}

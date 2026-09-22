@@ -58,7 +58,11 @@ const ensurePendingChanges = (req) => {
 const buildEditContactQuery = (
 	req,
 	{ id, contactID, customerID, from },
-	{ includeCustomerID = true, includeFrom = true, alwaysIncludeID = false } = {},
+	{
+		includeCustomerID = true,
+		includeFrom = true,
+		alwaysIncludeID = false,
+	} = {},
 ) => {
 	const queryParams = {
 		contactID: Number.isInteger(contactID)
@@ -175,9 +179,7 @@ const registerPendingContactFieldRoute = ({
 		req.session.data.pendingChanges[pendingField] = value;
 
 		const query = new URLSearchParams({
-			ID: Number.isInteger(id)
-				? String(id)
-				: String(req.session.data.ID ?? ""),
+			ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
 			contactID: Number.isInteger(contactID)
 				? String(contactID)
 				: String(req.session.data.contactID ?? ""),
@@ -258,7 +260,8 @@ router.get("/internal/customer", (req, res) => {
 router.get("/internal/customer/customer-contacts", (req, res) => {
 	captureRouteContext(req, { customerID: true });
 
-	const showContactRemovedBanner = req.session.data.contactRemovedSuccess === true;
+	const showContactRemovedBanner =
+		req.session.data.contactRemovedSuccess === true;
 	if (showContactRemovedBanner) {
 		req.session.data.contactRemovedSuccess = false;
 	}
@@ -281,8 +284,7 @@ router.get("/internal/contact/select-role", (req, res) => {
 	const hasQueryContactID =
 		typeof req.query.contactID !== "undefined" &&
 		String(req.query.contactID).trim().length > 0;
-	const isNewContactFlow =
-		isExplicitNewContactFlow || !hasQueryContactID;
+	const isNewContactFlow = isExplicitNewContactFlow || !hasQueryContactID;
 	req.session.data.newContactFlow = isNewContactFlow;
 
 	if (isNewContactFlow) {
@@ -306,23 +308,27 @@ router.get("/internal/contact/add-contact", (req, res) => {
 // Create a new contact and redirect to edit-contact page
 router.post("/internal/contact/add-contact", (req, res) => {
 	const fullName = req.body.fullName || "";
-	const customerID = parseInt(req.query.customerID ?? req.session.data.customerID, 10);
+	const customerID = parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
 	const customerName = req.session.data.customers[customerID]?.name || "";
-	const selectedRole = normaliseContactRole(
-		req.query.contactRole ?? req.session.data.contactRole ?? "Contact",
-	) || "Contact";
+	const selectedRole =
+		normaliseContactRole(
+			req.query.contactRole ?? req.session.data.contactRole ?? "Contact",
+		) || "Contact";
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
-	
+
 	// Parse firstName and lastName from fullName
 	const nameParts = fullName.trim().split(/\s+/);
 	const firstName = nameParts[0] || "";
 	const lastName = nameParts.slice(1).join(" ") || "";
-	
+
 	// Ensure contacts array exists
 	if (!Array.isArray(req.session.data.contacts)) {
 		req.session.data.contacts = [];
 	}
-	
+
 	// Create new contact object with same structure as other contacts
 	const newContact = {
 		name: fullName,
@@ -334,33 +340,34 @@ router.post("/internal/contact/add-contact", (req, res) => {
 		customers: [
 			{
 				role: selectedRole,
-				notices: selectedRole === "Primary contact"
-					? [
-						{ type: "Water abstraction alerts by email", licences: "all" },
-						{ type: "Returns by email", licences: "all" },
-						{ type: "Bills by post", licences: "all" },
-					]
-					: [],
+				notices:
+					selectedRole === "Primary contact"
+						? [
+								{ type: "Water abstraction alerts by email", licences: "all" },
+								{ type: "Returns by email", licences: "all" },
+								{ type: "Bills by post", licences: "all" },
+							]
+						: [],
 				customer: customerName,
 			},
 		],
 	};
-	
+
 	// Add the new contact to the contacts array
 	req.session.data.contacts.push(newContact);
-	
+
 	// Get the index of the newly created contact
 	const contactID = req.session.data.contacts.length - 1;
 
 	// Flag so Cancel can remove this contact if the user does not confirm
 	req.session.data.pendingNewContactID = contactID;
-	
+
 	// Redirect to edit-contact page
 	const query = new URLSearchParams({
 		customerID: String(customerID),
 		contactID: String(contactID),
 	});
-	
+
 	if (req.session.data.ID) {
 		query.append("ID", String(req.session.data.ID));
 	}
@@ -370,15 +377,25 @@ router.post("/internal/contact/add-contact", (req, res) => {
 
 	delete req.session.data.contactRole;
 	delete req.session.data.newContactFlow;
-	
+
 	return res.redirect(`/internal/contact/edit-contact?${query.toString()}`);
 });
 
 // Render select-licence-holder page
 router.get("/internal/contact/select-licence-holder", (req, res) => {
-	captureRouteContext(req, { ID: true, contactID: true, customerID: true, from: true });
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
-	const customerName = getCustomerNameForContactContext(req, { id, contactID, customerID, from });
+	const customerName = getCustomerNameForContactContext(req, {
+		id,
+		contactID,
+		customerID,
+		from,
+	});
 	res.render("internal/contact/select-licence-holder", { customerName });
 });
 
@@ -395,7 +412,8 @@ router.post("/internal/contact/select-licence-holder", (req, res) => {
 		req.session.data.customerID = newCustomerID;
 	}
 
-	const resolvedCustomerID = newCustomerID >= 0 ? newCustomerID : req.session.data.customerID;
+	const resolvedCustomerID =
+		newCustomerID >= 0 ? newCustomerID : req.session.data.customerID;
 	const query = new URLSearchParams({
 		contactID: String(contactID),
 		customerID: String(resolvedCustomerID),
@@ -407,7 +425,30 @@ router.post("/internal/contact/select-licence-holder", (req, res) => {
 
 // Capture selected contact and optional licence ID from query parameters
 router.get("/internal/contact", (req, res) => {
-	captureRouteContext(req, { ID: true, contactID: true, customerID: true, from: true });
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
+
+	const { contactID } = getContactRouteContext(req);
+	const contact = req.session.data.contacts?.[contactID];
+	const selectedCustomerName = Number.isInteger(req.session.data.customerID)
+		? req.session.data.customers?.[req.session.data.customerID]?.name
+		: undefined;
+
+	if (contact?.customers?.length > 0) {
+		const defaultCustomerName =
+			selectedCustomerName || contact.customers[0].customer;
+		const matchedCustomerIndex = req.session.data.customers.findIndex(
+			(customer) => customer.name === defaultCustomerName,
+		);
+
+		if (matchedCustomerIndex >= 0) {
+			req.session.data.customerID = matchedCustomerIndex;
+		}
+	}
 
 	// Pass the success flag to the template if set, then clear it
 	const showSuccessBanner = req.session.data.contactUpdateSuccess === true;
@@ -424,6 +465,45 @@ router.get("/internal/contact", (req, res) => {
 		showSuccessBanner,
 		showNewContactBanner,
 	});
+});
+
+router.post("/internal/contact", (req, res) => {
+	const { ID, contactID, from } = getContactRouteContext(req);
+	const selectedCustomerName = String(
+		req.body.selectedCustomerName || req.body.licenceHolder || "",
+	).trim();
+
+	const contact = req.session.data.contacts?.[contactID];
+	const matchedCustomer = contact?.customers?.find(
+		(customerEntry) => customerEntry.customer === selectedCustomerName,
+	);
+
+	let nextCustomerID = req.session.data.customerID;
+	if (matchedCustomer && Array.isArray(req.session.data.customers)) {
+		nextCustomerID = req.session.data.customers.findIndex(
+			(customer) => customer.name === matchedCustomer.customer,
+		);
+	}
+
+	if (Number.isInteger(nextCustomerID) && nextCustomerID >= 0) {
+		req.session.data.customerID = nextCustomerID;
+	}
+
+	const query = new URLSearchParams({
+		contactID: Number.isInteger(contactID) ? String(contactID) : "",
+		customerID: Number.isInteger(req.session.data.customerID)
+			? String(req.session.data.customerID)
+			: "0",
+	});
+
+	if (Number.isInteger(ID)) {
+		query.append("ID", String(ID));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
+
+	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
 // Capture selected contact and optional licence ID for the edit contact page
@@ -636,7 +716,8 @@ router.post("/internal/contact/select-waa", (req, res) => {
 	const selected = req.body.waaSelectionOptions;
 
 	ensurePendingChanges(req);
-	req.session.data.pendingChanges.waaLicences = normaliseSelectedValues(selected);
+	req.session.data.pendingChanges.waaLicences =
+		normaliseSelectedValues(selected);
 
 	const query = buildEditContactQuery(
 		req,
@@ -783,7 +864,12 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		Array.isArray(req.session.data.contacts) &&
 		req.session.data.contacts[contactID]
 	) {
-		const customerName = getCustomerNameForContactContext(req, { id, contactID, customerID, from });
+		const customerName = getCustomerNameForContactContext(req, {
+			id,
+			contactID,
+			customerID,
+			from,
+		});
 		if (req.session.data.pendingChanges.name) {
 			req.session.data.contacts[contactID].name =
 				req.session.data.pendingChanges.name;
@@ -827,11 +913,16 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 							"Bills by post",
 						];
 						for (const noticeType of allNoticeTypes) {
-							const existing = customerEntry.notices.find((n) => n.type === noticeType);
+							const existing = customerEntry.notices.find(
+								(n) => n.type === noticeType,
+							);
 							if (existing) {
 								existing.licences = "all";
 							} else {
-								customerEntry.notices.push({ type: noticeType, licences: "all" });
+								customerEntry.notices.push({
+									type: noticeType,
+									licences: "all",
+								});
 							}
 						}
 					}
@@ -933,7 +1024,9 @@ router.get("/internal/contact/cancel", (req, res) => {
 		const customerQuery = new URLSearchParams({
 			customerID: String(customerID),
 		}).toString();
-		return res.redirect(`/internal/customer/customer-contacts?${customerQuery}`);
+		return res.redirect(
+			`/internal/customer/customer-contacts?${customerQuery}`,
+		);
 	}
 
 	// Otherwise, redirect to contact page (licence context)
@@ -991,7 +1084,11 @@ router.get("/external/abstraction-conditions", (req, res) => {
 const saveExternalLicenceName = (req, res) => {
 	const id = parseInt(req.session.data.ID, 10);
 	const licenceName = String(req.body.licenceName || "").trim();
-	if (Number.isInteger(id) && req.session.data.licences && req.session.data.licences[id]) {
+	if (
+		Number.isInteger(id) &&
+		req.session.data.licences &&
+		req.session.data.licences[id]
+	) {
 		req.session.data.licences[id].name = licenceName;
 	}
 	res.redirect("/external/licence");
