@@ -210,13 +210,14 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
-	<h2 class="govuk-heading-l govuk-!-margin-top-6">Contact settings for {{ customerName }}</h2>
+	<h2 id="contact-settings" class="govuk-heading-l govuk-!-margin-top-6">Contact settings for {{ customerName }}</h2>
 
 	{# Only show if the contact is linked to more than 1 licence holder #}
 	{% if contact.customers.length > 1 %}
 		{% set switchFormAction = "/internal/contact?contactID=" + data.contactID %}
 		{% if data.ID %}{% set switchFormAction = switchFormAction + "&ID=" + data.ID %}{% endif %}
 		{% if data.from %}{% set switchFormAction = switchFormAction + "&from=" + data.from %}{% endif %}
+		{% set switchFormAction = switchFormAction + "#contact-settings" %}
 		{% set defaultSelectedCustomerName = customerName or contact.customers[0].customer %}
 		{% set switchRadioItems = [] %}
 		{% for entry in contact.customers %}
