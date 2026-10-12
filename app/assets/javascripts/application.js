@@ -131,8 +131,8 @@ window.GOVUKPrototypeKit.documentReady(() => {
 				? customers.findIndex((c) => c.name === firstCustomerName)
 				: -1;
 			const contactHref = customerID >= 0
-				? `/internal/contact?contactID=${index}&customerID=${customerID}&from=customer`
-				: `/internal/contact?contactID=${index}`;
+				? `/internal/contact?contactID=${index}&customerID=${customerID}&from=search`
+				: `/internal/contact?contactID=${index}&from=search`;
 			const nameLink = document.createElement("a");
 			nameLink.href = contactHref;
 			nameLink.className = "govuk-link";

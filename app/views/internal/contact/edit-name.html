@@ -17,8 +17,8 @@
 
 {% block containerStart %}
 {{ govukBackLink({
-	href: "/internal/contact/edit-contact?contactID=" + data.contactID + "&ID=" + data.ID,
-  text: "Back to update contact"
+	href: "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID,
+  text: "Back to contact"
 }) }}
 {% endblock %}
 

@@ -17,9 +17,19 @@
 {% endif %}
 
 {% block containerStart %}
+{% set backLinkHref = "/internal/contact?contactID=" + data.contactID %}
+{% if data.ID %}
+	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
+{% endif %}
+{% if data.customerID %}
+	{% set backLinkHref = backLinkHref + "&customerID=" + data.customerID %}
+{% endif %}
+{% if data.from %}
+	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
+{% endif %}
 {{ govukBackLink({
-	href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
-  text: "Back to customer"
+	href: backLinkHref,
+  text: "Back to contact"
 }) }}
 {% endblock %}
 

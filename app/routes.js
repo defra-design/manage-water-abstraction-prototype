@@ -478,7 +478,7 @@ router.get("/internal/contact", (req, res) => {
 });
 
 router.post("/internal/contact", (req, res) => {
-	const { ID, contactID, from } = getContactRouteContext(req);
+	let { ID, contactID, from } = getContactRouteContext(req);
 	const selectedCustomerName = String(
 		req.body.selectedCustomerName || req.body.licenceHolder || "",
 	).trim();
@@ -487,6 +487,9 @@ router.post("/internal/contact", (req, res) => {
 	const matchedCustomer = contact?.customers?.find(
 		(customerEntry) => customerEntry.customer === selectedCustomerName,
 	);
+	if (matchedCustomer) {
+		from = "customer";
+	}
 
 	let nextCustomerID = req.session.data.customerID;
 	if (matchedCustomer && Array.isArray(req.session.data.customers)) {
@@ -675,7 +678,7 @@ router.get("/internal/contact/confirm-role.html", (req, res) => {
 			customerID,
 			from,
 		});
-		return res.redirect(`/internal/contact/edit-contact?${query}`);
+		return res.redirect(`/internal/contact?${query}`);
 	}
 
 	res.render("internal/contact/confirm-role");
@@ -1158,23 +1161,24 @@ router.get("/internal/contact/cancel", (req, res) => {
 		req.query.customerID ?? req.session.data.customerID,
 		10,
 	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
 
 	// Clear any pending changes
 	req.session.data.pendingChanges = {};
 
 	// Remove the contact if it was never confirmed
 	const pendingNewContactID = req.session.data.pendingNewContactID;
-	if (
+	const isPendingNewContact =
 		Number.isInteger(pendingNewContactID) &&
-		Array.isArray(req.session.data.contacts)
-	) {
+		Array.isArray(req.session.data.contacts);
+	if (isPendingNewContact) {
 		req.session.data.contacts.splice(pendingNewContactID, 1);
 		delete req.session.data.contactID;
 	}
 	delete req.session.data.pendingNewContactID;
 
-	// If coming from customer context, redirect to customer-contacts
-	if (Number.isInteger(customerID)) {
+	// Only new contacts cancel back to the customer contact list.
+	if (isPendingNewContact && Number.isInteger(customerID)) {
 		const customerQuery = new URLSearchParams({
 			customerID: String(customerID),
 		}).toString();
@@ -1183,15 +1187,22 @@ router.get("/internal/contact/cancel", (req, res) => {
 		);
 	}
 
-	// Otherwise, redirect to contact page (licence context)
 	const query = new URLSearchParams({
 		contactID: Number.isInteger(contactID)
 			? String(contactID)
 			: String(req.session.data.contactID ?? ""),
-		ID: Number.isInteger(id) ? String(id) : String(req.session.data.ID ?? ""),
-	}).toString();
+	});
+	if (Number.isInteger(id)) {
+		query.append("ID", String(id));
+	}
+	if (Number.isInteger(customerID) && customerID >= 0) {
+		query.append("customerID", String(customerID));
+	}
+	if (from.length > 0) {
+		query.append("from", from);
+	}
 
-	res.redirect(`/internal/contact?${query}`);
+	res.redirect(`/internal/contact?${query.toString()}`);
 });
 
 // External licences list with default licence holder selection

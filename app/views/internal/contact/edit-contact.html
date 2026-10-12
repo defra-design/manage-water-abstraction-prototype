@@ -26,11 +26,12 @@
 {% endif %}
 
 {% block containerStart %}
+{% set backLinkText = "Back to contact" %}
 {% if isNewContact %}
 {% set cancelNewContactHref = "/internal/contact/cancel?contactID=" + data.contactID + "&customerID=" + data.customerID %}
 {{ govukBackLink({
   href: cancelNewContactHref,
-  text: "Back to customer"
+  text: backLinkText
 }) }}
 {% else %}
 {% set backLinkHref = "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID %}
@@ -39,7 +40,7 @@
 {% endif %}
 {{ govukBackLink({
   href: backLinkHref,
-  text: "Back to contact"
+  text: backLinkText
 }) }}
 {% endif %}
 {% endblock %}

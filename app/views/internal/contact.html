@@ -34,22 +34,38 @@
 {% endfor %}
 
 {% block containerStart %}
-	{% set backCustomerID = data.customerID %}
-	{% for customer in data.customers %}
-		{% if customer.name == customerName %}
-			{% set backCustomerID = loop.index0 %}
-		{% endif %}
-	{% endfor %}
-	{% if data.from == "customer" %}
+	{% if data.from == "search" %}
 		{{ govukBackLink({
-		  href: "/internal/customer/customer-contacts?customerID=" + backCustomerID,
-		  text: "Back to customer"
+		  href: "/internal/search",
+		  text: "Back to search"
 		}) }}
-	{% else %}
+	{% elif data.from == "licence" %}
 		{{ govukBackLink({
 		  href: "/internal/licence/licence-contacts?ID=" + data.ID,
-		  text: "Back to licence"
+		  text: "Back to licence " + data['licences'][data.ID].number
 		}) }}
+	{% else %}
+		{% set backLinkText = "Back to customer" %}
+		{% if customerName %}
+			{% set backLinkText = "Back to " + customerName %}
+		{% endif %}
+		{% set backCustomerID = data.customerID %}
+		{% for customer in data.customers %}
+			{% if customer.name == customerName %}
+				{% set backCustomerID = loop.index0 %}
+			{% endif %}
+		{% endfor %}
+		{% if data.from == "customer" %}
+			{{ govukBackLink({
+			  href: "/internal/customer/customer-contacts?customerID=" + backCustomerID,
+			  text: backLinkText
+			}) }}
+		{% else %}
+			{{ govukBackLink({
+			  href: "/internal/licence/licence-contacts?ID=" + data.ID,
+			  text: backLinkText
+			}) }}
+		{% endif %}
 	{% endif %}
 
 {% endblock %}
@@ -216,7 +232,7 @@
 	{% if contact.customers.length > 1 %}
 		{% set switchFormAction = "/internal/contact?contactID=" + data.contactID %}
 		{% if data.ID %}{% set switchFormAction = switchFormAction + "&ID=" + data.ID %}{% endif %}
-		{% if data.from %}{% set switchFormAction = switchFormAction + "&from=" + data.from %}{% endif %}
+		{% set switchFormAction = switchFormAction + "&from=customer" %}
 		{% set switchFormAction = switchFormAction + "#contact-settings" %}
 		{% set defaultSelectedCustomerName = customerName or contact.customers[0].customer %}
 		{% set switchRadioItems = [] %}
