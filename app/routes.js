@@ -547,6 +547,8 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 		req.query.customerID ?? req.session.data.customerID,
 		10,
 	);
+	const removeContactScope = String(req.body.removeContactScope || "").trim();
+	const removeFromAll = removeContactScope === "all";
 
 	if (
 		Number.isInteger(contactID) &&
@@ -566,11 +568,14 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 		const contact = req.session.data.contacts[contactID];
 		const customerName = req.session.data.customers[customerID]?.name;
 
-		if (contact.customers && contact.customers.length > 1 && customerName) {
-			// Only remove the association with this licence holder
-			contact.customers = contact.customers.filter(
-				(entry) => entry.customer !== customerName,
-			);
+		if (contact.customers && contact.customers.length > 1) {
+			if (removeFromAll) {
+				req.session.data.contacts.splice(contactID, 1);
+			} else if (customerName) {
+				contact.customers = contact.customers.filter(
+					(entry) => entry.customer !== customerName,
+				);
+			}
 		} else {
 			req.session.data.contacts.splice(contactID, 1);
 		}

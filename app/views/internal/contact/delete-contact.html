@@ -48,15 +48,49 @@
 	<div class="govuk-grid-column-full">
 
 		<span class="govuk-caption-l">{{ customerName }}</span>
-		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
-			{{ pageName }}
-		</h1>
+		{% if contact and contact.customers and contact.customers.length > 1 %}
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+				Do you want to remove {{ contactName }} from {{ customerLabel }} only?
+			</h1>
+		{% else %}
+			<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+				{{ pageName }}
+			</h1>
+		{% endif %}
 
 		{% set deleteAction = "/internal/contact/delete-contact?contactID=" + data.contactID %}
 		{% if data.customerID is not undefined %}
 			{% set deleteAction = deleteAction + "&customerID=" + data.customerID %}
 		{% endif %}
+		{% if data.ID is not undefined %}
+			{% set deleteAction = deleteAction + "&ID=" + data.ID %}
+		{% endif %}
+		{% if data.from %}
+			{% set deleteAction = deleteAction + "&from=" + data.from %}
+		{% endif %}
 		<form method="post" action="{{ deleteAction }}">
+
+		{% if contact and contact.customers and contact.customers.length > 1 %}
+			{{ govukRadios({
+				name: "removeContactScope",
+				fieldset: {
+					legend: {
+						text: "",
+						classes: "govuk-fieldset__legend--m"
+					}
+				},
+				items: [
+					{
+						value: "single",
+						text: "Yes"
+					},
+					{
+						value: "all",
+						text: "No, remove them from all linked licence holders"
+					}
+				]
+			}) }}
+		{% endif %}
 
 		{{ govukButton({
 		text: "Remove",
