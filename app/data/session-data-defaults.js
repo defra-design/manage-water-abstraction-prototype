@@ -1261,7 +1261,7 @@ module.exports = {
 
 		{
 			name: "Marcus Thorne",
-			email: "mthorne@pwplc.co.uk",
+			email: "mthorne@agency.com",
 			post: "11, Fernyhalgh Lane, Preston, PR2 5ST",
 			phone: "01225 303030",
 			firstName: "",
@@ -1278,6 +1278,42 @@ module.exports = {
 					],
 					customer: "Public Water Plc",
 				},
+				{
+					role: "Primary contact",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
+							licences: "all",
+						}
+					],
+					customer: "Irene Briton",
+				},				
+				{
+					role: "Primary contact",
+					notices: [
+						{
+							type: "Returns by email",
+							licences: "all",
+						},
+						{
+							type: "Bills by post",
+							licences: "all",
+						},
+						{
+							type: "Water abstraction alerts by email",
+							licences: "all",
+						}
+					],
+					customer: "Bottled Water Plc",
+				}
 			],
 		},
 
