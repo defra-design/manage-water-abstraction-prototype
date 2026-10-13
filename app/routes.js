@@ -785,7 +785,7 @@ router.post("/internal/contact/delete-contact-all-confirm", (req, res) => {
 		if (from.length > 0) {
 			query.append("from", from);
 		}
-		return res.redirect(`/internal/contact?${query}`);
+		return res.redirect(`/internal/contact/delete-contact?${query}`);
 	}
 
 	const removedContactName =
