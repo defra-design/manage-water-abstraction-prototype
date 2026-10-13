@@ -571,6 +571,8 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 	const removeContactScope = String(req.body.removeContactScope || "").trim();
 	const removeFromAll = removeContactScope === "all";
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const removedContactName =
+		req.session.data.contacts?.[contactID]?.name || "Contact";
 
 	if (
 		Number.isInteger(contactID) &&
@@ -592,6 +594,28 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 			query.append("from", from);
 		}
 		return res.redirect(`/internal/contact/delete-contact-confirm?${query}`);
+	}
+
+	if (
+		Number.isInteger(contactID) &&
+		Array.isArray(req.session.data.contacts) &&
+		req.session.data.contacts[contactID] &&
+		req.session.data.contacts[contactID].customers?.length > 1 &&
+		removeContactScope === "all"
+	) {
+		const query = new URLSearchParams({
+			contactID: String(contactID),
+		});
+		if (Number.isInteger(customerID)) {
+			query.append("customerID", String(customerID));
+		}
+		if (Number.isInteger(id)) {
+			query.append("ID", String(id));
+		}
+		if (from.length > 0) {
+			query.append("from", from);
+		}
+		return res.redirect(`/internal/contact/delete-contact-all?${query}`);
 	}
 
 	if (
@@ -629,12 +653,11 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 
 	if (Number.isInteger(customerID) && customerID >= 0) {
 		req.session.data.customerID = customerID;
-		const contactName = req.session.data.contacts?.[contactID]?.name || "Contact";
 		const holderName =
 			req.session.data.customers?.[customerID]?.name || "the licence holder";
 		const message = removeFromAll
-			? `${contactName} removed from all linked licence holders`
-			: `${contactName} removed from ${holderName}`;
+			? `${removedContactName} removed from all linked licence holders`
+			: `${removedContactName} removed from ${holderName}`;
 		setContactRemovedSuccess(req, message);
 		return res.redirect(
 			`/internal/customer/customer-contacts?customerID=${customerID}`,
@@ -642,6 +665,17 @@ router.post("/internal/contact/delete-contact", (req, res) => {
 	}
 
 	return res.redirect("/internal/customers");
+});
+
+// Render all-linked-holders delete confirmation page
+router.get("/internal/contact/delete-contact-all", (req, res) => {
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
+	res.render("internal/contact/delete-contact-all");
 });
 
 // Confirm removing a contact from one licence holder only
@@ -656,6 +690,8 @@ router.post("/internal/contact/delete-contact-confirm", (req, res) => {
 		10,
 	);
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const removedContactName =
+		req.session.data.contacts?.[contactID]?.name || "Contact";
 
 	if (
 		Number.isInteger(contactID) &&
@@ -688,10 +724,49 @@ router.post("/internal/contact/delete-contact-confirm", (req, res) => {
 
 	if (Number.isInteger(customerID) && customerID >= 0) {
 		req.session.data.customerID = customerID;
-		const contactName = req.session.data.contacts?.[contactID]?.name || "Contact";
 		const holderName =
 			req.session.data.customers?.[customerID]?.name || "the licence holder";
-		setContactRemovedSuccess(req, `${contactName} removed from ${holderName}`);
+		setContactRemovedSuccess(
+			req,
+			`${removedContactName} removed from ${holderName}`,
+		);
+		return res.redirect(
+			`/internal/customer/customer-contacts?customerID=${customerID}`,
+		);
+	}
+
+	return res.redirect("/internal/customers");
+});
+
+// Confirm removing a contact from all linked licence holders
+router.post("/internal/contact/delete-contact-all", (req, res) => {
+	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
+	const contactID = Number.parseInt(
+		req.query.contactID ?? req.session.data.contactID,
+		10,
+	);
+	let customerID = Number.parseInt(
+		req.query.customerID ?? req.session.data.customerID,
+		10,
+	);
+	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+	const removedContactName =
+		req.session.data.contacts?.[contactID]?.name || "Contact";
+
+	if (
+		Number.isInteger(contactID) &&
+		Array.isArray(req.session.data.contacts) &&
+		req.session.data.contacts[contactID]
+	) {
+		req.session.data.contacts.splice(contactID, 1);
+	}
+
+	delete req.session.data.contactID;
+
+	if (Number.isInteger(customerID) && customerID >= 0) {
+		req.session.data.customerID = customerID;
+		const message = `${removedContactName} removed from all linked licence holders`;
+		setContactRemovedSuccess(req, message);
 		return res.redirect(
 			`/internal/customer/customer-contacts?customerID=${customerID}`,
 		);

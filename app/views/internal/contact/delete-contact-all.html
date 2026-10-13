@@ -1,0 +1,109 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set licence = data['licences'][data.ID] if data.ID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID is not undefined else null %}
+{% set breadcrumbType="licence" %}
+{% set customerName = "" %}
+{% if data.customerID is not undefined and data.customers[data.customerID] %}
+	{% set customerName = data.customers[data.customerID].name %}
+{% elif licence %}
+	{% set customerName = licence.holder %}
+{% endif %}
+{% if contact and contact.customers and contact.customers.length %}
+	{% if customerName %}
+		{% for customerEntry in contact.customers %}
+			{% if customerEntry.customer == customerName %}
+				{% set customerName = customerEntry.customer %}
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		{% set customerName = contact.customers[0].customer %}
+	{% endif %}
+{% endif %}
+{% set contactName = contact.name if contact else "this contact" %}
+{% set linkedLicenceHolders = [] %}
+{% if contact and contact.customers %}
+	{% for customerEntry in contact.customers %}
+		{% set linkedLicenceHolders = linkedLicenceHolders | push(customerEntry.customer) %}
+	{% endfor %}
+{% endif %}
+{% set tableCaption = (linkedLicenceHolders.length or 0) + " out of " + (linkedLicenceHolders.length or 0) + " linked licence holders" %}
+
+{% block containerStart %}
+{% set backLinkHref = "/internal/contact/delete-contact?contactID=" + data.contactID %}
+{% if data.ID is not undefined %}
+	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
+{% endif %}
+{% if data.customerID is not undefined %}
+	{% set backLinkHref = backLinkHref + "&customerID=" + data.customerID %}
+{% endif %}
+{% if data.from %}
+	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
+{% endif %}
+{{ govukBackLink({
+	href: backLinkHref,
+  text: "Back to contact"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
+			All of {{ contactName }}'s linked licence holders
+		</h1>
+
+		{% set tableRows = [] %}
+		{% for holder in linkedLicenceHolders %}
+			{% set tableRows = tableRows | push([holder]) %}
+		{% endfor %}
+
+		<h2 class="govuk-heading-s govuk-!-margin-bottom-4">
+			{{ linkedLicenceHolders.length }} out of {{ linkedLicenceHolders.length }} linked licence holders
+		</h2>
+
+		<p class="govuk-body">
+		{% for holder in linkedLicenceHolders %}
+			{{ holder }}{% if not loop.last %}<br>{% endif %}
+		{% endfor %}
+		</p>
+
+
+		{% set continueAction = "/internal/contact/delete-contact-all?contactID=" + data.contactID %}
+		{% if data.customerID is not undefined %}
+			{% set continueAction = continueAction + "&customerID=" + data.customerID %}
+		{% endif %}
+		{% if data.ID is not undefined %}
+			{% set continueAction = continueAction + "&ID=" + data.ID %}
+		{% endif %}
+		{% if data.from %}
+			{% set continueAction = continueAction + "&from=" + data.from %}
+		{% endif %}
+		<form method="post" action="{{ continueAction }}">
+			{{ govukButton({
+				text: "Continue",
+				classes: "govuk-!-margin-right-3",
+				type: "submit"
+			}) }}
+		</form>
+
+		<p class="govuk-body">
+			{% set cancelHref = "/internal/contact?contactID=" + data.contactID %}
+			{% if data.customerID is not undefined %}
+				{% set cancelHref = cancelHref + "&customerID=" + data.customerID %}
+			{% endif %}
+			{% if data.ID is not undefined %}
+				{% set cancelHref = cancelHref + "&ID=" + data.ID %}
+			{% endif %}
+			{% if data.from %}
+				{% set cancelHref = cancelHref + "&from=" + data.from %}
+			{% endif %}
+			<a href="{{ cancelHref }}" class="govuk-link">Cancel</a>
+		</p>
+
+	</div>
+</div>
+
+{% endblock %}
