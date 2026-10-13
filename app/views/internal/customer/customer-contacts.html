@@ -21,7 +21,9 @@
 
     {% if showContactRemovedBanner %}
     {{ govukNotificationBanner({
-      text: "Contact removed"
+      type: "success",
+      titleText: "Success",
+      text: contactRemovedBannerText if contactRemovedBannerText else "Contact removed"
     }) }}
     {% endif %}
 
