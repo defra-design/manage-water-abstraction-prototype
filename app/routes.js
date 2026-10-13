@@ -757,7 +757,7 @@ router.post("/internal/contact/confirm-role.html", (req, res) => {
 	return res.redirect(`/internal/contact?${query.toString()}`);
 });
 
-// Cancel role change and return to edit-contact with no pending role change
+// Cancel role change and return to contact page with no pending role change
 router.get("/internal/contact/cancel-role", (req, res) => {
 	const { id, contactID, customerID, from } = getContactRouteContext(req);
 
@@ -772,7 +772,7 @@ router.get("/internal/contact/cancel-role", (req, res) => {
 		customerID,
 		from,
 	});
-	return res.redirect(`/internal/contact/edit-contact?${query}`);
+	return res.redirect(`/internal/contact?${query}`);
 });
 
 // Save WAA licence selection and return to the contact page
