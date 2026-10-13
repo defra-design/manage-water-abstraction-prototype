@@ -738,8 +738,31 @@ router.post("/internal/contact/delete-contact-confirm", (req, res) => {
 	return res.redirect("/internal/customers");
 });
 
-// Confirm removing a contact from all linked licence holders
+// Continue from the linked licence holders list to the final confirmation
 router.post("/internal/contact/delete-contact-all", (req, res) => {
+	const query = new URLSearchParams();
+	for (const key of ["contactID", "customerID", "ID", "from"]) {
+		const value = req.query[key] ?? req.session.data[key];
+		if (value !== undefined && String(value).length > 0) {
+			query.append(key, String(value));
+		}
+	}
+	res.redirect(`/internal/contact/delete-contact-all-confirm?${query}`);
+});
+
+// Render final confirmation for removing a contact from all licence holders
+router.get("/internal/contact/delete-contact-all-confirm", (req, res) => {
+	captureRouteContext(req, {
+		ID: true,
+		contactID: true,
+		customerID: true,
+		from: true,
+	});
+	res.render("internal/contact/delete-contact-all-confirm");
+});
+
+// Confirm removing a contact from all linked licence holders
+router.post("/internal/contact/delete-contact-all-confirm", (req, res) => {
 	const id = Number.parseInt(req.query.ID ?? req.session.data.ID, 10);
 	const contactID = Number.parseInt(
 		req.query.contactID ?? req.session.data.contactID,
@@ -750,6 +773,21 @@ router.post("/internal/contact/delete-contact-all", (req, res) => {
 		10,
 	);
 	const from = String(req.query.from ?? req.session.data.from ?? "").trim();
+
+	if (req.body.confirmRemoveAll !== "yes") {
+		const query = new URLSearchParams({ contactID: String(contactID) });
+		if (Number.isInteger(customerID)) {
+			query.append("customerID", String(customerID));
+		}
+		if (Number.isInteger(id)) {
+			query.append("ID", String(id));
+		}
+		if (from.length > 0) {
+			query.append("from", from);
+		}
+		return res.redirect(`/internal/contact?${query}`);
+	}
+
 	const removedContactName =
 		req.session.data.contacts?.[contactID]?.name || "Contact";
 

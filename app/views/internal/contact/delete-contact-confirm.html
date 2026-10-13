@@ -25,7 +25,7 @@
 {% set pageName = "You're about to remove " + contactName + " from " + customerLabel %}
 
 {% block containerStart %}
-{% set backLinkHref = "/internal/contact/delete-contact?contactID=" + data.contactID %}
+{% set backLinkHref = "/internal/contact?contactID=" + data.contactID %}
 {% if data.ID is not undefined %}
 	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
 {% endif %}
@@ -44,7 +44,7 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-	<div class="govuk-grid-column-two-thirds">
+	<div class="govuk-grid-column-full">
 
 		<span class="govuk-caption-l">{{ customerName }}</span>
 		<h1 class="govuk-heading-l govuk-!-margin-bottom-4">

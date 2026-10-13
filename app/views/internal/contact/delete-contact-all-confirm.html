@@ -1,0 +1,64 @@
+{% extends "layouts/main-internal.html" %}
+
+{% set licence = data['licences'][data.ID] if data.ID else null %}
+{% set contact = data['contacts'][data.contactID] if data.contactID is not undefined else null %}
+{% set breadcrumbType="licence" %}
+{% set contactName = contact.name if contact else "this contact" %}
+{% set pageName = "Are you sure you want to remove " + contactName + " from all linked licence holders?" %}
+
+{% set contextQuery = "contactID=" + data.contactID %}
+{% if data.customerID is not undefined %}
+	{% set contextQuery = contextQuery + "&customerID=" + data.customerID %}
+{% endif %}
+{% if data.ID is not undefined %}
+	{% set contextQuery = contextQuery + "&ID=" + data.ID %}
+{% endif %}
+{% if data.from %}
+	{% set contextQuery = contextQuery + "&from=" + data.from %}
+{% endif %}
+
+{% block containerStart %}
+{{ govukBackLink({
+	href: "/internal/contact/delete-contact-all?" + contextQuery,
+	text: "Back"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+
+		<form method="post" action="/internal/contact/delete-contact-all-confirm?{{ contextQuery }}">
+
+			{{ govukRadios({
+				name: "confirmRemoveAll",
+				fieldset: {
+					legend: {
+						text: pageName,
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				items: [
+					{ value: "yes", text: "Yes" },
+					{ value: "no", text: "No" }
+				]
+			}) }}
+
+			{{ govukButton({
+				text: "Confirm",
+				classes: "govuk-!-margin-right-3",
+				type: "submit"
+			}) }}
+
+		</form>
+
+		<p class="govuk-body">
+			<a href="/internal/contact?{{ contextQuery }}" class="govuk-link">Cancel</a>
+		</p>
+
+	</div>
+</div>
+
+{% endblock %}
