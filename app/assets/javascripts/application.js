@@ -222,7 +222,7 @@ window.GOVUKPrototypeKit.documentReady(() => {
 				filterType === "holders"
 					? ["Holder", "Number of licences", "Billing region"]
 					: filterType === "users"
-						? ["Contact", "Email", "Licence holder(s)"]
+						? ["Contact", "Email", "Licence holders"]
 						: ["Licence", "Licence holder", "End date"];
 
 			headers.forEach((text, index) => {

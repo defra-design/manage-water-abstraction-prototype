@@ -386,7 +386,18 @@
 		]
 	}) }}
 
-	<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-7">Communication types</h2>
+	<h2 class="govuk-heading-m govuk-!-margin-bottom-2 govuk-!-margin-top-7">Communication types</h2>
+
+	{% set customerPageID = data.customerID %}
+	{% for customer in data.customers %}
+		{% if customer.name == customerName %}
+			{% set customerPageID = loop.index0 %}
+		{% endif %}
+	{% endfor %}
+
+	<p class="govuk-body">
+		<a href="/internal/customer?customerID={{ customerPageID }}" class="govuk-link">View all licences</a>
+	</p>
 
 	{% set editWAAHref = "/internal/contact/edit-waa?contactID=" + data.contactID + "&ID=" + data.ID %}
 	{% if data.customerID %}
