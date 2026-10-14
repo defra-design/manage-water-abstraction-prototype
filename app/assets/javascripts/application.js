@@ -160,7 +160,6 @@ window.GOVUKPrototypeKit.documentReady(() => {
 			if (isHoldersSearch) {
 				const holderCell = document.createElement("td");
 				holderCell.className = "govuk-table__cell";
-				holderCell.append("Holder: ");
 
 				if (result.customerID >= 0) {
 					const link = document.createElement("a");
@@ -169,18 +168,18 @@ window.GOVUKPrototypeKit.documentReady(() => {
 					link.textContent = result.holder;
 					holderCell.appendChild(link);
 				} else {
-					holderCell.append(result.holder);
+					holderCell.textContent = result.holder;
 				}
 				tr.appendChild(holderCell);
 
 				const licenceCountCell = document.createElement("td");
 				licenceCountCell.className = "govuk-table__cell";
-				licenceCountCell.textContent = `Number of licences: ${result.licenceCount}`;
+				licenceCountCell.textContent = result.licenceCount;
 				tr.appendChild(licenceCountCell);
 
 				const billingRegionCell = document.createElement("td");
 				billingRegionCell.className = "govuk-table__cell";
-				billingRegionCell.textContent = `Billing region: ${result.billingRegion || "-"}`;
+				billingRegionCell.textContent = result.billingRegion || "-";
 				tr.appendChild(billingRegionCell);
 			} else {
 				const licence = result.licence;
@@ -192,7 +191,6 @@ window.GOVUKPrototypeKit.documentReady(() => {
 
 				const licenceCell = document.createElement("td");
 				licenceCell.className = "govuk-table__cell";
-				licenceCell.append("Licence: ");
 				const link = document.createElement("a");
 				link.href = `/internal/licence?ID=${result.id}${customerQuery}`;
 				link.className = "govuk-link";
@@ -202,12 +200,12 @@ window.GOVUKPrototypeKit.documentReady(() => {
 
 				const holderCell = document.createElement("td");
 				holderCell.className = "govuk-table__cell";
-				holderCell.textContent = `Licence holder: ${licence.holder}`;
+				holderCell.textContent = licence.holder || "-";
 				tr.appendChild(holderCell);
 
 				const licenceCountCell = document.createElement("td");
 				licenceCountCell.className = "govuk-table__cell";
-				licenceCountCell.textContent = `Number of licences: ${customers.filter((c) => c.name === licence.holder).length}`;
+				licenceCountCell.textContent = customers.filter((c) => c.name === licence.holder).length;
 				tr.appendChild(licenceCountCell);
 			}
 
