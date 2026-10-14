@@ -35,11 +35,11 @@
 				{% if customerEntry.customer == customerName %}
 					{% for notice in customerEntry.notices %}
 						{% if notice.type == "Returns by email" %}
-							{% if notice.licences == "all" %}
+							{% if notice.selection == "allLicences" or notice.licences == "all" %}
 								{% set returnsSelectionValue = "allLicences" %}
-							{% elif notice.licences is iterable and notice.licences is not string and notice.licences.length %}
+							{% elif notice.selection == "someLicences" or (notice.licences is iterable and notice.licences is not string and notice.licences.length) %}
 								{% set returnsSelectionValue = "someLicences" %}
-							{% else %}
+							{% elif notice.selection == "noLicences" %}
 								{% set returnsSelectionValue = "noLicences" %}
 							{% endif %}
 						{% endif %}

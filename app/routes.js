@@ -107,6 +107,24 @@ const normaliseSelectedValues = (selected) => {
 	return rawSelected.filter((v) => !String(v).endsWith("_unchecked"));
 };
 
+const resolveNoticeLicences = (req, customerName, selected) => {
+	const selectedValues = normaliseSelectedValues(selected);
+	const customerLicenceNumbers = Object.values(req.session.data.licences || {})
+		.filter((licence) => licence.holder === customerName)
+		.map((licence) => licence.number);
+
+	if (
+		customerLicenceNumbers.length > 0 &&
+		customerLicenceNumbers.every((licenceNumber) =>
+			selectedValues.includes(licenceNumber),
+		)
+	) {
+		return "all";
+	}
+
+	return selectedValues;
+};
+
 const getCustomerNameForContactContext = (
 	req,
 	{ id, contactID, customerID, from },
@@ -475,14 +493,18 @@ router.get("/internal/contact", (req, res) => {
 	}
 
 	const showNewContactBanner = req.session.data.newContactSuccess === true;
+	const newContactBannerText =
+		req.session.data.newContactSuccessMessage || "New contact added";
 	if (showNewContactBanner) {
 		req.session.data.newContactSuccess = false;
+		delete req.session.data.newContactSuccessMessage;
 	}
 
 	res.render("internal/contact", {
 		showSuccessBanner,
 		successBannerText,
 		showNewContactBanner,
+		newContactBannerText,
 	});
 });
 
@@ -1021,7 +1043,7 @@ router.post("/internal/contact/select-waa", (req, res) => {
 		updateNoticeSelection(customerEntry, {
 			noticeType: "Water abstraction alerts by email",
 			selection: "someLicences",
-			selectedLicences: normaliseSelectedValues(selected),
+			selectedLicences: resolveNoticeLicences(req, customerName, selected),
 		});
 	}
 
@@ -1065,7 +1087,7 @@ router.post("/internal/contact/select-returns", (req, res) => {
 		updateNoticeSelection(customerEntry, {
 			noticeType: "Returns by email",
 			selection: "someLicences",
-			selectedLicences: normaliseSelectedValues(selected),
+			selectedLicences: resolveNoticeLicences(req, customerName, selected),
 		});
 	}
 
@@ -1344,9 +1366,25 @@ router.post("/internal/contact/edit-contact", (req, res) => {
 		}
 		// Clear pending changes after applying
 		req.session.data.pendingChanges = {};
-		if (Number.isInteger(req.session.data.pendingNewContactID)) {
-			req.session.data.newContactSuccess = true;
-		}
+	}
+
+	if (Number.isInteger(req.session.data.pendingNewContactID)) {
+		const contact = req.session.data.contacts[contactID];
+		const holderName =
+			getCustomerNameForContactContext(req, {
+				id,
+				contactID,
+				customerID,
+				from,
+			}) || "licence holder";
+		const contactType =
+			contact?.customers?.find(
+				(entry) => entry.customer === holderName,
+			)?.role || "Contact";
+		const contactTypeLabel =
+			contactType === "Primary contact" ? "primary contact" : "contact";
+		req.session.data.newContactSuccess = true;
+		req.session.data.newContactSuccessMessage = `New ${contactTypeLabel} added for ${holderName}`;
 		delete req.session.data.pendingNewContactID;
 	}
 

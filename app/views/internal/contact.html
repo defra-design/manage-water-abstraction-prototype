@@ -78,7 +78,7 @@
 
 		{% if showNewContactBanner %}
 		{{ govukNotificationBanner({
-			text: "New contact added",
+			text: newContactBannerText if newContactBannerText else "New contact added",
 			type: "success"
 		}) }}
 		{% elif showSuccessBanner %}
@@ -288,10 +288,6 @@
 	{% if WAAStatus == "Yes, for some licences" and WAALicenceNumbers.length %}
 		{% set WAAHtml %}
 			<p class="govuk-body">Yes, for some licences</p>
-			{{ govukDetails({
-				summaryText: "Licence details",
-				html: WAALicenceNumbers | join("<br>")
-			}) }}
 		{% endset %}
 	{% endif %}
 
@@ -316,10 +312,6 @@
 	{% if returnsStatus == "Yes, for some licences" and returnsLicenceNumbers.length %}
 		{% set returnsHtml %}
 			<p class="govuk-body">Yes, for some licences</p>
-			{{ govukDetails({
-				summaryText: "Licence details",
-				html: returnsLicenceNumbers | join("<br>")
-			}) }}
 		{% endset %}
 	{% endif %}
 
@@ -344,10 +336,6 @@
 	{% if billsStatus == "Yes, for some licences" and billsLicenceNumbers.length %}
 		{% set billsHtml %}
 			<p class="govuk-body">Yes, for some licences</p>
-			{{ govukDetails({
-				summaryText: "Licence details",
-				html: billsLicenceNumbers | join("<br>")
-			}) }}
 		{% endset %}
 	{% endif %}
 
