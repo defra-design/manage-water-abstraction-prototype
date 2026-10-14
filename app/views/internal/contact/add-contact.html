@@ -8,10 +8,7 @@
 {% set customerName = data.customers[data.customerID].name %}
 
 {% block containerStart %}
-{{ govukBackLink({
-	href: "/internal/customer/customer-contacts?customerID=" + data.customerID,
-  text: "Back to customer"
-}) }}
+{{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
 {% endblock %}
 
 {% block content %}

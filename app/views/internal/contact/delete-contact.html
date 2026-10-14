@@ -26,20 +26,7 @@
 {% set pageName="You are about to remove " + contactName + " from " + customerLabel %}
 
 {% block containerStart %}
-{% set backLinkHref = "/internal/contact?contactID=" + data.contactID %}
-{% if data.ID is not undefined %}
-	{% set backLinkHref = backLinkHref + "&ID=" + data.ID %}
-{% endif %}
-{% if data.customerID is not undefined %}
-	{% set backLinkHref = backLinkHref + "&customerID=" + data.customerID %}
-{% endif %}
-{% if data.from %}
-	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
-{% endif %}
-{{ govukBackLink({
-	href: backLinkHref,
-  text: "Back to contact"
-}) }}
+{{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
 {% endblock %}
 
 {% block content %}

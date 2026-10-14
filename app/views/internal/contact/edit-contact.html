@@ -26,23 +26,7 @@
 {% endif %}
 
 {% block containerStart %}
-{% set backLinkText = "Back to contact" %}
-{% if isNewContact %}
-{% set cancelNewContactHref = "/internal/contact/cancel?contactID=" + data.contactID + "&customerID=" + data.customerID %}
-{{ govukBackLink({
-  href: cancelNewContactHref,
-  text: backLinkText
-}) }}
-{% else %}
-{% set backLinkHref = "/internal/contact?contactID=" + data.contactID + "&ID=" + data.ID %}
-{% if data.from %}
-	{% set backLinkHref = backLinkHref + "&from=" + data.from %}
-{% endif %}
-{{ govukBackLink({
-  href: backLinkHref,
-  text: backLinkText
-}) }}
-{% endif %}
+{{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
 {% endblock %}
 
 {% block content %}
@@ -149,23 +133,20 @@
 		{% endif %}
 		<form method="post" action="{{ confirmAction }}">
 
-		<div class="govuk-button-group">
-			{{ govukButton({
-			text: "Confirm",
-			classes: "govuk-!-margin-right-3",
-			type: "submit"
-			}) }}
+		{{ govukButton({
+		text: "Confirm",
+		classes: "govuk-!-margin-right-3",
+		type: "submit"
+		}) }}
+
+		<p class="govuk-body">
 			{% set cancelHref = "/internal/contact/cancel?contactID=" + data.contactID + "&ID=" + data.ID %}
 			{% if data.customerID %}
 				{% set cancelHref = cancelHref + "&customerID=" + data.customerID %}
 			{% endif %}
-			{{ govukButton({
-			text: "Cancel",
-			href: cancelHref,
-			classes: "govuk-button--secondary"
-			}) }}
-		</div>
-		
+			<a href="{{ cancelHref }}" class="govuk-link">Cancel</a>
+		</p>
+
 	</form>
 
 	</div>
