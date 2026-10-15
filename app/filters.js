@@ -81,3 +81,15 @@ addFilter("returnsStatus", (status) => {
 
 	return "govuk-tag--grey";
 });
+
+addFilter("sentStatus", (status) => {
+	if (status === "Sent") {
+		return "govuk-tag--green";
+	}
+
+	if (status === "Error") {
+		return "govuk-tag--red";
+	}
+
+	return "govuk-tag--grey";
+});

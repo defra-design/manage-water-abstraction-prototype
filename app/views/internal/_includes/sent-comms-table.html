@@ -18,28 +18,28 @@
       <td class="govuk-table__cell">12 July 2026</td>
       <td class="govuk-table__cell">something1@somewhere.co.uk</td>
       <td class="govuk-table__cell">Email</td>
-      <td class="govuk-table__cell">Sent</td>
+      <td class="govuk-table__cell">{{ govukTag({ text: "Error", classes: "Error" | sentStatus }) }}</td>
     </tr>
     <tr>
       <td class="govuk-table__cell"><a href="/internal/no-page.html">Resume - water abstraction alert</a></td>
       <td class="govuk-table__cell">5 June 2020</td>
       <td class="govuk-table__cell">something1@somewhere.co.uk</td>
       <td class="govuk-table__cell">Letter</td>
-      <td class="govuk-table__cell">Sent</td>
+      <td class="govuk-table__cell">{{ govukTag({ text: "Sent", classes: "Sent" | sentStatus }) }}</td>
     </tr>
     <tr>
       <td class="govuk-table__cell"><a href="/internal/no-page.html">Stop - water abstraction alert</a></td>
       <td class="govuk-table__cell">17 April 2020</td>
       <td class="govuk-table__cell">something1@somewhere.co.uk</td>
       <td class="govuk-table__cell">Letter</td>
-      <td class="govuk-table__cell">Sent</td>
+      <td class="govuk-table__cell">{{ govukTag({ text: "Sent", classes: "Sent" | sentStatus }) }}</td>
     </tr>
     <tr>
       <td class="govuk-table__cell"><a href="/internal/no-page.html">Warning - water abstraction alert</a></td>
       <td class="govuk-table__cell">30 March 2020</td>
       <td class="govuk-table__cell">something1@somewhere.co.uk</td>
       <td class="govuk-table__cell">Letter</td>
-      <td class="govuk-table__cell">Sent</td>
+      <td class="govuk-table__cell">{{ govukTag({ text: "Sent", classes: "Sent" | sentStatus }) }}</td>
     </tr>
   </tbody>
 </table>
