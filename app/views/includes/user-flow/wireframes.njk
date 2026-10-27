@@ -21,9 +21,12 @@
   { "type": "hero",         "name": "Hero",            "use": "Landing page with a blue banner" },
   { "type": "signin",       "name": "Sign in",         "use": "Sign in page" },
   { "type": "tasklist",     "name": "Task list",       "use": "Task list" },
-  { "type": "text",         "name": "Q: Text",         "use": "Question with a text input, such as contact details" },
   { "type": "search",       "name": "Search",          "use": "Search page with a text input and a “Search” button" },
   { "type": "searchresults", "name": "Search results", "use": "Search page with the search box and a list of results" },
+  { "type": "licencesummary", "name": "Licence summary", "use": "Licence page with a side navigation and a summary list" },
+  { "type": "contacts",      "name": "Contacts",        "use": "List of contacts with links and a side navigation" },
+  { "type": "contact",       "name": "Contact",         "use": "Contact page with details, two buttons and a second section" },
+  { "type": "text",         "name": "Q: Text",         "use": "Question with a text input, such as contact details" },
   { "type": "radio",        "name": "Q: Radio",        "use": "Question with radio buttons, such as an eligibility question" },
   { "type": "checkbox",     "name": "Q: Checkbox",     "use": "Question with checkboxes" },
   { "type": "check",        "name": "Check answers",   "use": "Check your answers" },
@@ -149,6 +152,49 @@
       {% endfor %}
     </div>
     {% endif %}
+
+  {% elif type == "licencesummary" %}
+    <div class="uf-split">
+      <div class="uf-subnav">
+        <i class="uf-l uf-l--link uf-w80"></i><i class="uf-l uf-l--link uf-w60"></i>
+        <i class="uf-l uf-l--link uf-w70"></i><i class="uf-l uf-l--link uf-w50"></i>
+      </div>
+      <div class="uf-split-main">
+        <i class="uf-l uf-w30"></i>
+        <i class="uf-h uf-w70"></i>
+        <i class="uf-l uf-w80"></i>
+        <div class="uf-summary uf-summary--two">
+          {% for i in range(0, 9) %}
+          <i class="uf-l uf-l--dark"></i><i class="uf-l"></i>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  {% elif type == "contacts" %}
+    <div class="uf-split">
+      <div class="uf-subnav">
+        <i class="uf-l uf-l--link uf-w80"></i><i class="uf-l uf-l--link uf-w60"></i>
+        <i class="uf-l uf-l--link uf-w70"></i><i class="uf-l uf-l--link uf-w50"></i>
+      </div>
+      <div class="uf-split-main">
+        <i class="uf-l uf-w30"></i>
+        <i class="uf-h uf-w70"></i>
+        <div class="uf-table uf-table--contacts">
+          {% for i in range(0, 6) %}
+          <i class="uf-l uf-l--link"></i><i class="uf-l"></i><i class="uf-l"></i>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  {% elif type == "contact" %}
+    <i class="uf-h uf-w70"></i>
+    <i class="uf-l uf-w30"></i><i class="uf-l uf-w20"></i><i class="uf-l uf-w30"></i>
+    <i class="uf-l uf-w80"></i><i class="uf-l uf-w70"></i><i class="uf-l uf-w80"></i>
+    <div class="uf-contact-buttons"><span class="uf-btn">Button</span><span class="uf-btn uf-btn--grey">Button</span></div>
+    <i class="uf-h uf-w70"></i>
+    <i class="uf-l uf-w80"></i><i class="uf-l uf-w70"></i><i class="uf-l uf-w80"></i>
 
   {% elif type == "radio" or type == "checkbox" %}
     <i class="uf-l uf-w30"></i>
@@ -350,6 +396,9 @@
   .uf-mobile .uf-searchbox { width: 100%; flex-direction: column; }
   .uf-mobile .uf-searchbox .uf-input { flex: none; margin-bottom: 3px; }
   .uf-btn--grey { background: #f3f2f1; color: #0b0c0c; box-shadow: 0 0.5px 0 #929191; }
+  .uf-contact-buttons { display: flex; gap: 3px; margin: 3px 0 2px; }
+  .uf-contact-buttons .uf-btn, .uf-mobile .uf-contact-buttons .uf-btn { display: block; margin: 0; }
+  .uf-mobile .uf-contact-buttons { flex-direction: column; }
 
   .uf-w20 { width: 20%; } .uf-w30 { width: 30%; } .uf-w40 { width: 40%; } .uf-w50 { width: 50%; }
   .uf-w60 { width: 60%; } .uf-w70 { width: 70%; } .uf-w75 { width: 75%; } .uf-w80 { width: 80%; }
@@ -381,6 +430,19 @@
   .uf-mobile .uf-summary .uf-l:nth-child(3n+2) { width: 70%; }
   .uf-mobile .uf-summary .uf-l:nth-child(3n) { width: 35%; margin-bottom: 4px; }
   .uf-mobile .uf-summary .uf-l:nth-child(3n+1) { width: 40%; }
+  .uf-summary--two { grid-template-columns: 35% 1fr; gap: 4px 5px; margin-top: 5px; }
+  .uf-mobile .uf-summary--two { grid-template-columns: 1fr; gap: 2px; }
+  .uf-mobile .uf-summary--two .uf-l:nth-child(odd) { width: 40%; }
+  .uf-mobile .uf-summary--two .uf-l:nth-child(even) { width: 70%; margin-bottom: 5px; }
+
+  .uf-split { display: flex; gap: 6px; padding: 5px 6px; }
+  .uf-split-main { flex: 1; min-width: 0; }
+  .uf-split i { display: block; }
+  .uf-subnav { width: 25%; flex: none; }
+  .uf-mobile .uf-split { display: block; padding: 5px; }
+  .uf-mobile .uf-subnav { display: flex; gap: 3px; width: auto; margin-bottom: 4px; }
+  .uf-mobile .uf-subnav .uf-l { flex: 1; }
+  .uf-mobile .uf-subnav .uf-l:nth-child(n+3) { display: none; }
 
   .uf-search { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; align-items: center; margin-bottom: 4px; }
   .uf-search .uf-l { margin: 0; }
@@ -388,6 +450,9 @@
   .uf-mobile .uf-search { grid-template-columns: 1fr; gap: 2px; }
   .uf-table { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5px 5px; margin-bottom: 4px; }
   .uf-table .uf-l { margin: 0; }
+  .uf-table--contacts { gap: 4px 5px; margin-top: 5px; }
+  .uf-mobile .uf-table--contacts { grid-template-columns: 1fr 1fr; }
+  .uf-mobile .uf-table--contacts .uf-l:nth-child(3n) { display: none; }
 
   .uf-panel { background: #00703c; padding: 5px 6px 2px; margin-bottom: 7px; }
   .uf-mobile .uf-panel { padding: 7px 6px 4px; }
