@@ -1,0 +1,138 @@
+{% extends "layouts/main-internal.html" %}
+{% from "includes/user-flow/wireframes.njk" import ufStyles, ufDevices, ufStep, ufChoiceStep, ufScreenTypes %}
+
+{#
+  Internal user flows
+  -------------------
+  The screens, steps and styles are drawn by the shared file
+  app/views/includes/user-flow/wireframes.njk, so you only need to edit
+  the "journeys" list below.
+
+  Each journey is one row of screens joined by arrows. Use extra journeys
+  for alternative routes.
+
+  Each step takes:
+    type  – one of: hero, start, signin, tasklist, text, search,
+            searchresults, radio,
+            checkbox, check, dashboard, confirmation, upload,
+            results, content
+    title     – the label shown above the screen
+    live      – (optional) the URL on the live service, shown as plain text
+    prototype – (optional) the page in your prototype, shown as a link
+                (the screen title links to it too)
+    note      – (optional) a short note shown under the screen
+
+  A step can instead be a choice between screens. Give it "choice" (a short
+  label) and "options" (a list of steps). The options are shown side by side
+  in a dashed box and count as one step in the journey.
+#}
+
+{% set serviceName = "Manage your water abstraction or impoundment licence" %}
+
+{% set journeys = [
+  {
+    "heading": "Search for a licence contact",
+    "steps": [
+      { "type": "search", "title": "Search", "note": "Search for a licence number" },
+      { "type": "searchresults", "title": "Search results", "note": "Select a licence" },
+      { "type": "content", "title": "Licence summary", "note": "Click on 'Licence contacts'" },
+      { "type": "content", "title": "Licence contacts", "note": "Click on Contact name" },
+      { "type": "content", "title": "Contact" }
+    ]
+  }
+] %}
+
+{% set pageName = "User flow" %}
+
+{% block pageTitle %}{{ pageName }} – {{ serviceName }}{% endblock %}
+
+{% block beforeContent %}
+  <a id="uf-back-link" href="/" class="govuk-back-link uf-no-print">Back</a>
+  <script>
+    // Go back to the page the user flow was opened from, falling back to the home page.
+    (function () {
+      var link = document.getElementById('uf-back-link')
+      try {
+        var ref = document.referrer && new URL(document.referrer)
+        if (ref && ref.origin === window.location.origin && ref.pathname !== window.location.pathname) {
+          link.href = ref.pathname + ref.search
+        }
+      } catch (e) {}
+    })()
+  </script>
+{% endblock %}
+
+{% block content %}
+{{ ufStyles() }}
+<style>
+  /* ---------- Page only ---------- */
+  .uf-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+  .uf-toolbar .govuk-button { margin-bottom: 0; }
+  .uf-toolbar .govuk-button[aria-pressed="true"] { background: #0b0c0c; color: #fff; box-shadow: 0 2px 0 #505a5f; }
+</style>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Internal user flows</h1>
+
+    <div class="uf-toolbar" role="group" aria-label="Choose which screens to show">
+      <button type="button" class="govuk-button govuk-button--secondary" data-uf-view="desktop" aria-pressed="false">Desktop</button>
+      <button type="button" class="govuk-button govuk-button--secondary" data-uf-view="mobile" aria-pressed="false">Mobile</button>
+      <button type="button" class="govuk-button govuk-button--secondary" data-uf-view="both" aria-pressed="true">Desktop and mobile</button>
+      <button type="button" class="govuk-button govuk-button--secondary" onclick="window.print()">Print</button>
+    </div>
+
+    <div id="uf-flows">
+      {% for journey in journeys %}
+      <section class="uf-journey">
+        <h2 class="govuk-heading-m">{{ journey.heading }}</h2>
+        <ol class="uf-steps">
+          {% for step in journey.steps %}
+          {% if step.options %}{{ ufChoiceStep(step, loop.index) }}{% else %}{{ ufStep(step, loop.index) }}{% endif %}
+          {% endfor %}
+        </ol>
+      </section>
+      {% endfor %}
+    </div>
+
+    <details class="govuk-details uf-no-print">
+      <summary class="govuk-details__summary">
+        <span class="govuk-details__summary-text">Screen types you can use</span>
+      </summary>
+      <div class="govuk-details__text">
+        <ul class="uf-key">
+          {% for t in ufScreenTypes %}
+          <li>
+            <span class="uf-pill">{{ t.name }}</span>
+            {{ ufDevices(t.type) }}
+            <code>"type": "{{ t.type }}"</code>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </details>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('uf-flows')
+    var key = document.querySelector('.uf-key')
+    var buttons = document.querySelectorAll('[data-uf-view]')
+    function setView (view) {
+      [root, key].forEach(function (el) {
+        el.classList.remove('uf--desktop', 'uf--mobile')
+        if (view !== 'both') el.classList.add('uf--' + view)
+      })
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-uf-view') === view) })
+      try { localStorage.setItem('uf-view', view) } catch (e) {}
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { setView(b.getAttribute('data-uf-view')) })
+    })
+    var saved = 'both'
+    try { saved = localStorage.getItem('uf-view') || 'both' } catch (e) {}
+    setView(saved)
+  })()
+</script>
+{% endblock %}
