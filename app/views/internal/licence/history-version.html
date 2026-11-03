@@ -258,6 +258,22 @@
       {% endif %}
     {% endfor %} 
 
+    <h2 class="govuk-heading-m govuk-!-margin-top-7">Risk level</h2>
+
+{{ govukSummaryList({
+  rows: [
+    {
+      key: {
+        text: "Criticality"
+      },
+      value: {
+        text: "Highly critical"
+      }
+    }
+  ]
+}) }}
+
+
     </div>
   </div>
 {% endblock %}
